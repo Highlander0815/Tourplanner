@@ -1,0 +1,27 @@
+﻿<Window x:Class="UI.Views.AddTourLogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Views"
+        mc:Ignorable="d"
+        Title="Add Tourlog" Height="250" Width="250">
+
+    <Window.Resources>        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MainWindowStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <StackPanel>
+        <Label Content="Date"></Label>
+        <TextBox Name="AddTourLogDate"></TextBox>
+        <Label Content="Duration"></Label>
+        <TextBox Name="AddTourLogDuration"></TextBox>
+        <Label Content="Distance"></Label>
+        <TextBox Name="AddTourLogDistance"></TextBox>
+        <Button Name="AddTourLogButton" Margin="20" Content="Add"></Button>
+    </StackPanel>
+</Window>

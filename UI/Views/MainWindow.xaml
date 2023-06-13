@@ -10,7 +10,7 @@
     <!-- <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>  -->
-    
+
     <DockPanel>
         <!-- Menubar -->
         <local:Menu DockPanel.Dock="Top"/>

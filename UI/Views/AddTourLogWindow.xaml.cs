@@ -13,21 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace UI.Views
-
 {
     /// <summary>
-    /// Interaction logic for BottomMenu.xaml
+    /// Interaction logic for AddTourLogWindow.xaml
     /// </summary>
-    public partial class BottomMenu : UserControl
+    public partial class AddTourLogWindow : Window
     {
-        public BottomMenu()
+        public AddTourLogWindow()
         {
             InitializeComponent();
-        }
-        private void AddTourLog(object sender, RoutedEventArgs e)
-        {
-            AddTourLogWindow addTourLogWindow = new AddTourLogWindow();
-            addTourLogWindow.Show();
         }
     }
 }
