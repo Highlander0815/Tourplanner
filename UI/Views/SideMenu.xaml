@@ -33,10 +33,8 @@
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="-"></Button>
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="..."></Button>
                 <Label Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left">
-                    <ListBox>
-                        <ListBoxItem>Wienerwald</ListBoxItem>
-                        <ListBoxItem>Dopplerhütte</ListBoxItem>
-                        <ListBoxItem>Figlwarte</ListBoxItem>
+                    <ListBox ItemsSource="{Binding Tours}">
+                        <ListBoxItem Content="{Binding Tours.Name}"/>
                     </ListBox>
                 </Label>
             </Grid>

@@ -19,7 +19,7 @@
         <TextBox DockPanel.Dock="Top">Search...</TextBox>
 
         <!-- LeftMenu -->
-        <local:SideMenu DockPanel.Dock="Left"/>
+        <local:SideMenu DockPanel.Dock="Left" DataContext="{Binding CurrentViewModel}"/>
 
         <!-- BottomMenu -->
         <local:BottomMenu DockPanel.Dock="Bottom"/>

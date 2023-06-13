@@ -1,4 +1,4 @@
-﻿<Window x:Class="UI.Views.AddTour"
+﻿<Window x:Class="UI.Views.AddTourWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,21 +18,21 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Margin="50,20,0,5" Grid.Row="0" Grid.Column="0" Content="Name"></Label>
-            <TextBox Margin="0,20,50,5" Grid.Row="0" Grid.Column="1"/>
+            <Label Margin="50,20,0,5" Grid.Row="0" Grid.Column="0" Content="Name"/>
+            <TextBox Margin="0,20,50,5" Grid.Row="0" Grid.Column="1" Text ="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        
+
         <!--Description-->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="137" />
+                <ColumnDefinition Width="137"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="Description"></Label>
-            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1"/>
+            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="Description"/>
+            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!--From-->
@@ -44,8 +44,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="From"></Label>
-            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1"/>
+            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="From"/>
+            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1" Text="{Binding From, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!--To-->
@@ -57,8 +57,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="To"></Label>
-            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1"/>
+            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="To"/>
+            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1" Text ="{Binding To, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!--TransportType-->
@@ -70,8 +70,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="TransportType"></Label>
-            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1"/>
+            <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="TransportType"/>
+            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1" Text ="{Binding TransportType, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
     </StackPanel>

@@ -21,7 +21,7 @@ namespace UI.Views
     {
         public AddTour()
         {
-            InitializeComponent();
+            
         }
     }
 }
