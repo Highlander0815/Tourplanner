@@ -20,9 +20,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Tours"></Label>
-                <Button Grid.Row="0" Grid.Column="1" Content="+"></Button>
-                <Button Grid.Row="0" Grid.Column="2" Content="-"></Button>
-                <Button Grid.Row="0" Grid.Column="3" Content="..."></Button>
+                <Button Grid.Row="0" Grid.Column="1" Content="+" Command="{Binding AddTour}"></Button>
+                <Button Grid.Row="0" Grid.Column="2" Content="-" Command="{Binding DeleteTour}"></Button>
+                <Button Grid.Row="0" Grid.Column="3" Content="..." Command="{Binding ModifyTour}"></Button>
                 <Label Grid.Row="1" Grid.ColumnSpan="4">
                     <ListBox>
                         <ListBoxItem>Wienerwald</ListBoxItem>
