@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UI.Views
-
 {
     /// <summary>
-    /// Interaction logic for BottomMenu.xaml
+    /// Interaktionslogik für UserControl1.xaml
     /// </summary>
-    public partial class BottomMenu : UserControl
+    public partial class UserControl1 : UserControl
     {
-        public BottomMenu()
+        public UserControl1()
         {
             InitializeComponent();
         }

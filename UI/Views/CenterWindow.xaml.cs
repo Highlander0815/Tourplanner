@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace UI
+namespace UI.Views
 {
     /// <summary>
     /// Interaction logic for CenterWindow.xaml
     /// </summary>
-    public partial class CenterWindow : Window
+    public partial class CenterWindow : UserControl
     {
         public CenterWindow()
         {
