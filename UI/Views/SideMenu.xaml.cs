@@ -25,9 +25,9 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ((SideMenuViewModel)DataContext).OpenAddTourW += (s, ev) =>
+            ((SideMenuViewModel)DataContext).OpenAddTour += (s, ev) =>
             {
                 AddTourWindow addTourW = new AddTourWindow();
                 addTourW.ShowDialog();

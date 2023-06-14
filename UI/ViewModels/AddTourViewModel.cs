@@ -16,6 +16,9 @@ namespace UI.ViewModels
 {
     public class AddTourViewModel : ViewModelBase
     {
+        public event EventHandler AddEvent; //event which will be fired by the SubmitButton
+        public event EventHandler CancelEvent; //event which will be fired by the CancelButton
+
         private SideMenuViewModel _sideMenuViewModel;
 
         //Commands
@@ -23,7 +26,7 @@ namespace UI.ViewModels
         public RelayCommand SubmitCommand => _submitCommand ??= new RelayCommand(AddTour);
         
         private RelayCommand _cancelCommand = null;
-        public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(AddTour);
+        public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
 
 
         private readonly Tour _tour;
@@ -85,8 +88,13 @@ namespace UI.ViewModels
 
         private void AddTour()
         {
-            _sideMenuViewModel.Add(new TourViewModel(new Tour(Name, Description, From, To, TransportType)));
-            
+            _sideMenuViewModel.Add(new TourViewModel(new Tour(Name, Description, From, To, TransportType)));   
+            this.AddEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Cancel()
+        {
+            this.CancelEvent.Invoke(this, EventArgs.Empty);
         }
     }
 }

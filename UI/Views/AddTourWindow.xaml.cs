@@ -11,17 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.ViewModels;
 
 namespace UI.Views
 {
     /// <summary>
     /// Interaktionslogik für Window1.xaml
     /// </summary>
-    public partial class AddTour : Window
+    public partial class AddTourWindow : Window
     {
-        public AddTour()
+        public AddTourWindow()
         {
-            
+            InitializeComponent();
+            var mainWindow = this.DataContext as AddTourViewModel;
+            mainWindow.AddEvent += (o, e) => this.DialogResult = true;
+            mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
     }
 }

@@ -13,40 +13,40 @@ namespace UI.ViewModels
 {
     public class SideMenuViewModel : ViewModelBase
     {
-        public event EventHandler OpenAddTourW;
+        public event EventHandler OpenAddTour;
         private readonly ObservableCollection<TourViewModel> _tours;
         public IEnumerable<TourViewModel>  Tours => _tours;
 
 
         //Commands
+        /*private RelayCommand _addCommand = null;
+        public RelayCommand AddCommand => _addCommand ??= new RelayCommand(AddTour);*/
         private RelayCommand _addCommand = null;
-        public RelayCommand AddCommand => _addCommand ??= new RelayCommand(AddTour);
+        public RelayCommand AddCommand => _addCommand ??= new RelayCommand(OpenAddTourW);
         public ICommand ModifyTour { get; }
         public ICommand DeleteTour { get; }
 
 
         public SideMenuViewModel()
-        {
-            RelayCommand test = new RelayCommand(OpenAddTourWC);
-            
+        {   
             _tours = new ObservableCollection<TourViewModel>();
 
             _tours.Add(new TourViewModel(new Tour("test", "test", "test", "test", "test")));
             _tours.Add(new TourViewModel(new Tour("test1", "test1", "test1", "test1", "test1")));
         }
-        public void OpenAddTourWC()
+        public void OpenAddTourW()
         {
-            this.OpenAddTourW?.Invoke(this, EventArgs.Empty);
+            this.OpenAddTour?.Invoke(this, EventArgs.Empty);
         }
         public void Add(TourViewModel tour)
         {
             _tours.Add(tour);
         }
 
-        private void AddTour()
+        /*private void AddTour()
         {
             AddTourWindow addTourWindow = new AddTourWindow();
             addTourWindow.ShowDialog();
-        }
+        }*/
     }
 }
