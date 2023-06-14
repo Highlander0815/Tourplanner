@@ -5,14 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
-using UI.Models;
+using BLL.Models;
+using UI.ViewModels;
+using System.Collections.ObjectModel;
+using System.Threading.Channels;
+using Tourplanner;
+using System.ComponentModel;
 
 namespace UI.ViewModels
 {
     public class AddTourViewModel : ViewModelBase
     {
-        public ICommand SubmitCommand { get; }
-        public ICommand CancelCommand { get; }
+        private SideMenuViewModel _sideMenuViewModel;
+
+        //Commands
+        private RelayCommand _submitCommand = null;
+        public RelayCommand SubmitCommand => _submitCommand ??= new RelayCommand(AddTour);
+        
+        private RelayCommand _cancelCommand = null;
+        public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(AddTour);
+
 
         private readonly Tour _tour;
         private string _name;
@@ -65,15 +77,16 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(TransportType));
             }
         }
-        /*private string Name => _tour.Name;
-        private string Description => _tour.Description;
-        private string From => _tour.From;
-        private string To => _tour.To;
-        private string TransportType => _tour.TransportType;*/
 
-        public AddTourViewModel()
+        public AddTourViewModel(SideMenuViewModel smvm)
         {
-            SubmitCommand = new AddTourCommand();
+            _sideMenuViewModel = smvm;
         }      
+
+        private void AddTour()
+        {
+            _sideMenuViewModel.Add(new TourViewModel(new Tour(Name, Description, From, To, TransportType)));
+            
+        }
     }
 }

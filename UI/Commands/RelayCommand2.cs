@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace UI.Commands
 {
-    public abstract class RelayCommand : ICommand
+    public abstract class RelayCommand2 : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
