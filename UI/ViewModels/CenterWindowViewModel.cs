@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.ViewModels
 {
-    public class MainWindowViewModel
+    public class CenterWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel()
-        {
-           
-        }
     }
 }
