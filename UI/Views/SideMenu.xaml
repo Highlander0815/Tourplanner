@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.Views"
+             xmlns:local2="clr-namespace:UI.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding SideMenuViewModel, Source={StaticResource IoCConfig2}}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -32,11 +34,15 @@
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="1" Content="+"></Button>
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="-"></Button>
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="..."></Button>
-                <Label Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left">
-                    <ListBox ItemsSource="{Binding Tours}">
-                        <ListBoxItem Content="{Binding Tours.Name}"/>
-                    </ListBox>
-                </Label>
+                <ListView Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" ItemsSource="{Binding Tours}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Border>
     </Grid>

@@ -12,12 +12,12 @@ namespace UI.ViewModels
     public class SideMenuViewModel : ViewModelBase
     {
         private readonly ObservableCollection<TourViewModel> _tours;
+        public IEnumerable<TourViewModel>  Tours => _tours;
+
         public ICommand AddTour { get; }
         public ICommand ModifyTour { get; }
         public ICommand DeleteTour { get; }
-        public IEnumerable<TourViewModel>  Tours => _tours;
 
-        public List<Tour> ListingTours { get; }
 
         public SideMenuViewModel()
         {

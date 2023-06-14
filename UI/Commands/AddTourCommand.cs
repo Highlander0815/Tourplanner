@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UI.ViewModels
+namespace UI.Commands
 {
-    public class MainWindowViewModel
+    public class AddTourCommand : RelayCommand
     {
-        public MainWindowViewModel()
+        public override void Execute(object parameter)
         {
-           
+            
         }
     }
 }

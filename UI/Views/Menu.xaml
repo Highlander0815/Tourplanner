@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="200">
+             d:DesignHeight="50" d:DesignWidth="200"
+             DataContext="{Binding MenuViewModel, Source={StaticResource IoCConfig2}}">
     <Grid>
         <Menu>
             <MenuItem Header="_File">
