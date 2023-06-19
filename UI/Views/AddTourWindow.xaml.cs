@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,16 @@ namespace UI.Views
         public AddTourWindow()
         {
             InitializeComponent();
+            
+            //mainWindow.AddEvent += (o, e) => this.DialogResult = true;
+            //mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
+        }
+
+        public void Init(Action<Tour> speichern)
+        {
             var mainWindow = this.DataContext as AddTourViewModel;
-            mainWindow.AddEvent += (o, e) => this.DialogResult = true;
+            mainWindow.AddEvent += speichern;
+            mainWindow.AddEvent += (o) => this.DialogResult = true;
             mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
     }

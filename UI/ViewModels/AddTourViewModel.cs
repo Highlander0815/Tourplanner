@@ -16,7 +16,7 @@ namespace UI.ViewModels
 {
     public class AddTourViewModel : ViewModelBase
     {
-        public event EventHandler AddEvent; //event which will be fired by the SubmitButton
+        public event Action<Tour> AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
 
         private SideMenuViewModel _sideMenuViewModel;
@@ -88,13 +88,14 @@ namespace UI.ViewModels
 
         private void AddTour()
         {
-            _sideMenuViewModel.Add(new TourViewModel(new Tour(Name, Description, From, To, TransportType)));   
-            this.AddEvent?.Invoke(this, EventArgs.Empty);
+            Tour tour = new Tour(Name, Description, From, To, TransportType);
+            _sideMenuViewModel.Add(new TourViewModel(tour));   
+            this.AddEvent?.Invoke(tour);
         }
 
         private void Cancel()
         {
-            this.CancelEvent.Invoke(this, EventArgs.Empty);
+            this.CancelEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }
