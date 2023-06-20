@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Channels;
 using Tourplanner;
 using System.ComponentModel;
+using BLL;
 
 namespace UI.ViewModels
 {
@@ -88,7 +89,7 @@ namespace UI.ViewModels
 
         private void AddTour()
         {
-            _sideMenuViewModel.Add(new TourViewModel(new Tour(Name, Description, From, To, TransportType)));   
+            _sideMenuViewModel.Add(new TourManager(new Tour(Name, Description, From, To, TransportType)).Tour);   
             this.AddEvent?.Invoke(this, EventArgs.Empty);
         }
 
