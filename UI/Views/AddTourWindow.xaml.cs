@@ -33,8 +33,9 @@ namespace UI.Views
         {
             var mainWindow = this.DataContext as AddTourViewModel;
             mainWindow.AddEvent += speichern;
-            mainWindow.AddEvent += (o) => this.DialogResult = true;
+            mainWindow.AddEvent += (o) => { this.DialogResult = true; };   
             mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
+            //this.Close();
         }
     }
 }

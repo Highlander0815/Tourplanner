@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Channels;
 using Tourplanner;
 using System.ComponentModel;
+using UI.Views;
 
 namespace UI.ViewModels
 {
@@ -19,7 +20,6 @@ namespace UI.ViewModels
         public event Action<Tour> AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
 
-        private SideMenuViewModel _sideMenuViewModel;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -81,16 +81,15 @@ namespace UI.ViewModels
             }
         }
 
-        public AddTourViewModel(SideMenuViewModel smvm)
+        public AddTourViewModel()
         {
-            _sideMenuViewModel = smvm;
         }      
 
         private void AddTour()
         {
             Tour tour = new Tour(Name, Description, From, To, TransportType);
-            _sideMenuViewModel.Add(new TourViewModel(tour));   
             this.AddEvent?.Invoke(tour);
+
         }
 
         private void Cancel()
