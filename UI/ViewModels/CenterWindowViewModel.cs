@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UI.Models
+namespace UI.ViewModels
 {
-    internal class empty
+    public class CenterWindowViewModel : ViewModelBase
     {
     }
 }

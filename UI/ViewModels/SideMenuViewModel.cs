@@ -5,25 +5,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using UI.Models;
+using BLL.Models;
+using Microsoft.VisualBasic;
+using UI.Views;
 
 namespace UI.ViewModels
 {
     public class SideMenuViewModel : ViewModelBase
     {
+        public event EventHandler OpenAddTour;
         private readonly ObservableCollection<TourViewModel> _tours;
-        public ICommand AddTour { get; }
-        public ICommand ModifyTour { get; }
-        public ICommand DeleteTour { get; }
         public IEnumerable<TourViewModel>  Tours => _tours;
 
-        public List<Tour> ListingTours { get; }
+
+        //Commands
+        /*private RelayCommand _addCommand = null;
+        public RelayCommand AddCommand => _addCommand ??= new RelayCommand(AddTour);*/
+        private RelayCommand _addCommand = null;
+        public RelayCommand AddCommand => _addCommand ??= new RelayCommand(OpenAddTourW);
+        public ICommand ModifyTour { get; }
+        public ICommand DeleteTour { get; }
+
 
         public SideMenuViewModel()
-        {
+        {   
             _tours = new ObservableCollection<TourViewModel>();
 
             _tours.Add(new TourViewModel(new Tour("test", "test", "test", "test", "test")));
+            _tours.Add(new TourViewModel(new Tour("test1", "test1", "test1", "test1", "test1")));
         }
+        public void OpenAddTourW()
+        {
+            this.OpenAddTour?.Invoke(this, EventArgs.Empty);
+        }
+        public void Add(TourViewModel tour)
+        {
+            _tours.Add(tour);
+        }
+
+        /*private void AddTour()
+        {
+            AddTourWindow addTourWindow = new AddTourWindow();
+            addTourWindow.ShowDialog();
+        }*/
     }
 }

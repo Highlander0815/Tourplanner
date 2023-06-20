@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UI.Models
+namespace BLL.Models
 {
     public class Tour
     {

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-
+using BLL.Models;
+using UI.ViewModels;
 
 namespace UI
 {
@@ -18,7 +19,15 @@ namespace UI
         public IoCContainerConfig()
         {
             var services = new ServiceCollection();
-
+            //services.AddSingleton(typeof(IServiceProvider));
+            services.AddSingleton<MainWindowViewModel>(); //Add Sigleton besteht nur einmal //AddTransient wird erstellt und wenn ich es nimmer brauche wird es gelöscht
+            services.AddSingleton<SideMenuViewModel>();
+            services.AddSingleton<AddTourViewModel>();
+            services.AddSingleton<BottomMenuViewModel>();
+            services.AddSingleton<CenterWindowViewModel>();
+            services.AddSingleton<CreateTourLogViewModel>();
+            services.AddSingleton<MenuViewModel>();
+            services.AddSingleton<TourViewModel>();
             // whenever an IArgumentHandler is required, the service will inject a CommandLineArgumentHandler
             // it will always provide the same CommandLineArgumentHandler instance, because we register it as a singleton
             /*services.AddSingleton<IArgumentHandler, CommandLineArgumentHandler>();*/
@@ -34,13 +43,20 @@ namespace UI
 
             // finish configuration and build the provider
             /*_serviceProvider = services.BuildServiceProvider();*/
+            _serviceProvider = services.BuildServiceProvider();
         }
 
         /// <summary>
         /// Getter for retrieving and binding the MainViewModel in MainWindow.xaml as its DataContext
         /// </summary>
-        /*public MainViewModel MainViewModel
-            => _serviceProvider.GetService<MainViewModel>();*/
-
+        public SideMenuViewModel SideMenuViewModel => _serviceProvider.GetService<SideMenuViewModel>(); //hier wird 
+        public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetService<MainWindowViewModel>();
+        public AddTourViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
+        public BottomMenuViewModel BottomMenuViewModel => _serviceProvider.GetService<BottomMenuViewModel>();
+        public CenterWindowViewModel CenterWindowViewModel => _serviceProvider.GetService<CenterWindowViewModel>();
+        public CreateTourLogViewModel CreateTourLogViewModel => _serviceProvider.GetService<CreateTourLogViewModel>();
+        public MenuViewModel MenuViewModel => _serviceProvider.GetService<MenuViewModel>();
+        public TourViewModel TourViewModel => _serviceProvider.GetService<TourViewModel>();
+        //public MainViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
     }
 }

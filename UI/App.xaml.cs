@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using UI.ViewModels;
 using UI.Views;
+using BLL.Models;
 
 namespace Tourplanner
 {
@@ -15,6 +16,5 @@ namespace Tourplanner
     /// </summary>
     public partial class App : Application
     {
-       
     }
 }

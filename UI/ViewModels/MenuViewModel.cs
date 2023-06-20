@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.ViewModels
 {
-    public class BottomMenuViewModel : ViewModelBase
+    public class MenuViewModel : ViewModelBase
     {
     }
 }

@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:UI"
              StartupUri="Views\MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <local:IoCContainerConfig x:Key="IoCConfig2" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Styles\MainWindowStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

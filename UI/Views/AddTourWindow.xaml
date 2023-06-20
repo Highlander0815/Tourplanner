@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.Views"
         mc:Ignorable="d"
-        Title="Add Tour" Height="450" Width="800">
-
+        WindowStartupLocation="CenterOwner"
+        Title="Add Tour" Height="300" Width="400"
+        FocusManager.FocusedElement="{Binding ElementName=txtName}"
+        DataContext="{Binding AddTourViewModel, Source={StaticResource IoCConfig2}}">
     <StackPanel>
         <!--NAME-->
         <Grid>
@@ -19,7 +21,7 @@
             </Grid.RowDefinitions>
 
             <Label Margin="50,20,0,5" Grid.Row="0" Grid.Column="0" Content="Name"/>
-            <TextBox Margin="0,20,50,5" Grid.Row="0" Grid.Column="1" Text ="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="0,20,50,5" Grid.Row="0" Grid.Column="1" Name="txtName" Text ="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!--Description-->
@@ -74,5 +76,17 @@
             <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1" Text ="{Binding TransportType, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
+        <!--Buttons gehören noch gestylt-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Width="70" Margin="50,50,0,0" Grid.Row="0" Grid.Column="0" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsDefault="True" Command="{Binding CancelCommand}"/>
+            <Button Width="70" Margin="40,50,50,0" Grid.Row="0" Grid.Column="1" Content="Submit" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsCancel="False" Command="{Binding SubmitCommand}"/>
+        </Grid>
     </StackPanel>
 </Window>

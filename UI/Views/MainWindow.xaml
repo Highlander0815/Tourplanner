@@ -3,13 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UI.Views"
+        xmlns:local="clr-namespace:UI.Views" 
+        xmlns:local2="clr-namespace:UI.ViewModels" 
         mc:Ignorable="d"
-        Title="Tourplanner" Height="600" Width="800">
-
-    <!-- <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>  -->
+        Title="Tourplanner" Height="600" Width="800"
+        DataContext="{Binding SideMenuViewModel, Source={StaticResource IoCConfig2}}">
 
     <DockPanel>
         <!-- Menubar -->
@@ -19,7 +17,7 @@
         <TextBox DockPanel.Dock="Top">Search...</TextBox>
 
         <!-- LeftMenu -->
-        <local:SideMenu DockPanel.Dock="Left" DataContext="{Binding CurrentViewModel}"/>
+        <local:SideMenu DockPanel.Dock="Left"/>
 
         <!-- BottomMenu -->
         <local:BottomMenu DockPanel.Dock="Bottom"/>

@@ -31,6 +31,6 @@ namespace UI
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
-
     }
+
 }
