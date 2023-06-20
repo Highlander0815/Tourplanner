@@ -27,10 +27,15 @@ namespace UI.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ((SideMenuViewModel)DataContext).OpenAddTour += (s, ev) =>
+            SideMenuViewModel dataContext = (SideMenuViewModel)DataContext;
+            dataContext.OpenAddTour += (sender, ev) =>
             {
                 AddTourWindow addTourW = new AddTourWindow();
+                addTourW.Init(dataContext.Speichern);
                 addTourW.ShowDialog();
+                addTourW.DialogResult = true;
+                
+                
             };
         }
     }

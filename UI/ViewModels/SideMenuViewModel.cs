@@ -15,7 +15,11 @@ namespace UI.ViewModels
     {
         public event EventHandler OpenAddTour;
         private readonly ObservableCollection<Tour> _tours;
+<<<<<<< HEAD
         public IEnumerable<Tour>  Tours => _tours;
+=======
+        public IEnumerable<Tour> Tours => _tours;
+>>>>>>> Hilfe
 
 
         //Commands
@@ -28,11 +32,19 @@ namespace UI.ViewModels
 
 
         public SideMenuViewModel()
+<<<<<<< HEAD
         {   
             _tours = new ObservableCollection<Tour>();
 
             //_tours.Add(new TourViewModel(new Tour("test", "test", "test", "test", "test")));
             //_tours.Add(new TourViewModel(new Tour("test1", "test1", "test1", "test1", "test1")));
+=======
+        {
+            _tours = new ObservableCollection<Tour>();
+
+            _tours.Add(new Tour("test", "test", "test", "test", "test"));
+            _tours.Add(new Tour("test1", "test1", "test1", "test1", "test1"));
+>>>>>>> Hilfe
         }
         public void OpenAddTourW()
         {
@@ -41,6 +53,10 @@ namespace UI.ViewModels
         public void Add(Tour tour)
         {
             _tours.Add(tour);
+        }
+        public void Speichern(Tour t) 
+        {
+            Add(t);
         }
 
         /*private void AddTour()
