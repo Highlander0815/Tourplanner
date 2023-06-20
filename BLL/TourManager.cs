@@ -9,12 +9,11 @@ namespace BLL
     public class TourManager
     {
         public Tour Tour { get; set; }
-        private Rest _request;
+        public Rest Rest { get; set; }  
         public TourManager(Tour tour) 
         { 
             this.Tour = tour;
-            _request = new Rest(tour);
-            _request.Request();
+            this.Rest = new Rest(Tour);
         }
     }
 }

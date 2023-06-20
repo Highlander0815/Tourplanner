@@ -32,10 +32,7 @@ namespace UI.Views
             {
                 AddTourWindow addTourW = new AddTourWindow();
                 addTourW.Init(dataContext.Speichern);
-                addTourW.ShowDialog();
-                addTourW.DialogResult = true;
-                
-                
+                addTourW.ShowDialog(); 
             };
         }
     }

@@ -55,7 +55,7 @@ namespace BLL
             using (MemoryStream memoryStream = new MemoryStream(byteArray))
             {
                 var image = Image.FromStream(memoryStream);
-                image.Save("C:\\Users\\wiede\\Documents\\Fachhochschule\\4.Semester\\SWEN\\Projekt\\Tourplanner\\Tourplanner\\BLL\\myimages3.png", System.Drawing.Imaging.ImageFormat.Png);
+                image.Save("C:\\Users\\wiede\\Documents\\Fachhochschule\\4.Semester\\SWEN\\Projekt\\Tourplanner\\Tourplanner\\BLL\\test1.png", System.Drawing.Imaging.ImageFormat.Png);
                 return image;
             }
         }
