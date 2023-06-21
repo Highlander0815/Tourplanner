@@ -22,7 +22,7 @@ namespace UI
             //services.AddSingleton(typeof(IServiceProvider));
             services.AddSingleton<MainWindowViewModel>(); //Add Sigleton besteht nur einmal //AddTransient wird erstellt und wenn ich es nimmer brauche wird es gelöscht
             services.AddSingleton<SideMenuViewModel>();
-            services.AddSingleton<AddTourViewModel>();
+            services.AddTransient<AddTourViewModel>();
             services.AddSingleton<BottomMenuViewModel>();
             services.AddSingleton<CenterWindowViewModel>();
             services.AddSingleton<CreateTourLogViewModel>();

@@ -23,8 +23,10 @@ namespace BLL.Models
             Name = name;
             Description = description;
             From = from;
-            To = to;   
+            To = to;
             TransportType = transportType;
         }
+
+        
     }
 }
