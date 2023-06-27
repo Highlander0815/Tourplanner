@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Windows;
+using BLL;
 using DAL;
 using Microsoft.Extensions.Configuration;
 using TourplannerModel;
@@ -31,7 +32,7 @@ namespace Tourplanner
                 }
 
                 ITourRepository tourRepository = new TourRepository(tourplannerContext);
-                ITourLogRepository tourLogRepository = new TourlogRepository(tourplannerContext);
+                ITourLogRepository tourLogRepository = new TourLogRepository(tourplannerContext);
 
                 tourRepository.Insert(new TourModel()
                 {
@@ -40,11 +41,28 @@ namespace Tourplanner
                     From = "Salzburg",
                     To = "Wien",
                     TransportType = "Car",
-                    TourDistance = "56",
-                    EstimatedTime = "78",
+                    TourDistance = "145",
+                    EstimatedTime = "98",
                     Image = "tour_1"
                 });
                 tourRepository.Save();
+
+                TourHandler tourHandler = new TourHandler(configuration);
+                TourLogHandler tourLogHandler = new TourLogHandler(configuration);
+
+                tourHandler.AddTour(new TourModel()
+                {
+                    Name = "Testtour_2",
+                    Description = "Just a test no 2",
+                    From = "Klagenfurt",
+                    To = "Graz",
+                    TransportType = "Train",
+                    TourDistance = "80",
+                    EstimatedTime = "122",
+                    Image = "tour_2"
+                });
+
+                tourHandler.DeleteTour(1);
             }
         }
     }

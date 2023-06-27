@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
-    public class TourlogRepository : ITourLogRepository, IDisposable
+    public class TourLogRepository : ITourLogRepository, IDisposable
     {
         private readonly TourplannerContext context;
 
-        public TourlogRepository(TourplannerContext context)
+        public TourLogRepository(TourplannerContext context)
         {
             this.context = context;
         }
