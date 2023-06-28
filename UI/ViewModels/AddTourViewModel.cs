@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
-using BLL.Models;
+using TourplannerModel;
 using UI.ViewModels;
 using System.Collections.ObjectModel;
 using System.Threading.Channels;
@@ -19,7 +19,7 @@ namespace UI.ViewModels
 {
     public class AddTourViewModel : ViewModelBase
     {
-        public event Action<Tour> AddEvent; //event which will be fired by the SubmitButton
+        public event Action<TourModel> AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private TourManager _tourManager; 
 
@@ -31,7 +31,7 @@ namespace UI.ViewModels
         public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
 
 
-        private readonly Tour _tour;
+        private readonly TourModel _tour;
         private string _name;
         public string Name
         {
@@ -89,9 +89,9 @@ namespace UI.ViewModels
 
         private async void AddTour()
         {
-            Tour tour = new Tour(Name, Description, From, To, TransportType);
+            TourModel tour = new TourModel(Name, Description, From, To, TransportType);
             _tourManager = new TourManager(tour);
-            Task<Tour> result = _tourManager.Rest.Request(tour);
+            Task<TourModel> result = _tourManager.Rest.Request(tour);
             tour = await result;
             this.AddEvent?.Invoke(tour);
         }

@@ -1,4 +1,4 @@
-﻿using BLL.Models;
+﻿using TourplannerModel;
 using MiNET.UI;
 using MiNET.Utils.Skins;
 using System;
@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TourplannerModel;
 using UI.ViewModels;
 
 namespace UI.Views
@@ -29,7 +30,7 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        public void Edit(Tour currentTour, Action<Tour> update)
+        public void Edit(TourModel currentTour, Action<TourModel> update)
         {
             var mainWindow = this.DataContext as EditTourViewModel;
 

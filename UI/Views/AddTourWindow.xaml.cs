@@ -1,5 +1,4 @@
-﻿using BLL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TourplannerModel;
 using UI.ViewModels;
 
 namespace UI.Views
@@ -26,7 +26,7 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        public void Init(Action<Tour> save)
+        public void Init(Action<TourModel> save)
         {
             var mainWindow = this.DataContext as AddTourViewModel;
             mainWindow.AddEvent += (o) => save(o);

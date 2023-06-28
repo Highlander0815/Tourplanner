@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using BLL.Models;
+using TourplannerModel;
 using System.Net.NetworkInformation;
 using System.Collections;
 using System;
@@ -24,7 +24,7 @@ namespace BLL
         {
         }   
 
-        public async Task<Tour> Request(Tour tour)
+        public async Task<TourModel> Request(TourModel tour)
         {
             _client = new HttpClient();
             string key = "vGz1EP3woj6YXCYOmGDSoh9RFcmWnzdq"; //configureation file 
@@ -67,7 +67,7 @@ namespace BLL
             return tour;
         }
 
-        public string ByteArrayToImage(byte[] byteArray, Tour tour)
+        public string ByteArrayToImage(byte[] byteArray, TourModel tour)
         {
             using (MemoryStream memoryStream = new MemoryStream(byteArray))
             {

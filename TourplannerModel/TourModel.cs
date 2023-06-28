@@ -4,6 +4,18 @@ namespace TourplannerModel
 {
     public class TourModel
     {
+        public TourModel(string name, string description, string from, string to, string transportType)
+        {
+            Name = name;
+            Description = description;
+            From = from;
+            To = to;
+            TransportType = transportType;
+        }
+        public TourModel() 
+        { 
+        
+        }
         public int Id { get; private set; }
         public ICollection<TourLogModel> TourLogs { get; set; } = null!;
         public string Name { get; set; } = null!;

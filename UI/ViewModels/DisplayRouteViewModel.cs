@@ -1,10 +1,11 @@
-﻿using BLL.Models;
+﻿using TourplannerModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using TourplannerModel;
 using UI.Views;
 
 namespace UI.ViewModels
@@ -16,7 +17,7 @@ namespace UI.ViewModels
 
         }
 
-        public Tour currentTour;
+        public TourModel currentTour;
         private BitmapImage _currentTourImage;
         public BitmapImage CurrentTourImage
         {

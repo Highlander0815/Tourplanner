@@ -6,9 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BLL;
-using BLL.Models;
+using TourplannerModel;
 using Microsoft.VisualBasic;
 using MiNET.Blocks;
+using TourplannerModel;
 using UI.Views;
 
 namespace UI.ViewModels
@@ -16,7 +17,7 @@ namespace UI.ViewModels
     public class SideMenuViewModel : ViewModelBase
     {
         //Actions
-        public Action<Tour> currentTourChangedAction;
+        public Action<TourModel> currentTourChangedAction;
 
         //Events
         public event EventHandler OpenAddTour;
@@ -31,8 +32,8 @@ namespace UI.ViewModels
         public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(Delete);
 
         //Attributes
-        private  ObservableCollection<Tour> _tours;
-        public ObservableCollection<Tour> Tours
+        private  ObservableCollection<TourModel> _tours;
+        public ObservableCollection<TourModel> Tours
         {
             get { return _tours; }
             set 
@@ -44,8 +45,8 @@ namespace UI.ViewModels
 
         
         //Tour
-        private Tour _currentTour;
-        public Tour CurrentTour {
+        private TourModel _currentTour;
+        public TourModel CurrentTour {
             get
             {
                 return _currentTour;
@@ -63,11 +64,11 @@ namespace UI.ViewModels
         //Constructor
         public SideMenuViewModel()
         {
-            _tours = new ObservableCollection<Tour>();
+            _tours = new ObservableCollection<TourModel>();
 
-            _tours.Add(new Tour("test", "test", "test", "test", "test"));
-            _tours.Add(new Tour("test1", "test1", "test1", "test1", "test1"));
-            _tours.Add(new Tour("MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour"));
+            _tours.Add(new TourModel("test", "test", "test", "test", "test"));
+            _tours.Add(new TourModel("test1", "test1", "test1", "test1", "test1"));
+            _tours.Add(new TourModel("MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour"));
         }
 
         //private Methods
@@ -75,7 +76,7 @@ namespace UI.ViewModels
         {
             this.OpenAddTour?.Invoke(this, EventArgs.Empty);
         }
-        private void Add(Tour tour)
+        private void Add(TourModel tour)
         {
             _tours.Add(tour);
         }
@@ -98,11 +99,11 @@ namespace UI.ViewModels
         }
 
         //public Methods
-        public void Save(Tour t)
+        public void Save(TourModel t)
         {
             Add(t);
         }
-        public void UpdateList(Tour tour)
+        public void UpdateList(TourModel tour)
         {
             if (_tours.Contains(_currentTour))
             {

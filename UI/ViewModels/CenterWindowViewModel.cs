@@ -1,4 +1,4 @@
-﻿using BLL.Models;
+﻿using TourplannerModel;
 using MiNET.Entities.Behaviors;
 using System;
 using System.Collections.Generic;
@@ -29,10 +29,10 @@ namespace UI.ViewModels
             };
             
         }
-        public Action<Tour> currentTourChangedAction;
+        public Action<TourModel> currentTourChangedAction;
         private DisplayInfoViewModel _displayInfoViewModel;
         private DisplayRouteViewModel _displayRouteViewModel;
-        public Tour currentTour;
+        public TourModel currentTour;
         private object _currentContent;
         public object CurrentContent
         {

@@ -1,28 +1,20 @@
-﻿using BLL.Models;
+﻿using TourplannerModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourplannerModel;
 using UI.Views;
 
 namespace UI.ViewModels
 {
     public class DisplayInfoViewModel : ViewModelBase
     {
-        public Tour currentTour;
-       // private Action _test;
+        public TourModel currentTour;
         public DisplayInfoViewModel(/*CenterWindowViewModel centerViewModel*/) 
         {
-            //_centerViewModel = centerViewModel;
-            //_currentTour = _centerViewModel.currentTour;
-                //_sideMenu = sideMenu;
-                /*_test += centerViewModel.currentTourChangedAction = () =>
-                {
-                    _currentTour = sideMenu.CurrentTour;
-                    //CurrentTourChanged();
-                    SetValues();
-                };*/
+            
         }
         CenterWindowViewModel _centerViewModel;
         private string _name;
@@ -96,16 +88,6 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(EstimatedTime));
             }
         }
-        /*private void SetValues()
-        {
-            Name = _currentTour.Name;
-            Description = _currentTour.Description;
-            From = _currentTour.From;
-            To = _currentTour.To;
-            TransportType = _currentTour.TransportType;
-            TourDistance = _currentTour.TourDistance;
-            EstimatedTime = _currentTour.EstimatedTime;
-        }*/
 
         public void GetInfoView()
         {
@@ -120,8 +102,6 @@ namespace UI.ViewModels
                 EstimatedTime = currentTour.EstimatedTime;
             }
             
-            // Führe hier die Logik aus, um die Info-Ansicht zu erstellen
-            //return new DisplayInfoWindow();
         }
     }
 }
