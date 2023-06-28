@@ -67,6 +67,7 @@ namespace UI.ViewModels
 
             _tours.Add(new Tour("test", "test", "test", "test", "test"));
             _tours.Add(new Tour("test1", "test1", "test1", "test1", "test1"));
+            _tours.Add(new Tour("MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour"));
         }
 
         //private Methods

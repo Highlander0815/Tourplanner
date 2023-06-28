@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UI.Views"
              xmlns:local2="clr-namespace:UI.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="400"
              Loaded="UserControl_Loaded"
              DataContext="{Binding SideMenuViewModel, Source={StaticResource IoCConfig2}}">
 
