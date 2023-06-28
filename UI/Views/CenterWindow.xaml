@@ -21,10 +21,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Grid.Column="0" Content="General"></Button>
-                <Button Grid.Row="0" Grid.Column="1" Content="Route"></Button>
-                <Button Grid.Row="0" Grid.Column="2" Content="Misc"></Button>
-                <Label Grid.Row="1" Grid.ColumnSpan="4" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center">Insert Map here</Label>
+                <Button Grid.Row="0" Grid.Column="0" Content="General" Command="{Binding InfoCommand}"/>
+                <Button Grid.Row="0" Grid.Column="1" Content="Route" Command="{Binding RouteCommand}"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Misc" Command="{Binding MiscCommand}"/>
+                <ContentControl Content="{Binding CurrentContent}" Grid.ColumnSpan="4" Margin="0,21,0,0" Grid.RowSpan="2"/>
             </Grid>
         </Border>
     </Grid>

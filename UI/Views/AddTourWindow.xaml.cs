@@ -24,16 +24,13 @@ namespace UI.Views
         public AddTourWindow()
         {
             InitializeComponent();
-            
-            //mainWindow.AddEvent += (o, e) => this.DialogResult = true;
-            //mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
 
-        public void Init(Action<Tour> speichern)
+        public void Init(Action<Tour> save)
         {
             var mainWindow = this.DataContext as AddTourViewModel;
-            mainWindow.AddEvent += speichern;
-            mainWindow.AddEvent += (o) => { this.DialogResult = true; };   
+            mainWindow.AddEvent += (o) => save(o);
+            mainWindow.AddEvent += (o) => this.DialogResult = true;   
             mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
     }

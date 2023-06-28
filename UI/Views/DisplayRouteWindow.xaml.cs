@@ -1,5 +1,4 @@
-﻿using BLL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UI.ViewModels;
 
 namespace UI.Views
 {
     /// <summary>
-    /// Interaction logic for CenterWindow.xaml
+    /// Interaktionslogik für DisplayRouteWindow.xaml
     /// </summary>
-    public partial class CenterWindow : UserControl
+    public partial class DisplayRouteWindow : UserControl
     {
-        public CenterWindow()
+        public DisplayRouteWindow()
         {
             InitializeComponent();
         }

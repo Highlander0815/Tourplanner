@@ -13,7 +13,7 @@ namespace BLL
         public TourManager(Tour tour) 
         { 
             this.Tour = tour;
-            this.Rest = new Rest(Tour);
+            this.Rest = new Rest();
         }
     }
 }

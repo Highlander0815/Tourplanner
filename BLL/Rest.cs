@@ -12,51 +12,72 @@ using System;
 using System.Drawing;
 using System.IO;
 using static System.Drawing.Image;
-using MiNET.Sounds;
-
+using Newtonsoft.Json;
+using System.Threading.Tasks.Dataflow;
 
 namespace BLL
 {
     public class Rest
     {
-        private static HttpClient _client = new HttpClient();
-        private Tour _tour;
-        public Rest(Tour tour) 
+        private HttpClient _client;
+        public Rest() 
         {
-            _tour = tour;   
         }   
 
-        public async void Request()
+        public async Task<Tour> Request(Tour tour)
         {
-            {
-                string key = "vGz1EP3woj6YXCYOmGDSoh9RFcmWnzdq"; //configureation file 
-                string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(_tour.From)}&end={Uri.EscapeDataString(_tour.To)}&size=600,400&key={key}";
-                //string routeImageURL = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={Uri.EscapeDataString(_tour.From)}&to={Uri.EscapeDataString(_tour.To)}&size=600,400";
+            _client = new HttpClient();
+            string key = "vGz1EP3woj6YXCYOmGDSoh9RFcmWnzdq"; //configureation file 
+            string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(tour.From)}&end={Uri.EscapeDataString(tour.To)}&size=600,400&key={key}";
+            string routeDataURL = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={Uri.EscapeDataString(tour.From)}&to={Uri.EscapeDataString(tour.To)}";
 
-                HttpResponseMessage response = await _client.GetAsync(routeImageURL);
-                if (response.IsSuccessStatusCode)
-                {
-                    byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
+            HttpResponseMessage response = await _client.GetAsync(routeImageURL);
+            if (response.IsSuccessStatusCode)
+            {
+                byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
                    
 
-                     Image image = ByteArrayToImage(imageBytes);
+                    tour.Image = ByteArrayToImage(imageBytes, tour);
 
-                    // Prozessieren Sie die Bildbytes nach Bedarf (z.B. speichern Sie sie in einer Datei oder zeigen Sie sie in einem Image-Steuerelement an)
-                }
-                else
-                {
-                    // Behandeln Sie den API-Anfragefehler
-                }
+                // Prozessieren Sie die Bildbytes nach Bedarf (z.B. speichern Sie sie in einer Datei oder zeigen Sie sie in einem Image-Steuerelement an)
             }
+            else
+            {
+                // Behandeln Sie den API-Anfragefehler
+            }
+            HttpResponseMessage response2 = await _client.GetAsync(routeDataURL);
+            if (response2.IsSuccessStatusCode)
+            {
+                string responseBody = await response2.Content.ReadAsStringAsync();
+                dynamic jsonData  = JsonConvert.DeserializeObject(responseBody);
+
+                tour.EstimatedTime = jsonData["route"]["formattedTime"];
+                tour.TourDistance = jsonData["route"]["distance"];
+                
+
+                
+
+
+                // Prozessieren Sie die Bildbytes nach Bedarf (z.B. speichern Sie sie in einer Datei oder zeigen Sie sie in einem Image-Steuerelement an)
+            }
+            else
+            {
+                // Behandeln Sie den API-Anfragefehler
+            }
+            return tour;
         }
 
-        public Image ByteArrayToImage(byte[] byteArray)
+        public string ByteArrayToImage(byte[] byteArray, Tour tour)
         {
             using (MemoryStream memoryStream = new MemoryStream(byteArray))
             {
                 var image = Image.FromStream(memoryStream);
-                image.Save("C:\\Users\\wiede\\Documents\\Fachhochschule\\4.Semester\\SWEN\\Projekt\\Tourplanner\\Tourplanner\\BLL\\test1.png", System.Drawing.Imaging.ImageFormat.Png);
-                return image;
+                string name = tour.Name;
+                //string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BLL");
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), name);
+                //string filePath = Path.Combine("\\Tourplanner\\UI", name);
+                image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png); //change it to a relative path
+                return filePath;
             }
         }
 

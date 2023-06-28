@@ -7,7 +7,7 @@
         xmlns:local2="clr-namespace:UI.ViewModels" 
         mc:Ignorable="d"
         Title="Tourplanner" Height="600" Width="800"
-        DataContext="{Binding SideMenuViewModel, Source={StaticResource IoCConfig2}}">
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource IoCConfig2}}">
 
     <DockPanel>
         <!-- Menubar -->

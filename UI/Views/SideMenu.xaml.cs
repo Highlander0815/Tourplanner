@@ -31,8 +31,15 @@ namespace UI.Views
             dataContext.OpenAddTour += (sender, ev) =>
             {
                 AddTourWindow addTourW = new AddTourWindow();
-                addTourW.Init(dataContext.Speichern);
+                addTourW.Init(dataContext.Save);
                 addTourW.ShowDialog(); 
+            };
+
+            dataContext.OpenEditTour += (sender, ev) =>
+            {
+                EditTourWindow editTourW = new EditTourWindow();
+                editTourW.Edit(dataContext.CurrentTour, dataContext.UpdateList);
+                editTourW.ShowDialog();
             };
         }
     }

@@ -1,0 +1,44 @@
+﻿using BLL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using UI.Views;
+
+namespace UI.ViewModels
+{
+    public class DisplayRouteViewModel : ViewModelBase
+    {
+        public DisplayRouteViewModel()
+        {
+
+        }
+
+        public Tour currentTour;
+        private BitmapImage _currentTourImage;
+        public BitmapImage CurrentTourImage
+        {
+            get { return _currentTourImage; }
+            set
+            {
+                _currentTourImage = value;
+                OnPropertyChanged(nameof(CurrentTourImage));
+            }
+        }
+
+        public void GetRouteView()
+        {
+            if (currentTour != null)
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri(currentTour.Image);
+                image.EndInit();
+                CurrentTourImage = image;
+            }
+
+        }
+    }
+}

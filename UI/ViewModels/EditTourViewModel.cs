@@ -17,21 +17,24 @@ using BLL;
 
 namespace UI.ViewModels
 {
-    public class AddTourViewModel : ViewModelBase
+    public class EditTourViewModel : ViewModelBase
     {
-        public event Action<Tour> AddEvent; //event which will be fired by the SubmitButton
+        public event Action<Tour> SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private TourManager _tourManager; 
 
         //Commands
         private RelayCommand _submitCommand = null;
-        public RelayCommand SubmitCommand => _submitCommand ??= new RelayCommand(AddTour);
+        public RelayCommand SubmitCommand => _submitCommand ??= new RelayCommand(EditTour);
         
         private RelayCommand _cancelCommand = null;
         public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
 
-
-        private readonly Tour _tour;
+        private Tour _tour;
+        public Tour Tour
+        {  get { return _tour; } 
+           set { _tour = value; }
+        }
         private string _name;
         public string Name
         {
@@ -82,18 +85,19 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(TransportType));
             }
         }
-
-        public AddTourViewModel()
+        public EditTourViewModel()
         {
-        } 
+            
+        }
 
-        private async void AddTour()
+        private async void EditTour()
         {
             Tour tour = new Tour(Name, Description, From, To, TransportType);
             _tourManager = new TourManager(tour);
             Task<Tour> result = _tourManager.Rest.Request(tour);
             tour = await result;
-            this.AddEvent?.Invoke(tour);
+            _tour = tour;
+            this.SubmitAction?.Invoke(_tour);
         }
 
         private void Cancel()

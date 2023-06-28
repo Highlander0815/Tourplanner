@@ -25,9 +25,9 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Tours" HorizontalAlignment="Left"></Label>
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="1" Content="+" Command="{Binding AddCommand}"/>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="-"></Button>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="..."></Button>
-                <ListView Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" ItemsSource="{Binding Tours}">
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="-" Command="{Binding DeleteCommand}"/>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="..." Command="{Binding EditCommand}"/>
+                <ListView Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" ItemsSource="{Binding Tours}" SelectedItem="{Binding CurrentTour}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
