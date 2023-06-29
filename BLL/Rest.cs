@@ -14,6 +14,7 @@ using System.IO;
 using static System.Drawing.Image;
 using Newtonsoft.Json;
 using System.Threading.Tasks.Dataflow;
+using System.Linq.Expressions;
 
 namespace BLL
 {
@@ -31,7 +32,10 @@ namespace BLL
             string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(tour.From)}&end={Uri.EscapeDataString(tour.To)}&size=600,400&key={key}";
             string routeDataURL = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={Uri.EscapeDataString(tour.From)}&to={Uri.EscapeDataString(tour.To)}";
 
+
             HttpResponseMessage response = await _client.GetAsync(routeImageURL);
+         
+            
             if (response.IsSuccessStatusCode)
             {
                 byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();

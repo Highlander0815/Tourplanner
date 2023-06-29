@@ -18,28 +18,18 @@ namespace UI.ViewModels
 
         public BottomMenuViewModel(SideMenuViewModel sideMenuViewModel)
         {
+            _currentTour = null;
             currentTourLogChangedAction += HandleTourLogChange;
             sideMenuViewModel.currentTourChangedAction += HandleTourChanged;
         }
 
-        private void HandleTourLogChange(TourLogModel tourLog)
-        {
-            CurrentTourLog = tourLog;  
-        }
 
         //Actions
         public event Action<TourLogModel> currentTourLogChangedAction;
-        private void HandleTourChanged(TourModel tour)
-        {
 
-            _currentTour = tour;
-            TourLogs = tour.TourLogs;
+        private TourModel _currentTour; //has to be saved because the currentTour contains the TourLogs which should be displayed
 
-        }
-
-        private TourModel _currentTour;
-        private Action<TourModel> _currentTourChangedAction; 
-
+        //List of TourLogs
         private ObservableCollection<TourLogModel> _tourLogs;
         public ObservableCollection<TourLogModel> TourLogs
         {
@@ -51,21 +41,7 @@ namespace UI.ViewModels
             }
         }
 
-        // Difficulty-Optionen
-        public List<DifficultyEnum> DifficultyOptions { get; } = Enum.GetValues(typeof(DifficultyEnum)).Cast<DifficultyEnum>().ToList();
-
-        // Rating-Optionen
-        public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
-        /* private bool _isRowExpanded;
-         public bool IsRowExpanded
-         {
-             get { return _isRowExpanded; }
-             set
-             {
-                 _isRowExpanded = value;
-                 OnPropertyChanged(nameof(IsRowExpanded));
-             }
-         }*/
+        //current TourLog = Selected item in the dataGrid. Is needed to know the currentTourLog when you want to edit/delete it.
         private TourLogModel _currentTourLog;
         public TourLogModel CurrentTourLog
         {
@@ -78,140 +54,87 @@ namespace UI.ViewModels
                 if (_currentTourLog != value)
                 {
                     _currentTourLog = value;
-                    //currentTourLogChangedAction?.Invoke(_currentTourLog);
+                    OnPropertyChanged(nameof(CurrentTourLog));
                 }
             }
         }
+        // Difficulty-Optionen
+        public List<DifficultyEnum> DifficultyOptions { get; } = Enum.GetValues(typeof(DifficultyEnum)).Cast<DifficultyEnum>().ToList();
 
-        private DateOnly _date;
-        public DateOnly Date
+        // Rating-Optionen
+        public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
+
+        //Events
+        public event EventHandler OpenAddTourLog;
+        public event EventHandler OpenEditTourLog;
+
+        //Commands
+        private RelayCommand? _addCommand = null;
+        private RelayCommand? _editCommand = null;
+        private RelayCommand? _deleteCommand = null;
+        public RelayCommand AddCommand => _addCommand ??= new RelayCommand(OpenAddTourLogW);
+        public RelayCommand EditCommand => _editCommand ??= new RelayCommand(OpenEditTourLogW);
+        public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(Delete);
+
+
+        //private Methods
+        private void OpenAddTourLogW()
         {
-            get { return _date; }
-            set
+            if(_currentTour != null) //otherwise the new TourLog can not be added to a Tour
+                this.OpenAddTourLog?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OpenEditTourLogW()
+        {
+            if(_currentTourLog != null) //if no tourLog is selected their is nothing which can be edited
             {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
+                this.OpenEditTourLog?.Invoke(this, EventArgs.Empty);
+            }
+            
+        }
+
+        private void Delete() 
+        {
+            if (_tourLogs.Contains(_currentTourLog))
+            {
+                TourLogs.Remove(_currentTourLog);
+            }
+            else
+            {
+                //noch implementieren //ka ob ma das überhaupt brauchen ich denke eigentlich müsste der TourLog immer Enthalten sein
             }
         }
 
-        private TimeSpan _time;
-        public TimeSpan Time
+        public void Save(TourLogModel tourLog)
         {
-            get { return _time; }
-            set
+            TourLogs.Add(tourLog); //add it to the DataGrid
+            _currentTour.TourLogs.Add(tourLog); //Add the new TourLog to the Tour
+        }
+        public void UpdateList(TourLogModel tourLog)
+        {
+            if (_tourLogs.Contains(_currentTourLog))
             {
-                _time = value;
-                OnPropertyChanged(nameof(Time));
+                _tourLogs[_tourLogs.IndexOf(_currentTourLog)] = tourLog;
+            }
+            else
+            {
+                //noch ka was dann passiert
             }
         }
 
-        private DifficultyEnum _difficulty;
-        public DifficultyEnum Difficulty
+        private void HandleTourLogChange(TourLogModel tourLog)
         {
-            get { return _difficulty; }
-            set
+            CurrentTourLog = tourLog; //When the CurrentTourLog changes the CurrentTourLog has to be updated
+        }
+
+        private void HandleTourChanged(TourModel tour) //when a Tour gets selected in the SideMenu the TourLogs which are displayed in the BottomMenu have to be displayed.
+        {
+            if(tour != null)
             {
-                _difficulty = value;
-                OnPropertyChanged(nameof(Difficulty));
+                _currentTour = tour;
+                TourLogs = tour.TourLogs;
+                _currentTourLog = null;
             }
-        }
-
-        private TimeSpan _totalTime;
-        public TimeSpan TotalTime
-        {
-            get { return _totalTime; }
-            set
-            {
-                _totalTime = value;
-                OnPropertyChanged(nameof(TotalTime));
-            }
-        }
-
-        private int _rating;
-        public int Rating
-        {
-            get { return _rating; }
-            set
-            {
-                _rating = value;
-                OnPropertyChanged(nameof(Rating));
-            }
-        }
-
-        private RelayCommand _addTourLog= null;
-        public RelayCommand AddTourLog => _addTourLog ??= new RelayCommand(AddLog);
-
-        private RelayCommand _editTourLog = null;
-        public RelayCommand EditTourLog => _editTourLog ??= new RelayCommand(EditLog);
-       /* private KeyEventHandler<TourLogModel> _previewKeyDownCommand += new KeyEventHandler<TourLogModel>(HandleEnter);
-        public KeyEventHandler PreviewKeyDownCommand => _previewKeyDownCommand ??= new RelayCommand<KeyEventArgs>(HandlePreviewKeyDown);*/
-       //public event DataGrid_PreviewKeyDown;
-
-        /*void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                // Überprüfe, ob die Eingabezeile aktiv ist
-                var dataGrid = (DataGrid)sender;
-                var editingElement = dataGrid?.GetFocusElement();
-                if (editingElement != null && editingElement.GetType() == typeof(DataGridCell))
-                {
-                    if (!checkData())
-                    {
-                        TourLogs.Remove(_currentTourLog);
-                    }
-                    // Füge hier deine gewünschte Logik hinzu
-                    // z.B. Validierung und Speichern der Daten
-                    // ...
-
-                    // Setze den Fokus zurück auf das DataGrid, um die Bearbeitung abzuschließen
-                    dataGrid.Focus();
-                    e.Handled = true; // Behandelt das Ereignis, um ein zusätzliches "Enter"-Ereignis zu vermeiden
-                }
-            }
-        }*/
-        private void AddLog()
-        {
-            //_currentTourLog = new TourLogModel(DifficultyEnum.Beginner, TimeSpan.Zero, 1);
-            TourLogs.Add(_currentTourLog);
-            //IsRowExpanded = true;
-        }
-        private void EditLog()
-        {
-            throw new NotImplementedException();
-        }
-
-        /*private void HandlePreviewKeyDown(KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                // Überprüfe, ob die Eingabezeile aktiv ist
-                var dataGrid = e.Source as DataGrid;
-                var editingElement = dataGrid?.GetFocusElement();
-                if (editingElement != null && editingElement.GetType() == typeof(DataGridCell))
-                {
-                    if (!checkData())
-                    {
-                        TourLogs.Remove(_currentTourLog);
-                    }
-                    // Füge hier deine gewünschte Logik hinzu
-                    // z.B. Validierung und Speichern der Daten
-                    // ...
-
-                    // Setze den Fokus zurück auf das DataGrid, um die Bearbeitung abzuschließen
-                    dataGrid.Focus();
-                    e.Handled = true; // Behandelt das Ereignis, um ein zusätzliches "Enter"-Ereignis zu vermeiden
-                }
-            }
-        }
-       */
-
-        private bool checkData()
-        {
-            if (_currentTourLog.Date == null || _currentTourLog.Time == null || _currentTourLog.Difficulty == null || _currentTourLog.TotalTime == null || _currentTourLog.Rating == null)
-                return false;
-
-            return true;
         }
     }
 }

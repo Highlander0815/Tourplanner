@@ -16,7 +16,6 @@ namespace UI.ViewModels
         {
             
         }
-        CenterWindowViewModel _centerViewModel;
         private string _name;
         public string Name
         {

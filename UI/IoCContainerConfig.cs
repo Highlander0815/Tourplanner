@@ -21,14 +21,20 @@ namespace UI
             var services = new ServiceCollection();
             //services.AddSingleton(typeof(IServiceProvider));
             services.AddSingleton<MainWindowViewModel>(); //Add Sigleton besteht nur einmal //AddTransient wird erstellt und wenn ich es nimmer brauche wird es gelöscht
+            
             services.AddSingleton<SideMenuViewModel>();
             services.AddTransient<AddTourViewModel>();
             services.AddTransient<EditTourViewModel>();
+
             services.AddSingleton<BottomMenuViewModel>();
+            services.AddTransient<AddTourLogViewModel>();
+            services.AddTransient<EditTourLogViewModel>();
+
+
             services.AddSingleton<CenterWindowViewModel>();
             services.AddSingleton<DisplayRouteViewModel>();
             services.AddSingleton<DisplayInfoViewModel>();
-            services.AddSingleton<CreateTourLogViewModel>();
+
             services.AddSingleton<MenuViewModel>();
             services.AddSingleton<TourViewModel>();
             services.AddSingleton<TourLogViewModel>();
@@ -53,15 +59,20 @@ namespace UI
         /// <summary>
         /// Getter for retrieving and binding the MainViewModel in MainWindow.xaml as its DataContext
         /// </summary>
-        public SideMenuViewModel SideMenuViewModel => _serviceProvider.GetService<SideMenuViewModel>(); //hier wird 
         public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetService<MainWindowViewModel>();
+
+
+        public SideMenuViewModel SideMenuViewModel => _serviceProvider.GetService<SideMenuViewModel>(); //hier wird 
         public AddTourViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
         public EditTourViewModel EditTourViewModel => _serviceProvider.GetService<EditTourViewModel>();
+       
         public BottomMenuViewModel BottomMenuViewModel => _serviceProvider.GetService<BottomMenuViewModel>();
+        public AddTourLogViewModel AddTourLogViewModel => _serviceProvider.GetService<AddTourLogViewModel>();
+        public EditTourLogViewModel EditTourLogViewModel => _serviceProvider.GetService<EditTourLogViewModel>();
         public CenterWindowViewModel CenterWindowViewModel => _serviceProvider.GetService<CenterWindowViewModel>();
         public DisplayRouteViewModel DisplayRouteViewModel => _serviceProvider.GetService<DisplayRouteViewModel>();
         public DisplayInfoViewModel DisplayInfoViewModel => _serviceProvider.GetService<DisplayInfoViewModel>();
-        public CreateTourLogViewModel CreateTourLogViewModel => _serviceProvider.GetService<CreateTourLogViewModel>();
+        
         public MenuViewModel MenuViewModel => _serviceProvider.GetService<MenuViewModel>();
         public TourViewModel TourViewModel => _serviceProvider.GetService<TourViewModel>();
         public TourLogViewModel TourLogViewModel => _serviceProvider.GetService<TourLogViewModel>();

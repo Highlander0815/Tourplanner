@@ -12,10 +12,11 @@ namespace TourplannerModel
             From = from;
             To = to;
             TransportType = transportType;
+            TourLogs = new ObservableCollection<TourLogModel>();
         }
         public TourModel() 
-        { 
-        
+        {
+            TourLogs = new ObservableCollection<TourLogModel>();
         }
         public int Id { get; private set; }
         public ObservableCollection<TourLogModel> TourLogs { get; set; } = new ObservableCollection<TourLogModel>();

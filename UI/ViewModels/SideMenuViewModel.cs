@@ -83,14 +83,18 @@ namespace UI.ViewModels
 
         private void OpenEditTourW()
         {
-            this.OpenEditTour?.Invoke(this, EventArgs.Empty);
+            if(_currentTour != null) 
+            {
+                this.OpenEditTour?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void Delete()
         {
-            if (_tours.Contains(_currentTour))
+            if (_currentTour != null)
             {
                 _tours.Remove(_currentTour);
+                CurrentTour = null;
             }
             else
             {
@@ -99,15 +103,16 @@ namespace UI.ViewModels
         }
 
         //public Methods
-        public void Save(TourModel t)
+        public void Save(TourModel tour)
         {
-            Add(t);
+            Tours.Add(tour);
         }
         public void UpdateList(TourModel tour)
         {
             if (_tours.Contains(_currentTour))
             {
                 _tours[_tours.IndexOf(_currentTour)] = tour;
+                CurrentTour = tour;
             }
             else
             {

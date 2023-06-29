@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded"
              DataContext="{Binding BottomMenuViewModel, Source={StaticResource IoCConfig2}}">
 
     <Grid>
@@ -23,11 +24,11 @@
                     <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Tour Logs"></Label>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="+" Command="{Binding AddTourLog}"/>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="-" Command="{Binding DeleteTourLog}"/>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="4" Content="..." Command="{Binding EditTourLog}"/>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="+" Command="{Binding AddCommand}"/>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="-" Command="{Binding DeleteCommand}"/>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="4" Content="..." Command="{Binding EditCommand}"/>
                 <Label Grid.Row="1" Grid.ColumnSpan="5" HorizontalAlignment="Left">
-                    <DataGrid ItemsSource="{Binding TourLogs}"  RowDetailsVisibilityMode="Collapsed" AutoGenerateColumns="False" SelectedItem="{Binding CurrentTourLog}" AddingNewItem="DataGrid_AddingNewItem">
+                    <DataGrid ItemsSource="{Binding TourLogs}" CanUserAddRows="False"  RowDetailsVisibilityMode="Collapsed" AutoGenerateColumns="False" SelectedItem="{Binding CurrentTourLog, Mode=TwoWay}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Date">
                                 <DataGridTemplateColumn.CellTemplate>

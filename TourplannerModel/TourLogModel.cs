@@ -8,16 +8,16 @@ namespace TourplannerModel
     {
         [Key]
         public int Id { get; private set; }
-        public DateOnly? Date { get; set; }
-        public TimeOnly? Time { get; set; }
+        public DateOnly Date { get; set; }
+        public TimeOnly Time { get; set; }
         public DifficultyEnum Difficulty { get; set; }
         public TimeSpan TotalTime { get; set; }
         public int Rating { get; set; }
 
-        public TourLogModel(DifficultyEnum difficulty, TimeSpan totalTime, int rating) 
+        public TourLogModel(DateOnly date, TimeOnly time, DifficultyEnum difficulty, TimeSpan totalTime, int rating) 
         {
-            Date = DateOnly.FromDateTime(DateTime.Now);
-            Time = TimeOnly.FromDateTime(DateTime.Now);
+            Date = date;
+            Time = time;
             Difficulty = difficulty;
             TotalTime = totalTime;
             Rating = rating;

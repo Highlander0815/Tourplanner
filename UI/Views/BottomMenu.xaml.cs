@@ -28,9 +28,22 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        private void DataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            e.NewItem = new TourLogModel(DifficultyEnum.Beginner, TimeSpan.Zero, 1);
+            BottomMenuViewModel dataContext = (BottomMenuViewModel)DataContext;
+            dataContext.OpenAddTourLog += (sender, ev) =>
+            {
+                AddTourLogWindow addTourLogW = new AddTourLogWindow();
+                addTourLogW.Init(dataContext.Save);
+                addTourLogW.ShowDialog();
+            };
+
+            dataContext.OpenEditTourLog += (sender, ev) =>
+            {
+                EditTourLogWindow editTourLogW = new EditTourLogWindow();
+                editTourLogW.Edit(dataContext.CurrentTourLog, dataContext.UpdateList);
+                editTourLogW.ShowDialog();
+            };
         }
     }
 }

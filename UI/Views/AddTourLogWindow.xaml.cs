@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TourplannerModel;
+using UI.ViewModels;
 
 namespace UI.Views
 {
@@ -22,6 +24,14 @@ namespace UI.Views
         public AddTourLogWindow()
         {
             InitializeComponent();
+        }
+        public void Init(Action<TourLogModel> save)
+        {
+            var mainWindow = this.DataContext as AddTourLogViewModel;
+            mainWindow.SetValues();
+            mainWindow.AddEvent += (o) => save(o);
+            mainWindow.AddEvent += (o) => this.DialogResult = true;
+            mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
     }
 }

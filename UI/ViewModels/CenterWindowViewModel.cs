@@ -19,7 +19,12 @@ namespace UI.ViewModels
             sideMenuViewModel.currentTourChangedAction += HandleCurrentTourChange;
             _displayInfoViewModel = displayInfoViewModel;
             _displayRouteViewModel = displayRouteViewModel;
-            /*currentTourChangedAction += sideMenuViewModel.currentTourChangedAction = (tour) =>
+            
+        }
+
+        private void HandleCurrentTourChange(TourModel tour)
+        {
+            if(tour != null)
             {
                 currentTour = tour;
                 _displayInfoViewModel.currentTour = currentTour;
@@ -27,18 +32,8 @@ namespace UI.ViewModels
 
                 _displayInfoViewModel.GetInfoView();
                 _displayRouteViewModel.GetRouteView();
-            };*/
-            
-        }
-
-        private void HandleCurrentTourChange(TourModel tour)
-        {
-            currentTour = tour;
-            _displayInfoViewModel.currentTour = currentTour;
-            _displayRouteViewModel.currentTour = currentTour;
-
-            _displayInfoViewModel.GetInfoView();
-            _displayRouteViewModel.GetRouteView();
+            }
+           
         }
 
         public Action<TourModel> currentTourChangedAction;
