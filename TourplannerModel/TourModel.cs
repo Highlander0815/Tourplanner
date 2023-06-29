@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using System.Collections.ObjectModel;
 
 namespace TourplannerModel
 {
@@ -17,7 +18,7 @@ namespace TourplannerModel
         
         }
         public int Id { get; private set; }
-        public ICollection<TourLogModel> TourLogs { get; set; } = null!;
+        public ObservableCollection<TourLogModel> TourLogs { get; set; } = new ObservableCollection<TourLogModel>();
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string From { get; set; } = null!;

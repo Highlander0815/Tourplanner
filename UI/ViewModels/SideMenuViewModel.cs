@@ -17,7 +17,7 @@ namespace UI.ViewModels
     public class SideMenuViewModel : ViewModelBase
     {
         //Actions
-        public Action<TourModel> currentTourChangedAction;
+        public event Action<TourModel> currentTourChangedAction;
 
         //Events
         public event EventHandler OpenAddTour;

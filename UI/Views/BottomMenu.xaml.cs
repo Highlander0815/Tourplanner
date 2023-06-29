@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiNET.Worlds;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TourplannerModel;
+using UI.ViewModels;
 
 namespace UI.Views
 
@@ -24,10 +27,10 @@ namespace UI.Views
         {
             InitializeComponent();
         }
-        private void AddTourLog(object sender, RoutedEventArgs e)
+
+        private void DataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
-            AddTourLogWindow addTourLogWindow = new AddTourLogWindow();
-            addTourLogWindow.Show();
+            e.NewItem = new TourLogModel(DifficultyEnum.Beginner, TimeSpan.Zero, 1);
         }
     }
 }

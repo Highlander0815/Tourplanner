@@ -31,6 +31,7 @@ namespace UI
             services.AddSingleton<CreateTourLogViewModel>();
             services.AddSingleton<MenuViewModel>();
             services.AddSingleton<TourViewModel>();
+            services.AddSingleton<TourLogViewModel>();
             // whenever an IArgumentHandler is required, the service will inject a CommandLineArgumentHandler
             // it will always provide the same CommandLineArgumentHandler instance, because we register it as a singleton
             /*services.AddSingleton<IArgumentHandler, CommandLineArgumentHandler>();*/
@@ -63,6 +64,7 @@ namespace UI
         public CreateTourLogViewModel CreateTourLogViewModel => _serviceProvider.GetService<CreateTourLogViewModel>();
         public MenuViewModel MenuViewModel => _serviceProvider.GetService<MenuViewModel>();
         public TourViewModel TourViewModel => _serviceProvider.GetService<TourViewModel>();
+        public TourLogViewModel TourLogViewModel => _serviceProvider.GetService<TourLogViewModel>();
         //public MainViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
     }
 }

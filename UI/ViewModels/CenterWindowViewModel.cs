@@ -16,9 +16,10 @@ namespace UI.ViewModels
     {
         public CenterWindowViewModel(SideMenuViewModel sideMenuViewModel, DisplayInfoViewModel displayInfoViewModel, DisplayRouteViewModel displayRouteViewModel)
         {
+            sideMenuViewModel.currentTourChangedAction += HandleCurrentTourChange;
             _displayInfoViewModel = displayInfoViewModel;
             _displayRouteViewModel = displayRouteViewModel;
-            currentTourChangedAction = sideMenuViewModel.currentTourChangedAction = (tour) =>
+            /*currentTourChangedAction += sideMenuViewModel.currentTourChangedAction = (tour) =>
             {
                 currentTour = tour;
                 _displayInfoViewModel.currentTour = currentTour;
@@ -26,9 +27,20 @@ namespace UI.ViewModels
 
                 _displayInfoViewModel.GetInfoView();
                 _displayRouteViewModel.GetRouteView();
-            };
+            };*/
             
         }
+
+        private void HandleCurrentTourChange(TourModel tour)
+        {
+            currentTour = tour;
+            _displayInfoViewModel.currentTour = currentTour;
+            _displayRouteViewModel.currentTour = currentTour;
+
+            _displayInfoViewModel.GetInfoView();
+            _displayRouteViewModel.GetRouteView();
+        }
+
         public Action<TourModel> currentTourChangedAction;
         private DisplayInfoViewModel _displayInfoViewModel;
         private DisplayRouteViewModel _displayRouteViewModel;

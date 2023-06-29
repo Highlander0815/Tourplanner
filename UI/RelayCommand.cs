@@ -16,6 +16,9 @@ namespace UI
             : this(_ => execute(), canExecute)
         {
         }
+        public RelayCommand()
+        {
+        }
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {

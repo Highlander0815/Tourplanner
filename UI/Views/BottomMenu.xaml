@@ -23,15 +23,51 @@
                     <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Tour Logs"></Label>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="+" Click="AddTourLog" Command="{Binding FillWithData}"></Button>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="-"></Button>
-                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="4" Content="..."></Button>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="+" Command="{Binding AddTourLog}"/>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="-" Command="{Binding DeleteTourLog}"/>
+                <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="4" Content="..." Command="{Binding EditTourLog}"/>
                 <Label Grid.Row="1" Grid.ColumnSpan="5" HorizontalAlignment="Left">
-                    <DataGrid x:Name="dgTours" AlternatingRowBackground="Gray">
+                    <DataGrid ItemsSource="{Binding TourLogs}"  RowDetailsVisibilityMode="Collapsed" AutoGenerateColumns="False" SelectedItem="{Binding CurrentTourLog}" AddingNewItem="DataGrid_AddingNewItem">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" />
-                            <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" />
-                            <DataGridTextColumn Header="Distance" Binding="{Binding Distance}" />
+                            <DataGridTemplateColumn Header="Date">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Time">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Difficulty">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Difficulty, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Total Time">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TotalTime, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Rating">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Label>
