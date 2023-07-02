@@ -80,6 +80,10 @@ namespace UI.ViewModels
             {
                 this.OpenEditTour?.Invoke(this, EventArgs.Empty);
             }
+            else
+            {
+                ShowMessageBox("No tour selected");
+            }
         }
 
         private void Delete()
@@ -91,13 +95,7 @@ namespace UI.ViewModels
             }
             else
             {
-                string msgBoxText = "No tour selected!";
-                string caption = "Warning";
-                MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result;
-
-                result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
+                ShowMessageBox("No tour selected");
             }
         }
 
@@ -118,6 +116,15 @@ namespace UI.ViewModels
                 //noch ka was dann passiert
             }
         }
+        private void ShowMessageBox(string msg)
+        {
+            string msgBoxText = msg;
+            string caption = "Warning";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
 
+            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
+        }
     }
 }

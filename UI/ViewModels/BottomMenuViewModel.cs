@@ -98,7 +98,7 @@ namespace UI.ViewModels
             }
             else
             {
-                ShowMessageBox("No tour selected!");
+                ShowMessageBox("No log selected!");
             }
             
         }
