@@ -24,14 +24,14 @@ namespace UI.ViewModels
 
         public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
 
-        private DateTime _date;
-        public DateTime Date
+        private DateTime _dateTime;
+        public DateTime DateTime
         {
-            get { return _date; }
+            get { return _dateTime; }
             set
             {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
+                _dateTime = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+                OnPropertyChanged(nameof(DateTime));
             }
         }
 
@@ -80,13 +80,12 @@ namespace UI.ViewModels
         }
         public EditTourLogViewModel()
         {
-            Date = DateTime.Now;
-            Time = TimeOnly.FromDateTime(DateTime.Now);
+            DateTime = DateTime.Now;
         }
 
         private async void EditTour()
         {
-            TourLogModel tourLog = new TourLogModel(DateOnly.FromDateTime(_date), _time, _difficulty, _totalTime, _rating);
+            TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating);
       
             this.SubmitAction?.Invoke(tourLog);
         }

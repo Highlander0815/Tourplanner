@@ -18,9 +18,7 @@
 
     <StackPanel>
         <Label Content="Date"></Label>
-        <DatePicker Margin="5 0" Name="Date" SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Content="Time"></Label>
-        <tool:TimeSpanUpDown Margin="5 0" Name="Time" Text="{Binding Time, StringFormat=HH\\:mm\\:ss, UpdateSourceTrigger=PropertyChanged}"/>
+        <tool:DateTimePicker Margin="5 0" Name="DateTime" Value="{Binding DateTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         <Label Content="Difficulty"></Label>
         <ComboBox Margin="5 0" ItemsSource="{Binding DifficultyOptions}" SelectedItem="{Binding Difficulty}" />
         <Label Content="Total Time"></Label>
@@ -31,4 +29,5 @@
         <Button Content="Cancel" Background="Red" Command="{Binding CancelCommand}"/>
 
     </StackPanel>
+
 </Window>

@@ -28,10 +28,9 @@ namespace UI.Views
         public void Edit(TourLogModel currentTourLog, Action<TourLogModel> update)
         {
             var mainWindow = this.DataContext as EditTourLogViewModel;
-
-            DateTime date = new DateTime(currentTourLog.Date.Year, currentTourLog.Date.Month, currentTourLog.Date.Day);
-            mainWindow.Date = date;
-            mainWindow.Time = currentTourLog.Time;
+          
+            
+            mainWindow.DateTime = currentTourLog.DateTime;
             mainWindow.Difficulty = currentTourLog.Difficulty;
             mainWindow.TotalTime = currentTourLog.TotalTime;
             mainWindow.Rating = currentTourLog.Rating;

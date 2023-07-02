@@ -30,25 +30,14 @@ namespace UI.ViewModels
         private SideMenuViewModel _sideMenuViewModel;
 
         private TourModel _currentTour;
-        private DateTime _date;
-        public DateTime Date
+        private DateTime _dateTime;
+        public DateTime DateTime
         {
-            get { return _date; }
+            get { return _dateTime; }
             set
             {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
-            }
-        }
-
-        private TimeOnly _time;
-        public TimeOnly Time
-        {
-            get { return _time; }
-            set
-            {
-                _time = value;
-                OnPropertyChanged(nameof(Time));
+                _dateTime = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+                OnPropertyChanged(nameof(DateTime));
             }
         }
 
@@ -94,7 +83,7 @@ namespace UI.ViewModels
 
         private void AddTourLog()
         {
-            TourLogModel tourLog = new TourLogModel(DateOnly.FromDateTime(_date), _time, _difficulty, _totalTime, _rating, _currentTour);
+            TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating, _currentTour);
             _tourLogHandler.AddTourLog(tourLog);
             this.AddEvent?.Invoke();
         }
@@ -106,10 +95,7 @@ namespace UI.ViewModels
 
         public void SetValues()
         {
-            //Date = DateOnly.FromDateTime(DateTime.Today);
-            Time = TimeOnly.FromDateTime(DateTime.Now);
-            Date = DateTime.Now;
-            
+            DateTime = DateTime.Now;
         }
     }
 }

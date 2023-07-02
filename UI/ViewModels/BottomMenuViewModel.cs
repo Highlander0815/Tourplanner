@@ -60,11 +60,6 @@ namespace UI.ViewModels
                 }
             }
         }
-        // Difficulty-Optionen
-        public List<DifficultyEnum> DifficultyOptions { get; } = Enum.GetValues(typeof(DifficultyEnum)).Cast<DifficultyEnum>().ToList();
-
-        // Rating-Optionen
-        public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
 
         //Events
         public event EventHandler OpenAddTourLog;
