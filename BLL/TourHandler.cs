@@ -7,9 +7,9 @@ namespace BLL
     public class TourHandler
     {
         private ITourRepository tourRepository;
-        public TourHandler(IConfiguration configuration)
+        public TourHandler(TourplannerContext tourplannerContext)
         {
-            tourRepository = new TourRepository(new TourplannerContext(configuration));
+            tourRepository = new TourRepository(tourplannerContext);            
         }
         public void AddTour(TourModel tourmodel)
         {

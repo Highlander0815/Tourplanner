@@ -26,6 +26,10 @@ namespace UI.ViewModels
 
         public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
 
+        private TourLogHandler _tourLogHandler;
+        private SideMenuViewModel _sideMenuViewModel;
+
+        private TourModel _currentTour;
         private DateTime _date;
         public DateTime Date
         {
@@ -81,16 +85,18 @@ namespace UI.ViewModels
             }
         }
 
-        public AddTourLogViewModel()
+        public AddTourLogViewModel(TourLogHandler tourLogHandler, SideMenuViewModel sideMenuViewModel)
         {
-
+            _tourLogHandler = tourLogHandler;
+            _sideMenuViewModel = sideMenuViewModel;
+            _currentTour = sideMenuViewModel.CurrentTour;
         }
 
         private async void AddTourLog()
         {
-            TourLogModel tour = new TourLogModel(DateOnly.FromDateTime(_date), _time, _difficulty, _totalTime, _rating);
-
-            this.AddEvent?.Invoke(tour);
+            TourLogModel tourLog = new TourLogModel(DateOnly.FromDateTime(_date), _time, _difficulty, _totalTime, _rating, _currentTour);
+            _tourLogHandler.AddTourLog(tourLog);
+            this.AddEvent?.Invoke(tourLog);
         }
 
         private void Cancel()

@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Microsoft.Extensions.Configuration;
+using System.Data.Entity;
 using TourplannerModel;
 
 namespace BLL
@@ -7,9 +8,9 @@ namespace BLL
     public class TourLogHandler
     {
         private ITourLogRepository tourLogRepository;
-        public TourLogHandler(IConfiguration configuration)
+        public TourLogHandler(TourplannerContext tourplannerContext)
         {
-            tourLogRepository = new TourLogRepository(new TourplannerContext(configuration));
+            tourLogRepository = new TourLogRepository(tourplannerContext);
         }
         public void AddTourLog(TourLogModel tourlogmodel)
         {

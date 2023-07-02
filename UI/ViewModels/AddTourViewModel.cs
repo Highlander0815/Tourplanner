@@ -21,7 +21,8 @@ namespace UI.ViewModels
     {
         public event Action<TourModel> AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
-        private TourManager _tourManager; 
+        private TourManager _tourManager;
+        private TourHandler _tourHandler;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -29,7 +30,6 @@ namespace UI.ViewModels
         
         private RelayCommand _cancelCommand = null;
         public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
-
 
         private readonly TourModel _tour;
         private string _name;
@@ -83,16 +83,18 @@ namespace UI.ViewModels
             }
         }
 
-        public AddTourViewModel()
+        public AddTourViewModel(TourHandler tourHandler)
         {
+            _tourHandler = tourHandler;
         } 
 
         private async void AddTour()
         {
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);
-            _tourManager = new TourManager(tour);
+            _tourManager = new TourManager(tour);            
             Task<TourModel> result = _tourManager.Rest.Request(tour);
             tour = await result;
+            _tourHandler.AddTour(tour);            
             this.AddEvent?.Invoke(tour);
         }
 

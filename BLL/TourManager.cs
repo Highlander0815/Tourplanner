@@ -1,5 +1,4 @@
 ﻿using TourplannerModel;
-using TourplannerModel;
 
 namespace BLL
 {

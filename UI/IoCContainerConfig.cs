@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using UI.ViewModels;
-using System.ComponentModel;
+using Microsoft.Extensions.Configuration;
+using DAL;
+using BLL;
+using Microsoft.EntityFrameworkCore;
 
 namespace UI
 {
     public class IoCContainerConfig
     {
+        IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+
         private readonly ServiceProvider _serviceProvider;
 
-        /// <summary>
-        /// Builds the IoC service provider, see also App.xaml which instantiates it as a resource
-        /// </summary>
         public IoCContainerConfig()
         {
             var services = new ServiceCollection();
+
+            services.AddDbContext<TourplannerContext>(options => options.UseNpgsql(configuration.GetConnectionString("TourDb")));
+            services.AddSingleton<TourHandler>();
+            services.AddSingleton<TourLogHandler>();
+
             //services.AddSingleton(typeof(IServiceProvider));
-            services.AddSingleton<MainWindowViewModel>(); //Add Sigleton besteht nur einmal //AddTransient wird erstellt und wenn ich es nimmer brauche wird es gelöscht
+            services.AddSingleton<DbManager>();
+            services.AddSingleton<MainWindowViewModel>(); 
             
             services.AddSingleton<SideMenuViewModel>();
             services.AddTransient<AddTourViewModel>();
@@ -38,44 +41,28 @@ namespace UI
             services.AddSingleton<MenuViewModel>();
             services.AddSingleton<TourViewModel>();
             services.AddSingleton<TourLogViewModel>();
-            // whenever an IArgumentHandler is required, the service will inject a CommandLineArgumentHandler
-            // it will always provide the same CommandLineArgumentHandler instance, because we register it as a singleton
-            /*services.AddSingleton<IArgumentHandler, CommandLineArgumentHandler>();*/
 
-            // same for ICommunicationHandler, IContentInterpreter, IFilterHandler
-            /*services.AddSingleton<ICommunicationHandler, NetworkCommunicationHandler>();
-            services.AddSingleton<IContentInterpreter, HTTPOutputInterpreter>();
-            services.AddSingleton<IFilterHandler, CsvBasedFilter>();*/
-
-            // register the MainViewModel as well, the ServiceProvider will provide the constructor parameters
-            // for the MainViewModel based on the configuration above
-            /*services.AddSingleton<MainViewModel>();*/
-
-            // finish configuration and build the provider
-            /*_serviceProvider = services.BuildServiceProvider();*/
             _serviceProvider = services.BuildServiceProvider();
         }
+        public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetRequiredService<MainWindowViewModel>();
 
-        /// <summary>
-        /// Getter for retrieving and binding the MainViewModel in MainWindow.xaml as its DataContext
-        /// </summary>
-        public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetService<MainWindowViewModel>();
+        public TourHandler TourHandler => _serviceProvider.GetRequiredService<TourHandler>();
+        public TourLogHandler TourLogHandler => _serviceProvider.GetRequiredService<TourLogHandler>();
 
-
-        public SideMenuViewModel SideMenuViewModel => _serviceProvider.GetService<SideMenuViewModel>(); //hier wird 
-        public AddTourViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
-        public EditTourViewModel EditTourViewModel => _serviceProvider.GetService<EditTourViewModel>();
+        public SideMenuViewModel SideMenuViewModel => _serviceProvider.GetRequiredService<SideMenuViewModel>();
+        public AddTourViewModel AddTourViewModel => _serviceProvider.GetRequiredService<AddTourViewModel>();
+        public EditTourViewModel EditTourViewModel => _serviceProvider.GetRequiredService<EditTourViewModel>();
        
-        public BottomMenuViewModel BottomMenuViewModel => _serviceProvider.GetService<BottomMenuViewModel>();
-        public AddTourLogViewModel AddTourLogViewModel => _serviceProvider.GetService<AddTourLogViewModel>();
-        public EditTourLogViewModel EditTourLogViewModel => _serviceProvider.GetService<EditTourLogViewModel>();
-        public CenterWindowViewModel CenterWindowViewModel => _serviceProvider.GetService<CenterWindowViewModel>();
-        public DisplayRouteViewModel DisplayRouteViewModel => _serviceProvider.GetService<DisplayRouteViewModel>();
-        public DisplayInfoViewModel DisplayInfoViewModel => _serviceProvider.GetService<DisplayInfoViewModel>();
+        public BottomMenuViewModel BottomMenuViewModel => _serviceProvider.GetRequiredService<BottomMenuViewModel>();
+        public AddTourLogViewModel AddTourLogViewModel => _serviceProvider.GetRequiredService<AddTourLogViewModel>();
+        public EditTourLogViewModel EditTourLogViewModel => _serviceProvider.GetRequiredService<EditTourLogViewModel>();
+        public CenterWindowViewModel CenterWindowViewModel => _serviceProvider.GetRequiredService<CenterWindowViewModel>();
+        public DisplayRouteViewModel DisplayRouteViewModel => _serviceProvider.GetRequiredService<DisplayRouteViewModel>();
+        public DisplayInfoViewModel DisplayInfoViewModel => _serviceProvider.GetRequiredService<DisplayInfoViewModel>();
         
-        public MenuViewModel MenuViewModel => _serviceProvider.GetService<MenuViewModel>();
-        public TourViewModel TourViewModel => _serviceProvider.GetService<TourViewModel>();
-        public TourLogViewModel TourLogViewModel => _serviceProvider.GetService<TourLogViewModel>();
+        public MenuViewModel MenuViewModel => _serviceProvider.GetRequiredService<MenuViewModel>();
+        public TourViewModel TourViewModel => _serviceProvider.GetRequiredService<TourViewModel>();
+        public TourLogViewModel TourLogViewModel => _serviceProvider.GetRequiredService<TourLogViewModel>();
         //public MainViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
     }
 }
