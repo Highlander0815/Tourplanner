@@ -8,7 +8,7 @@ namespace DAL
     {
         protected readonly IConfiguration Configuration;
 
-        public TourplannerContext(IConfiguration configuration)
+        public TourplannerContext(IConfiguration configuration) //genau hier wird System.TypeInitializationException geworfen wenn man db nicht gestartet hat
         {
             Configuration = configuration;
         }

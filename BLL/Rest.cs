@@ -15,6 +15,7 @@ using static System.Drawing.Image;
 using Newtonsoft.Json;
 using System.Threading.Tasks.Dataflow;
 using System.Linq.Expressions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace BLL
 {
@@ -28,8 +29,17 @@ namespace BLL
         public async Task<TourModel> Request(TourModel tour)
         {
             _client = new HttpClient();
+            string transportType = "";
+            if(tour.TransportType == "car") //the rest of the selection possibilities are named like on the website so it has not to be changed before requesting
+            {
+                transportType = "fastest";
+            }
+            else
+            {
+                transportType = tour.TransportType;
+            }
             string key = "vGz1EP3woj6YXCYOmGDSoh9RFcmWnzdq"; //configureation file 
-            string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(tour.From)}&end={Uri.EscapeDataString(tour.To)}&size=600,400&key={key}";
+            string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(tour.From)}&end={Uri.EscapeDataString(tour.To)}&size=600,400&key={key}&routeType={transportType}";
             string routeDataURL = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={Uri.EscapeDataString(tour.From)}&to={Uri.EscapeDataString(tour.To)}";
 
 
@@ -42,8 +52,6 @@ namespace BLL
                    
 
                     tour.Image = ByteArrayToImage(imageBytes, tour);
-
-                // Prozessieren Sie die Bildbytes nach Bedarf (z.B. speichern Sie sie in einer Datei oder zeigen Sie sie in einem Image-Steuerelement an)
             }
             else
             {
@@ -57,12 +65,6 @@ namespace BLL
 
                 tour.EstimatedTime = jsonData["route"]["formattedTime"];
                 tour.TourDistance = jsonData["route"]["distance"];
-                
-
-                
-
-
-                // Prozessieren Sie die Bildbytes nach Bedarf (z.B. speichern Sie sie in einer Datei oder zeigen Sie sie in einem Image-Steuerelement an)
             }
             else
             {
@@ -77,10 +79,8 @@ namespace BLL
             {
                 var image = Image.FromStream(memoryStream);
                 string name = tour.Name;
-                //string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BLL");
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), name);
-                //string filePath = Path.Combine("\\Tourplanner\\UI", name);
-                image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png); //change it to a relative path
+                image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png); 
                 return filePath;
             }
         }

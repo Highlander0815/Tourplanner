@@ -33,5 +33,10 @@ namespace UI.Views
             mainWindow.AddEvent += (o) => this.DialogResult = true;   
             mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
+
+        /*private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }*/
     }
 }

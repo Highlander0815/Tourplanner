@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UI.Views"
+        xmlns:local="clr-namespace:UI.Views" 
+        xmlns:sys="http://schemas.microsoft.com/winfx/2009/xaml"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         Title="Add Tour" Height="300" Width="400"
@@ -73,7 +74,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Margin="50,0,0,5" Grid.Row="0" Grid.Column="0" Content="TransportType"/>
-            <TextBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="1" Text ="{Binding TransportType, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Margin="0,0,50,5" Grid.Row="0" Grid.Column="2" SelectedItem="{Binding TransportType}" ItemsSource="{Binding TransportTypes, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!--Buttons gehören noch gestylt-->
