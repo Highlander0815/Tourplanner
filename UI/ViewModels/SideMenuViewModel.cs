@@ -67,7 +67,7 @@ namespace UI.ViewModels
         //private Methods
         private void OpenAddTourW()
         {
-            this.OpenAddTour?.Invoke(this, EventArgs.Empty);
+            OpenAddTour?.Invoke(this, EventArgs.Empty);
         }
         private void Add(TourModel tour)
         {
@@ -78,7 +78,7 @@ namespace UI.ViewModels
         {
             if(_currentTour != null) 
             {
-                this.OpenEditTour?.Invoke(this, EventArgs.Empty);
+                OpenEditTour?.Invoke(this, EventArgs.Empty);
             }
             else
             {
@@ -90,6 +90,7 @@ namespace UI.ViewModels
         {
             if (_currentTour != null)
             {
+                _tourHandler.DeleteTour(_currentTour.Id);
                 _tours.Remove(_currentTour);
                 CurrentTour = null;
             }

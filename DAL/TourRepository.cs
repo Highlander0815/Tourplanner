@@ -24,7 +24,7 @@ namespace DAL
             context.Add(tour);
         }
         public void Update(TourModel tour)
-        {
+        {            
             context.Entry(tour).State = EntityState.Modified;
         }
         public void Delete(int tourId)

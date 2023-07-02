@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks.Dataflow;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL
 {
@@ -78,9 +79,10 @@ namespace BLL
             using (MemoryStream memoryStream = new MemoryStream(byteArray))
             {
                 var image = Image.FromStream(memoryStream);
-                string name = tour.Name;
+                string name = tour.Id.ToString();
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), name);
-                image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png); 
+                image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                
                 return filePath;
             }
         }
