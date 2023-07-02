@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Microsoft.Extensions.Configuration;
+using System.Collections.ObjectModel;
 using TourplannerModel;
 
 namespace BLL

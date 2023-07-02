@@ -28,10 +28,10 @@ namespace UI.Views
 
         public void Init(Action<TourModel> save)
         {
-            var mainWindow = this.DataContext as AddTourViewModel;
+            var mainWindow = DataContext as AddTourViewModel;
             mainWindow.AddEvent += (o) => save(o);
-            mainWindow.AddEvent += (o) => this.DialogResult = true;   
-            mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
+            mainWindow.AddEvent += (o) => DialogResult = true;   
+            mainWindow.CancelEvent += (o, e) => DialogResult = false;
         }
 
         /*private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

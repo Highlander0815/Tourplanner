@@ -17,7 +17,7 @@ namespace DAL
         }
         public TourLogModel GetTourLogById(int tourLogId)
         {
-            return context.Tourlogs.Find(tourLogId);
+            return context.Tourlogs.Find(tourLogId);        
         }
         public void Insert(TourLogModel tourlog)
         {

@@ -1,33 +1,21 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿using BLL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Markup;
+using System.Windows;
 using TourplannerModel;
 
 namespace UI.ViewModels
 {
     public class BottomMenuViewModel : ViewModelBase
     {
-
-        public BottomMenuViewModel(SideMenuViewModel sideMenuViewModel)
-        {
-            _currentTour = null;
-            currentTourLogChangedAction += HandleTourLogChange;
-            sideMenuViewModel.currentTourChangedAction += HandleTourChanged;
-        }
-
-
         //Actions
         public event Action<TourLogModel> currentTourLogChangedAction;
 
         private TourModel _currentTour; //has to be saved because the currentTour contains the TourLogs which should be displayed
+
+        private ObservableCollection<TourLogModel> _tourlogs;
 
         //List of TourLogs
         private ObservableCollection<TourLogModel> _tourLogs;
@@ -39,6 +27,20 @@ namespace UI.ViewModels
                 _tourLogs = value;
                 OnPropertyChanged(nameof(TourLogs));
             }
+        }
+
+
+        private TourLogHandler _tourLogHandler;
+        public BottomMenuViewModel(SideMenuViewModel sideMenuViewModel, TourLogHandler tourLogHandler)
+        {
+            currentTourLogChangedAction += HandleTourLogChange;
+            sideMenuViewModel.currentTourChangedAction += HandleTourChanged;
+
+            _tourlogs = new ObservableCollection<TourLogModel>();
+
+            _tourLogHandler = tourLogHandler;
+
+            _tourlogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
         }
 
         //current TourLog = Selected item in the dataGrid. Is needed to know the currentTourLog when you want to edit/delete it.
@@ -81,27 +83,35 @@ namespace UI.ViewModels
         private void OpenAddTourLogW()
         {
             if(_currentTour != null) //otherwise the new TourLog can not be added to a Tour
-                this.OpenAddTourLog?.Invoke(this, EventArgs.Empty);
+                OpenAddTourLog?.Invoke(this, EventArgs.Empty);
+            else
+            {
+                ShowMessageBox("No tour selected!");
+            }                
         }
 
         private void OpenEditTourLogW()
         {
             if(_currentTourLog != null) //if no tourLog is selected their is nothing which can be edited
             {
-                this.OpenEditTourLog?.Invoke(this, EventArgs.Empty);
+                OpenEditTourLog?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                ShowMessageBox("No tour selected!");
             }
             
         }
 
         private void Delete() 
         {
-            if (_tourLogs.Contains(_currentTourLog))
+            if (_tourLogs != null && _tourLogs.Contains(_currentTourLog))
             {
                 TourLogs.Remove(_currentTourLog);
             }
             else
             {
-                //noch implementieren //ka ob ma das überhaupt brauchen ich denke eigentlich müsste der TourLog immer Enthalten sein
+                ShowMessageBox("No log selected!");
             }
         }
 
@@ -135,6 +145,17 @@ namespace UI.ViewModels
                 TourLogs = tour.TourLogs;
                 _currentTourLog = null;
             }
+        }
+
+        private void ShowMessageBox(string msg)
+        {
+            string msgBoxText = msg;
+            string caption = "Warning";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+
+            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
     }
 }

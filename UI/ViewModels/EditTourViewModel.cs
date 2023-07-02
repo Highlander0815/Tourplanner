@@ -21,7 +21,7 @@ namespace UI.ViewModels
     {
         public event Action<TourModel> SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
-        private TourManager _tourManager; 
+        private RESTHandler _restHandler; 
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -93,8 +93,8 @@ namespace UI.ViewModels
         private async void EditTour()
         {
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);
-            _tourManager = new TourManager(tour);
-            Task<TourModel> result = _tourManager.Rest.Request(tour);
+            _restHandler = new RESTHandler();
+            Task<TourModel> result = _restHandler.Rest.Request(tour);
             tour = await result;
             _tour = tour;
             this.SubmitAction?.Invoke(_tour);

@@ -2,13 +2,11 @@
 
 namespace BLL
 {
-    public class TourManager
+    public class RESTHandler
     {
-        public TourModel Tour { get; set; }
         public Rest Rest { get; set; }  
-        public TourManager(TourModel tour) 
+        public RESTHandler()
         { 
-            this.Tour = tour;
             this.Rest = new Rest();
         }
     }

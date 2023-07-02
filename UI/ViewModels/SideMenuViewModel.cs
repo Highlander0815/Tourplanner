@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using BLL;
+using System.Windows;
 using TourplannerModel;
-using Microsoft.VisualBasic;
-using MiNET.Blocks;
-using TourplannerModel;
-using UI.Views;
 
 namespace UI.ViewModels
 {
@@ -32,7 +24,7 @@ namespace UI.ViewModels
         public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(Delete);
 
         //Attributes
-        private  ObservableCollection<TourModel> _tours;
+        private ObservableCollection<TourModel> _tours;
         public ObservableCollection<TourModel> Tours
         {
             get { return _tours; }
@@ -42,7 +34,6 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(Tours));
             }
         }
-
         
         //Tour
         private TourModel _currentTour;
@@ -62,13 +53,15 @@ namespace UI.ViewModels
         }
 
         //Constructor
-        public SideMenuViewModel()
+        private TourHandler _tourHandler;
+        public SideMenuViewModel(TourHandler tourHandler)
         {
             _tours = new ObservableCollection<TourModel>();
 
-            _tours.Add(new TourModel("test", "test", "test", "test", "test"));
-            _tours.Add(new TourModel("test1", "test1", "test1", "test1", "test1"));
-            _tours.Add(new TourModel("MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour", "MoreAdvancedTour"));
+            _tourHandler = tourHandler;
+            
+            //Retrieve existing Tours from db and display in SideMenu
+            _tours = new ObservableCollection<TourModel>(tourHandler.GetTours());
         }
 
         //private Methods
@@ -98,7 +91,13 @@ namespace UI.ViewModels
             }
             else
             {
-                //noch implementieren
+                string msgBoxText = "No tour selected!";
+                string caption = "Warning";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result;
+
+                result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
             }
         }
 

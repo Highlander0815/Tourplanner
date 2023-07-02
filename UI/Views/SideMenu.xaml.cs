@@ -40,7 +40,7 @@ namespace UI.Views
                 EditTourWindow editTourW = new EditTourWindow();
                 editTourW.Edit(dataContext.CurrentTour, dataContext.UpdateList);
                 editTourW.ShowDialog();
-            };
+            };            
         }
     }
 }

@@ -27,11 +27,11 @@ namespace UI.Views
         }
         public void Init(Action<TourLogModel> save)
         {
-            var mainWindow = this.DataContext as AddTourLogViewModel;
+            var mainWindow = DataContext as AddTourLogViewModel;
             mainWindow.SetValues();
             mainWindow.AddEvent += (o) => save(o);
-            mainWindow.AddEvent += (o) => this.DialogResult = true;
-            mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
+            mainWindow.AddEvent += (o) => DialogResult = true;
+            mainWindow.CancelEvent += (o, e) => DialogResult = false;
         }
     }
 }

@@ -24,6 +24,10 @@
             <Setter Property="Height" Value="22" />
             <Setter Property="Margin" Value="0 10 10 0" />
         </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Margin" Value="0 0 10 0" />
+        </Style>
     </Window.Resources>
     
     <StackPanel>        

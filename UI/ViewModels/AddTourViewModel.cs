@@ -21,7 +21,7 @@ namespace UI.ViewModels
     {
         public event Action<TourModel> AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
-        private TourManager _tourManager;
+        private RESTHandler _restHandler;
         private TourHandler _tourHandler;
 
         //Commands
@@ -36,7 +36,6 @@ namespace UI.ViewModels
             "bicycle",
             "pedestrian"
         };
-        private readonly TourModel _tour;
         private string _name;
         public string Name
         {
@@ -96,8 +95,8 @@ namespace UI.ViewModels
         private async void AddTour()
         {
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);
-            _tourManager = new TourManager(tour);            
-            Task<TourModel> result = _tourManager.Rest.Request(tour);
+            _restHandler = new RESTHandler();
+            Task<TourModel> result = _restHandler.Rest.Request(tour);
             tour = await result;
             _tourHandler.AddTour(tour);            
             this.AddEvent?.Invoke(tour);
