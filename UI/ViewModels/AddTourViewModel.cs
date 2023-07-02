@@ -30,7 +30,12 @@ namespace UI.ViewModels
         
         private RelayCommand _cancelCommand = null;
         public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
-
+        public ObservableCollection<string> TransportTypes { get; set; } = new ObservableCollection<string>()
+        {
+            "car",
+            "bicycle",
+            "pedestrian"
+        };
         private readonly TourModel _tour;
         private string _name;
         public string Name
