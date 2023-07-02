@@ -33,11 +33,14 @@ namespace UI.ViewModels
         {
             if (currentTour != null)
             {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = new Uri(currentTour.Image);
-                image.EndInit();
-                CurrentTourImage = image;
+                if (currentTour.Image != null)
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri(currentTour.Image);
+                    image.EndInit();
+                    CurrentTourImage = image;
+                }
             }
 
         }

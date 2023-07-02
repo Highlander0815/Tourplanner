@@ -105,11 +105,6 @@ namespace UI.ViewModels
             }
         }
 
-        public void Save(TourLogModel tourLog)
-        {
-            //TourLogs.Add(tourLog); //add it to the DataGrid
-            _currentTour.TourLogs.Add(tourLog); //Add the new TourLog to the Tour
-        }
         public void UpdateList(TourLogModel tourLog)
         {
             if (_tourLogs.Contains(_currentTourLog))
