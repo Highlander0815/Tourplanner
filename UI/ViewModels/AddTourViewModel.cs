@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using UI.Commands;
 using TourplannerModel;
-using UI.ViewModels;
 using System.Collections.ObjectModel;
-using System.Threading.Channels;
-using Tourplanner;
-using System.ComponentModel;
 using BLL;
 
 
