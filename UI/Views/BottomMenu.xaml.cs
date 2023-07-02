@@ -34,7 +34,7 @@ namespace UI.Views
             dataContext.OpenAddTourLog += (sender, ev) =>
             {
                 AddTourLogWindow addTourLogW = new AddTourLogWindow();
-                addTourLogW.Init(dataContext.Save);
+                addTourLogW.Init();
                 addTourLogW.ShowDialog();
             };
 

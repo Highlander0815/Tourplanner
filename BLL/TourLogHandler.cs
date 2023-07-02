@@ -35,5 +35,11 @@ namespace BLL
         {
             return tourLogRepository.GetTourLogById(id);
         }
+
+        //DataValidation
+        public bool DataValidation(TourLogModel tourLog) 
+        {
+            return true;
+        }
     }
 }

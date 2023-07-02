@@ -12,7 +12,7 @@ namespace UI.ViewModels
     public class AddTourLogViewModel : ViewModelBase
     {
 
-        public event Action<TourLogModel> AddEvent; //event which will be fired by the SubmitButton
+        public event Action AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
 
         //Commands
@@ -92,11 +92,11 @@ namespace UI.ViewModels
             _currentTour = sideMenuViewModel.CurrentTour;
         }
 
-        private async void AddTourLog()
+        private void AddTourLog()
         {
             TourLogModel tourLog = new TourLogModel(DateOnly.FromDateTime(_date), _time, _difficulty, _totalTime, _rating, _currentTour);
             _tourLogHandler.AddTourLog(tourLog);
-            this.AddEvent?.Invoke(tourLog);
+            this.AddEvent?.Invoke();
         }
 
         private void Cancel()
@@ -107,9 +107,9 @@ namespace UI.ViewModels
         public void SetValues()
         {
             //Date = DateOnly.FromDateTime(DateTime.Today);
-            Date = DateTime.Now;
             Time = TimeOnly.FromDateTime(DateTime.Now);
-            Difficulty = DifficultyEnum.Advance;
+            Date = DateTime.Now;
+            
         }
     }
 }

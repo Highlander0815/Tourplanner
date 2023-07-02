@@ -39,8 +39,8 @@ namespace BLL
                 transportType = tour.TransportType;
             }
             string key = "vGz1EP3woj6YXCYOmGDSoh9RFcmWnzdq"; //configureation file 
-            string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(tour.From)}&end={Uri.EscapeDataString(tour.To)}&size=600,400&key={key}&routeType={transportType}";
-            string routeDataURL = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={Uri.EscapeDataString(tour.From)}&to={Uri.EscapeDataString(tour.To)}";
+            string routeImageURL = $"https://www.mapquestapi.com/staticmap/v5/map?start={Uri.EscapeDataString(tour.From)}&end={Uri.EscapeDataString(tour.To)}&size=600,400&key={key}";
+            string routeDataURL = $"https://www.mapquestapi.com/directions/v2/route?key={key}&from={Uri.EscapeDataString(tour.From)}&to={Uri.EscapeDataString(tour.To)}&routeType={transportType}";
 
 
             HttpResponseMessage response = await _client.GetAsync(routeImageURL);
