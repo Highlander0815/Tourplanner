@@ -9,7 +9,7 @@ namespace UI.ViewModels
 {
     public class EditTourViewModel : ViewModelBase
     {
-        public event Action<TourModel> currentTourChangedAction;
+        private SideMenuViewModel _sideMenuViewModel;
         public event Action<TourModel> SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private RESTHandler _restHandler;
@@ -23,28 +23,10 @@ namespace UI.ViewModels
         public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
 
         private TourModel _tour;
-        private TourModel _currentTour;
         public TourModel Tour
         {  get { return _tour; } 
            set { _tour = value; }
         }
-
-        public TourModel CurrentTour
-        {
-            get
-            {
-                return _currentTour;
-            }
-            set
-            {
-                if (_currentTour != value)
-                {
-                    _currentTour = value;
-                    currentTourChangedAction?.Invoke(_currentTour);
-                }
-            }
-        }
-
         private string _name;
         public string Name
         {
@@ -95,23 +77,30 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(TransportType));
             }
         }
-        public EditTourViewModel(TourHandler tourHandler)
+        public EditTourViewModel(SideMenuViewModel sideMenuViewModel, TourHandler tourHandler)
         {
+            _sideMenuViewModel = sideMenuViewModel;
             _restHandler = new RESTHandler();
             _tourHandler = tourHandler;
         }
 
         private async void EditTour()
         {
-            _tour.Name = _name;
-            _tour.Description = _description;
-            _tour.From = _from;                
-            _tour.To = _to;
-            _tour.Description = _description;
-            Task<TourModel> result = _restHandler.Rest.Request(_tour);
-            _tour = await result;
-            _tourHandler.UpdateTour(_tour);
-            SubmitAction?.Invoke(_tour);
+            /*TourModel tour = new TourModel(Name, Description, From, To, TransportType);
+            _restHandler = new RESTHandler();
+            Task<TourModel> result = _restHandler.Rest.Request(tour);
+            tour = await result;
+            _tour = tour;*/
+            TourModel currentTour = _sideMenuViewModel.CurrentTour; //Zeile 101 bis 108 ist neuer code und muss eventuell wieder gelöscht werden
+            currentTour.Name = _name;
+            currentTour.Description = _description;
+            currentTour.From = _from;
+            currentTour.To = _to;
+            _restHandler = new RESTHandler();
+            Task<TourModel> result = _restHandler.Rest.Request(currentTour);
+            currentTour = await result;
+            _tourHandler.UpdateTour(currentTour);
+            this.SubmitAction?.Invoke(currentTour);
         }
 
         private void Cancel()

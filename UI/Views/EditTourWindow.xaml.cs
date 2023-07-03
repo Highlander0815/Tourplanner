@@ -15,7 +15,7 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        public void Edit(TourModel currentTour, Action<TourModel> update)
+        public void Edit(TourModel currentTour/*, Action<TourModel> update*/)
         {
             var mainWindow = this.DataContext as EditTourViewModel;
 
@@ -26,7 +26,7 @@ namespace UI.Views
             mainWindow.To = currentTour.To;
             mainWindow.TransportType = currentTour.TransportType;
 
-            mainWindow.SubmitAction += (tour) => update(tour);
+            //mainWindow.SubmitAction += (tour) => update(tour);
             mainWindow.SubmitAction += (tour) => this.DialogResult = true;   
             mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
