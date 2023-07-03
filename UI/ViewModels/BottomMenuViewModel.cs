@@ -133,8 +133,14 @@ namespace UI.ViewModels
             {
                 _currentTour = tour;
                 TourLogs = tour.TourLogs;
-                _currentTourLog = null;
+                
             }
+            else
+            {
+                _currentTour = null;
+                TourLogs = null;
+            }
+            CurrentTourLog = null;
         }
 
         private void ShowMessageBox(string msg)

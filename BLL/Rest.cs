@@ -78,7 +78,7 @@ namespace BLL
             using (MemoryStream memoryStream = new MemoryStream(byteArray))
             {
                 var image = Image.FromStream(memoryStream);
-                string name = tour.Name;
+                string name = tour.Id.ToString();
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), name);
                 image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png); 
                 return filePath;
