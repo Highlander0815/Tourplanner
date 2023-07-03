@@ -19,7 +19,6 @@ namespace UI.ViewModels
 {
     public class EditTourViewModel : ViewModelBase
     {
-        private SideMenuViewModel _sideMenuViewModel;
         public event Action<TourModel> SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private RESTHandler _restHandler; 
@@ -86,27 +85,19 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(TransportType));
             }
         }
-        public EditTourViewModel(SideMenuViewModel sideMenuViewModel)
+        public EditTourViewModel()
         {
-            _sideMenuViewModel = sideMenuViewModel;
+            
         }
 
         private async void EditTour()
         {
-            /*TourModel tour = new TourModel(Name, Description, From, To, TransportType);
+            TourModel tour = new TourModel(Name, Description, From, To, TransportType);
             _restHandler = new RESTHandler();
             Task<TourModel> result = _restHandler.Rest.Request(tour);
             tour = await result;
-            _tour = tour;*/
-            TourModel currentTour = _sideMenuViewModel.CurrentTour; //Zeile 101 bis 108 ist neuer code und muss eventuell wieder gelöscht werden
-            currentTour.Name = _name;
-            currentTour.Description = _description;
-            currentTour.From = _from;
-            currentTour.To = _to;
-            _restHandler = new RESTHandler();
-            Task<TourModel> result = _restHandler.Rest.Request(currentTour);
-            currentTour = await result;
-            this.SubmitAction?.Invoke(currentTour);
+            _tour = tour;
+            this.SubmitAction?.Invoke(_tour);
         }
 
         private void Cancel()
