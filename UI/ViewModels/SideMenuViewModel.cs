@@ -1,6 +1,7 @@
 ﻿using BLL;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using TourplannerModel;
 
@@ -78,7 +79,10 @@ namespace UI.ViewModels
         {
             if(_currentTour != null) 
             {
-                OpenEditTour?.Invoke(this, EventArgs.Empty);
+                //string path = _currentTour.Image;
+                this.OpenEditTour?.Invoke(this, EventArgs.Empty);
+                //File.Delete(path);
+                currentTourChangedAction?.Invoke(_currentTour);
             }
             else
             {
@@ -91,8 +95,10 @@ namespace UI.ViewModels
             if (_currentTour != null)
             {
                 _tourHandler.DeleteTour(_currentTour.Id);
+                string pathOfCurrentTour = _currentTour.Image;
                 _tours.Remove(_currentTour);
-                CurrentTour = null;
+                //CurrentTour = null;
+                File.Delete(pathOfCurrentTour);
             }
             else
             {
@@ -105,7 +111,7 @@ namespace UI.ViewModels
         {
             Tours.Add(tour);
         }
-        public void UpdateList(TourModel tour)
+        /*public void UpdateList(TourModel tour)
         {
             if (_tours.Contains(_currentTour))
             {
@@ -116,7 +122,7 @@ namespace UI.ViewModels
             {
                 //noch ka was dann passiert
             }
-        }
+        }*/
         private void ShowMessageBox(string msg)
         {
             string msgBoxText = msg;
