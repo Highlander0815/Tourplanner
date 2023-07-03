@@ -38,7 +38,7 @@ namespace UI.Views
             dataContext.OpenEditTour += (sender, ev) =>
             {
                 EditTourWindow editTourW = new EditTourWindow();
-                editTourW.Edit(dataContext.CurrentTour/*, dataContext.UpdateList*/);
+                editTourW.Edit(dataContext.CurrentTour, dataContext.UpdateList);
                 editTourW.ShowDialog();
             };            
         }

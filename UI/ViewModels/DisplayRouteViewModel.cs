@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using TourplannerModel;
 using UI.Views;
-using LibNoise.Renderer;
-using System.IO;
-using System.Windows;
 
 namespace UI.ViewModels
 {
@@ -38,30 +35,12 @@ namespace UI.ViewModels
             {
                 if (currentTour.Image != null)
                 {
-                    /*BitmapImage image = new BitmapImage();
+                    BitmapImage image = new BitmapImage();
                     image.BeginInit();
                     image.UriSource = new Uri(currentTour.Image);
                     image.EndInit();
-                    CurrentTourImage = image;*/
-
-
-
-                    //Exception System.IO.FileNotFoundException muss gecatched werde => wird ausgelöst wenn Bild nicht existiert
-                    using (var imageStream = new FileStream(currentTour.Image, FileMode.Open, FileAccess.Read))
-                    {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = imageStream;
-                        bitmapImage.EndInit();
-
-                        CurrentTourImage = bitmapImage;
-                    }
+                    CurrentTourImage = image;
                 }
-            }
-            else
-            {
-                CurrentTourImage = null;
             }
 
         }
