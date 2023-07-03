@@ -1,7 +1,6 @@
 ﻿using BLL;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 using TourplannerModel;
 
@@ -94,6 +93,7 @@ namespace UI.ViewModels
         {
             if (_currentTour != null)
             {
+<<<<<<<<< Temporary merge branch 1
                 _tourHandler.DeleteTour(_currentTour.Id);
                 string pathOfCurrentTour = _currentTour.Image;
                 _tours.Remove(_currentTour);
