@@ -87,12 +87,12 @@ namespace UI.ViewModels
         {
             TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating);
       
-            this.SubmitAction?.Invoke(tourLog);
+            SubmitAction?.Invoke(tourLog);
         }
 
         private void Cancel()
         {
-            this.CancelEvent?.Invoke(this, EventArgs.Empty);
+            CancelEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

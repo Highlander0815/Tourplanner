@@ -102,6 +102,7 @@ namespace UI.ViewModels
         {
             if (_tourLogs != null && _tourLogs.Contains(_currentTourLog))
             {
+                _tourLogHandler.DeleteTourLog(_currentTourLog.Id);
                 TourLogs.Remove(_currentTourLog);
             }
             else
