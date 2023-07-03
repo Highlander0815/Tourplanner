@@ -1,7 +1,6 @@
 ﻿using BLL;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 using TourplannerModel;
 
@@ -97,7 +96,6 @@ namespace UI.ViewModels
                 string pathOfCurrentTour = _currentTour.Image;
                 _tourHandler.DeleteTour(_currentTour.Id);
                 _tours.Remove(_currentTour);
-                //CurrentTour = null;
                 File.Delete(pathOfCurrentTour);
             }
             else

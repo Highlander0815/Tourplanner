@@ -1,6 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UI.Commands;
 using TourplannerModel;
+using UI.ViewModels;
+using System.Collections.ObjectModel;
+using System.Threading.Channels;
+using Tourplanner;
+using System.ComponentModel;
 using BLL;
 
 
@@ -77,6 +87,7 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(TransportType));
             }
         }
+
         public EditTourViewModel(SideMenuViewModel sideMenuViewModel, TourHandler tourHandler)
         {
             _sideMenuViewModel = sideMenuViewModel;
@@ -99,7 +110,7 @@ namespace UI.ViewModels
             _restHandler = new RESTHandler();
             Task<TourModel> result = _restHandler.Rest.Request(currentTour);
             currentTour = await result;
-            _tourHandler.UpdateTour(currentTour);
+            _tourHandler.UpdateTour(currentTour)
             this.SubmitAction?.Invoke(currentTour);
         }
 
