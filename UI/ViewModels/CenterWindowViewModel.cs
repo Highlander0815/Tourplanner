@@ -25,9 +25,11 @@ namespace UI.ViewModels
 
         private void HandleCurrentTourChange(TourModel tour)
         {
-            currentTour = tour;
-            _displayInfoViewModel.currentTour = currentTour;
-            _displayRouteViewModel.currentTour = currentTour;
+            if(tour != null)
+            {
+                currentTour = tour;
+                _displayInfoViewModel.currentTour = currentTour;
+                _displayRouteViewModel.currentTour = currentTour;
 
             _displayInfoViewModel.UpdateInfoView();
             _displayRouteViewModel.UpdateRouteView();
