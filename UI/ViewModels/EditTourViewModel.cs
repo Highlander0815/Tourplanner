@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using TourplannerModel;
 using BLL;
-
-
+using System.Collections.ObjectModel;
 
 namespace UI.ViewModels
 {

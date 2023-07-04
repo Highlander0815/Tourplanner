@@ -15,9 +15,9 @@ namespace DAL
         {
             return context.Tourlogs.ToList();
         }
-        public TourLogModel GetTourLogById(int tourLogId)
+        public IEnumerable<TourLogModel> GetTourLogsById(int tourid)
         {
-            return context.Tourlogs.Find(tourLogId);        
+            return context.Tourlogs.Where(t => t.TourModel.Id.Equals(tourid)).ToList();
         }
         public void Insert(TourLogModel tourlog)
         {
@@ -26,7 +26,15 @@ namespace DAL
         public void Delete(int tourLogId)
         {
             TourLogModel tourLog = context.Tourlogs.Find(tourLogId);
-            context.Tourlogs.Remove(tourLog);
+
+            if (tourLog != null)
+            {
+                context.Tourlogs.Remove(tourLog);
+            }
+            else
+            {
+                throw new Exception("No tourlog with matching id");
+            }
         }
         public void Update(TourLogModel tourlog)
         {
@@ -35,7 +43,6 @@ namespace DAL
         public void Save()
         {
             context.SaveChanges();
-            context.Dispose();
         }
 
         private bool disposed = false;
@@ -60,7 +67,7 @@ namespace DAL
     public interface ITourLogRepository
     {
         IEnumerable<TourLogModel> GetTourLogs();
-        TourLogModel GetTourLogById(int tourLogId);
+        IEnumerable<TourLogModel> GetTourLogsById(int tourid);
         void Insert(TourLogModel tourlog);
         void Update(TourLogModel tourlog);
         void Delete(int tourLogId);

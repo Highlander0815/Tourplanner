@@ -23,6 +23,7 @@ namespace UI
 
             //services.AddSingleton(typeof(IServiceProvider));
             services.AddSingleton<DbManager>();
+            services.AddSingleton<PDFManager>();
             services.AddSingleton<MainWindowViewModel>(); 
             
             services.AddSingleton<SideMenuViewModel>();

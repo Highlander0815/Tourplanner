@@ -31,9 +31,9 @@ namespace BLL
         {
             return tourLogRepository.GetTourLogs();
         }
-        public TourLogModel GetTourLog(int id)
+        public IEnumerable<TourLogModel> GetTourLogsById(int tourid)
         {
-            return tourLogRepository.GetTourLogById(id);
+            return tourLogRepository.GetTourLogsById(tourid);
         }
     }
 }
