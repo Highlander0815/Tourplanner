@@ -88,7 +88,7 @@ namespace UI.ViewModels
             }
         }
 
-        public void GetInfoView()
+        public void UpdateInfoView()
         {
             if(currentTour!= null)
             {
@@ -100,7 +100,17 @@ namespace UI.ViewModels
                 TourDistance = currentTour.TourDistance;
                 EstimatedTime = currentTour.EstimatedTime;
             }
-            
+            else
+            {
+                Name = null;
+                Description = null;
+                From = null;
+                To = null;
+                TransportType = null;
+                TourDistance = null;
+                EstimatedTime = null;
+            }
+
         }
     }
 }

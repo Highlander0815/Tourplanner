@@ -1,6 +1,7 @@
 ﻿using BLL;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using TourplannerModel;
 
@@ -78,7 +79,10 @@ namespace UI.ViewModels
         {
             if(_currentTour != null) 
             {
-                OpenEditTour?.Invoke(this, EventArgs.Empty);
+                //string path = _currentTour.Image;
+                this.OpenEditTour?.Invoke(this, EventArgs.Empty);
+                //File.Delete(path);
+                currentTourChangedAction?.Invoke(_currentTour);
             }
             else
             {
@@ -90,9 +94,10 @@ namespace UI.ViewModels
         {
             if (_currentTour != null)
             {
-                _tourHandler.DeleteTour(_currentTour.Id);
+                string pathOfCurrentTour = _currentTour.Image;
                 _tours.Remove(_currentTour);
-                CurrentTour = null;
+                //CurrentTour = null;
+                File.Delete(pathOfCurrentTour);
             }
             else
             {
@@ -107,15 +112,10 @@ namespace UI.ViewModels
         }
         public void UpdateList(TourModel tour)
         {
-            if (_tours.Contains(_currentTour))
-            {
-                _tours[_tours.IndexOf(_currentTour)] = tour;
-                CurrentTour = tour;
-            }
-            else
-            {
-                //noch ka was dann passiert
-            }
+            int index = Tours.IndexOf(tour);
+            Tours.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
+            Tours.Insert(index, tour);
+            CurrentTour = tour;
         }
         private void ShowMessageBox(string msg)
         {
