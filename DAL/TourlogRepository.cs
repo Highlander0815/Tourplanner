@@ -35,6 +35,7 @@ namespace DAL
         public void Save()
         {
             context.SaveChanges();
+            context.Dispose();
         }
 
         private bool disposed = false;
