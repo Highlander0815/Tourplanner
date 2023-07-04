@@ -15,8 +15,6 @@ namespace UI.ViewModels
 
         private TourModel _currentTour; //has to be saved because the currentTour contains the TourLogs which should be displayed
 
-        private ObservableCollection<TourLogModel> _tourlogs;
-
         //List of TourLogs
         private ObservableCollection<TourLogModel> _tourLogs;
         public ObservableCollection<TourLogModel> TourLogs
@@ -36,11 +34,11 @@ namespace UI.ViewModels
             currentTourLogChangedAction += HandleTourLogChange;
             sideMenuViewModel.currentTourChangedAction += HandleTourChanged;
 
-            _tourlogs = new ObservableCollection<TourLogModel>();
+            _tourLogs = new ObservableCollection<TourLogModel>();
 
             _tourLogHandler = tourLogHandler;
 
-            _tourlogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
+            _tourLogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
         }
 
         //current TourLog = Selected item in the dataGrid. Is needed to know the currentTourLog when you want to edit/delete it.
@@ -130,12 +128,18 @@ namespace UI.ViewModels
 
         private void HandleTourChanged(TourModel tour) //when a Tour gets selected in the SideMenu the TourLogs which are displayed in the BottomMenu have to be displayed.
         {
-            if(tour != null)
+            if (tour != null)
             {
                 _currentTour = tour;
                 TourLogs = tour.TourLogs;
-                _currentTourLog = null;
+
             }
+            else
+            {
+                _currentTour = null;
+                TourLogs = null;
+            }
+            CurrentTourLog = null;
         }
 
         private void ShowMessageBox(string msg)
