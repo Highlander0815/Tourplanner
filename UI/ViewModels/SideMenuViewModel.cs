@@ -110,18 +110,13 @@ namespace UI.ViewModels
         {
             Tours.Add(tour);
         }
-        /*public void UpdateList(TourModel tour)
+        public void UpdateList(TourModel tour)
         {
-            if (_tours.Contains(_currentTour))
-            {
-                _tours[_tours.IndexOf(_currentTour)] = tour;
-                CurrentTour = tour;
-            }
-            else
-            {
-                //noch ka was dann passiert
-            }
-        }*/
+            int index = Tours.IndexOf(tour);
+            Tours.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
+            Tours.Insert(index, tour);
+            CurrentTour = tour;
+        }
         private void ShowMessageBox(string msg)
         {
             string msgBoxText = msg;

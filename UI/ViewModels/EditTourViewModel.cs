@@ -22,7 +22,8 @@ namespace UI.ViewModels
         private SideMenuViewModel _sideMenuViewModel;
         public event Action<TourModel> SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
-        private RESTHandler _restHandler; 
+        private RESTHandler _restHandler;
+        private TourHandler _tourHandler;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -31,11 +32,13 @@ namespace UI.ViewModels
         private RelayCommand _cancelCommand = null;
         public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(Cancel);
 
-        private TourModel _tour;
-        public TourModel Tour
-        {  get { return _tour; } 
-           set { _tour = value; }
-        }
+        public ObservableCollection<string> TransportTypes { get; set; } = new ObservableCollection<string>()
+        {
+            "Car",
+            "Bicycle",
+            "Pedestrian"
+        };
+
         private string _name;
         public string Name
         {
@@ -86,9 +89,10 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(TransportType));
             }
         }
-        public EditTourViewModel(SideMenuViewModel sideMenuViewModel)
+        public EditTourViewModel(SideMenuViewModel sideMenuViewModel, TourHandler tourHandler)
         {
             _sideMenuViewModel = sideMenuViewModel;
+            _tourHandler = tourHandler;
         }
 
         private async void EditTour()
@@ -103,9 +107,11 @@ namespace UI.ViewModels
             currentTour.Description = _description;
             currentTour.From = _from;
             currentTour.To = _to;
+            currentTour.TransportType = _transportType;
             _restHandler = new RESTHandler();
             Task<TourModel> result = _restHandler.Rest.Request(currentTour);
             currentTour = await result;
+            _tourHandler.UpdateTour(currentTour);
             this.SubmitAction?.Invoke(currentTour);
         }
 

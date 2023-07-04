@@ -23,7 +23,8 @@ namespace UI.ViewModels
         public List<DifficultyEnum> DifficultyOptions { get; } = Enum.GetValues(typeof(DifficultyEnum)).Cast<DifficultyEnum>().ToList();
 
         public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
-
+       
+        private BottomMenuViewModel _bottomMenuViewModel;
         private DateTime _dateTime;
         public DateTime DateTime
         {
@@ -78,16 +79,21 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(Rating));
             }
         }
-        public EditTourLogViewModel()
+        public EditTourLogViewModel(BottomMenuViewModel bottomMenuViewModel)
         {
+            _bottomMenuViewModel = bottomMenuViewModel;
             DateTime = DateTime.Now;
         }
 
         private async void EditTour()
         {
-            TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating);
+            TourLogModel currentTourLog = _bottomMenuViewModel.CurrentTourLog;
+            currentTourLog.DateTime = _dateTime;
+            currentTourLog.Difficulty = _difficulty;
+            currentTourLog.TotalTime = _totalTime;
+            currentTourLog.Rating = _rating;
       
-            this.SubmitAction?.Invoke(tourLog);
+            this.SubmitAction?.Invoke(currentTourLog);
         }
 
         private void Cancel()

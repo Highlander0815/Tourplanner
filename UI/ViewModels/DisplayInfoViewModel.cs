@@ -88,7 +88,7 @@ namespace UI.ViewModels
             }
         }
 
-        public void GetInfoView()
+        public void UpdateInfoView()
         {
             if(currentTour!= null)
             {

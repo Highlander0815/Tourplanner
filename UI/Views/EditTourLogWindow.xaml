@@ -6,7 +6,7 @@
         xmlns:tool="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:UI.Views"
         mc:Ignorable="d"
-        Title="Edit Tourlog" Height="350" Width="180"
+        Title="Edit Tourlog" Height="350" Width="250"
         DataContext="{Binding EditTourLogViewModel, Source={StaticResource IoCConfig2}}">
 
     <Window.Resources>
