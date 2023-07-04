@@ -58,7 +58,9 @@ namespace UI.ViewModels
         public SideMenuViewModel(TourHandler tourHandler)
         {
             _tours = new ObservableCollection<TourModel>();
+
             _tourHandler = tourHandler;
+            
             //Retrieve existing Tours from db and display in SideMenu
             _tours = new ObservableCollection<TourModel>(tourHandler.GetTours());
         }
@@ -92,7 +94,6 @@ namespace UI.ViewModels
         {
             if (_currentTour != null)
             {
-                _tourHandler.DeleteTour(_currentTour.Id);
                 string pathOfCurrentTour = _currentTour.Image;
                 _tours.Remove(_currentTour);
                 //CurrentTour = null;
