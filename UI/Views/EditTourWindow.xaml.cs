@@ -19,7 +19,6 @@ namespace UI.Views
         {
             var mainWindow = this.DataContext as EditTourViewModel;
 
-            mainWindow.Tour = currentTour;
             mainWindow.Name = currentTour.Name;
             mainWindow.Description = currentTour.Description;
             mainWindow.From = currentTour.From;

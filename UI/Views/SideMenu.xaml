@@ -27,11 +27,11 @@
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="1" Content="+" Command="{Binding AddCommand}"/>
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="2" Content="-" Command="{Binding DeleteCommand}"/>
                 <Button Style="{StaticResource ManageButtonStyle}" Grid.Row="0" Grid.Column="3" Content="..." Command="{Binding EditCommand}"/>
-                <ListView Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" ItemsSource="{Binding Tours}" SelectedItem="{Binding CurrentTour}">
+                <ListView Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Left" ItemsSource="{Binding Tours, Mode=OneWay}" SelectedItem="{Binding CurrentTour, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name, Mode=OneWay}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

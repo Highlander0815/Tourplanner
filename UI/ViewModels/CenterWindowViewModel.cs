@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using UI.Views;
+using BLL;
 
 namespace UI.ViewModels
 {
@@ -30,9 +31,8 @@ namespace UI.ViewModels
                 _displayInfoViewModel.currentTour = currentTour;
                 _displayRouteViewModel.currentTour = currentTour;
 
-                _displayInfoViewModel.GetInfoView();
-                _displayRouteViewModel.GetRouteView();
-            }
+            _displayInfoViewModel.UpdateInfoView();
+            _displayRouteViewModel.UpdateRouteView();
            
         }
 

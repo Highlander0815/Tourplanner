@@ -2,7 +2,7 @@
 
 namespace UI.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
         private DisplayRouteViewModel _displayRouteViewModel;
         private DisplayInfoViewModel _displayInfoViewModel;

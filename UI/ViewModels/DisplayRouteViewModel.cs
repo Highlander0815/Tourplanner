@@ -29,7 +29,7 @@ namespace UI.ViewModels
             }
         }
 
-        public void GetRouteView()
+        public void UpdateRouteView()
         {
             if (currentTour != null)
             {
