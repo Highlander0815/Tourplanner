@@ -100,7 +100,17 @@ namespace UI.ViewModels
                 TourDistance = currentTour.TourDistance;
                 EstimatedTime = currentTour.EstimatedTime;
             }
-            
+            else
+            {
+                Name = null;
+                Description = null;
+                From = null;
+                To = null;
+                TransportType = null;
+                TourDistance = null;
+                EstimatedTime = null;
+            }
+
         }
     }
 }
