@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace UI.Commands
 {
-    public class AddTourCommand : RelayCommand2
+    public class CreatePDFCommand : RelayCommand2
     {
-        public AddTourCommand() { }
-
+        public CreatePDFCommand() { }
         public override void Execute(object parameter) { }
     }
 }

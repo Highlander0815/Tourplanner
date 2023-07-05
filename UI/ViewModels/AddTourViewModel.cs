@@ -93,12 +93,12 @@ namespace UI.ViewModels
             Task<TourModel> result = _restHandler.Rest.Request(tour);
             tour = await result;
             _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
-            this.AddEvent?.Invoke(tour);
+            AddEvent?.Invoke(tour);
         }
 
         private void Cancel()
         {
-            this.CancelEvent?.Invoke(this, EventArgs.Empty);
+            CancelEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

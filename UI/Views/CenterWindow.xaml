@@ -23,7 +23,7 @@
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0" Grid.Column="0" Content="General" Command="{Binding InfoCommand}"/>
                 <Button Grid.Row="0" Grid.Column="1" Content="Route" Command="{Binding RouteCommand}"/>
-                <Button Grid.Row="0" Grid.Column="2" Content="Misc" Command="{Binding MiscCommand}"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Save as pdf" Command="{Binding SavePDFCommand}"/>
                 <ContentControl Content="{Binding CurrentContent}" Grid.ColumnSpan="4" Margin="0,21,0,0" Grid.RowSpan="2"/>
             </Grid>
         </Border>

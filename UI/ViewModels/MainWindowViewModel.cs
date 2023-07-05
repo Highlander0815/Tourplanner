@@ -17,8 +17,7 @@ namespace UI.ViewModels
             _dbManager.EnsureDbCreated();
 
             _pdfManager = pdfManager;
-
-            pdfManager.createPDF(2);
+            //pdfManager.createPDF(2);
         }
     }
 }
