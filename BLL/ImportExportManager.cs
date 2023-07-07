@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using log4net;
+using MiNET.Utils;
 
 namespace BLL
 {
@@ -15,43 +16,31 @@ namespace BLL
             _tourLogHandler = tourLogHandler;
         }
 
-        private class TempTour
-        {
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public string From { get; set; }
-            public string To { get; set; }
-            public string TransportType { get; set; }
-            public string TourDistance { get; set; }
-            public string EstimatedTime { get; set; }
-            public IEnumerable<TourLogModel> TourLogs { get; set; }
-        }
-
         public void ExportTour(int tourid)
         {
             TourModel tour = _tourHandler.GetTour(tourid);
-            IEnumerable<TourLogModel> tourlogs = _tourLogHandler.GetTourLogsById(tourid);
 
-            TempTour exportTour = new TempTour(){
-                Name = tour.Name,
-                Description = tour.Description,
-                From = tour.From,
-                TransportType = tour.TransportType,
-                TourDistance = tour.TourDistance,
-                EstimatedTime = tour.EstimatedTime,
-                TourLogs = tourlogs
-            };
-
+            string json = JsonConvert.SerializeObject(tour);
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "JSON file (*.json)|*.json";
             saveFileDialog.FileName = "Tour_" + tourid.ToString() + "_" + tour.Name + ".json";
-
             if (saveFileDialog.ShowDialog() == true)
-                JsonConvert.SerializeObject(exportTour, Formatting.Indented,
-                new JsonSerializerSettings
-                {
-                    PreserveReferencesHandling = PreserveReferencesHandling.Objects
-                });
+            {
+                File.WriteAllText(saveFileDialog.FileName, json);
+            }
+        }
+        
+        public void ImportTour()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON file (*.json)|*.json";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string json = File.ReadAllText(openFileDialog.FileName);
+                TourModel tour = JsonConvert.DeserializeObject<TourModel>(json);
+                if (tour != null)
+                    _tourHandler.AddTour(tour);
+            }
         }
     }
-}
+}        

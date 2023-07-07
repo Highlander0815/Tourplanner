@@ -1,12 +1,6 @@
 ﻿using TourplannerModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using TourplannerModel;
-using UI.Views;
 using System.IO;
 
 namespace UI.ViewModels
@@ -44,17 +38,24 @@ namespace UI.ViewModels
 
 
 
-                    //Exception System.IO.FileNotFoundException muss gecatched werde => wird ausgelöst wenn Bild nicht existiert
-                    using (var imageStream = new FileStream(currentTour.Image, FileMode.Open, FileAccess.Read))
+                    try
                     {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = imageStream;
-                        bitmapImage.EndInit();
+                        using (var imageStream = new FileStream(currentTour.Image, FileMode.Open, FileAccess.Read))
+                        {
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = imageStream;
+                            bitmapImage.EndInit();
 
-                        CurrentTourImage = bitmapImage;
+                            CurrentTourImage = bitmapImage;
+                        }
                     }
+                    catch
+                    {
+                        throw new Exception("Image not found");
+                    }
+                    
                 }
             }
             else

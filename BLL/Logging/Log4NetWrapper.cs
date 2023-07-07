@@ -30,25 +30,25 @@ namespace BLL.Logging
 
         public void Debug(string message)
         {
-            this.logger.Debug(message);
+            logger.Debug(message);
         }
         public void Warn(string message)
         {
-            this.logger.Warn(message);
+            logger.Warn(message);
         }
 
         public void Error(string message)
         {
-            this.logger.Error(message);
+            logger.Error(message);
         }
 
         public void Fatal(string message)
         {
-            this.logger.Fatal(message);
+            logger.Fatal(message);
         }
         public void Info(string message)
         {
-            this.logger.Info(message);
+            logger.Info(message);
         }
     }
 }

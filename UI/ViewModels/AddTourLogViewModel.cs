@@ -26,7 +26,7 @@ namespace UI.ViewModels
 
         public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
 
-        private TourLogHandler _tourLogHandler;
+        private InMemoryTourLogHandler _tourLogHandler;
         private SideMenuViewModel _sideMenuViewModel;
 
         private TourModel _currentTour;
@@ -74,7 +74,7 @@ namespace UI.ViewModels
             }
         }
 
-        public AddTourLogViewModel(TourLogHandler tourLogHandler, SideMenuViewModel sideMenuViewModel)
+        public AddTourLogViewModel(InMemoryTourLogHandler tourLogHandler, SideMenuViewModel sideMenuViewModel)
         {
             _tourLogHandler = tourLogHandler;
             _sideMenuViewModel = sideMenuViewModel;

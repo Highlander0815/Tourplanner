@@ -1,4 +1,5 @@
 ﻿using BLL;
+using log4net;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -9,6 +10,9 @@ namespace UI.ViewModels
 {
     public class SideMenuViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SideMenuViewModel));
+
+
         //Actions
         public event Action<TourModel> currentTourChangedAction;
 
@@ -80,7 +84,8 @@ namespace UI.ViewModels
             if(_currentTour != null) 
             {
                 //string path = _currentTour.Image;
-                this.OpenEditTour?.Invoke(this, EventArgs.Empty);
+                _tourHandler.UpdateTour(_currentTour);
+                OpenEditTour?.Invoke(this, EventArgs.Empty);
                 //File.Delete(path);
                 currentTourChangedAction?.Invoke(_currentTour);
             }
@@ -95,8 +100,8 @@ namespace UI.ViewModels
             if (_currentTour != null)
             {
                 string pathOfCurrentTour = _currentTour.Image;
+                _tourHandler.DeleteTour(_currentTour.Id);
                 _tours.Remove(_currentTour);
-                //CurrentTour = null;
                 File.Delete(pathOfCurrentTour);
             }
             else

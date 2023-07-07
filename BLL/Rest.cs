@@ -17,6 +17,7 @@ using System.Threading.Tasks.Dataflow;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using MiNET.Utils;
 
 namespace BLL
 {
@@ -77,17 +78,15 @@ namespace BLL
         public string ByteArrayToImage(byte[] byteArray, TourModel tour)
         {
             using (MemoryStream memoryStream = new MemoryStream(byteArray))
-            {
-                var image = Image.FromStream(memoryStream);
+            {                
+                var image = FromStream(memoryStream);
                 string name = tour.Id.ToString();
+
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), name);
                 image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 
                 return filePath;
-            }
+            }            
         }
-
-
     }
-
 }

@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualBasic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace TourplannerModel
 {
     public class TourModel
-    {        
+    {
         public int Id { get; private set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
@@ -14,6 +14,7 @@ namespace TourplannerModel
         public string? TourDistance { get; set; }
         public string? EstimatedTime { get; set; }
         public string? Image { get; set; }
+        [JsonIgnore]
         public ObservableCollection<TourLogModel> TourLogs { get; private set; } = null!;
         public TourModel(string name, string description, string from, string to, string transportType)
         {

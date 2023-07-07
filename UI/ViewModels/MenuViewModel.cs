@@ -17,7 +17,7 @@ namespace UI.ViewModels
 
         private void ImportJSON()
         {
-            throw new NotImplementedException();
+            _importExportManager.ImportTour();
         }
 
         private void ExportJSON()

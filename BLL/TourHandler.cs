@@ -1,5 +1,6 @@
 ﻿using BLL.Logging;
 using DAL;
+using log4net;
 using TourplannerModel;
 
 namespace BLL
@@ -7,7 +8,8 @@ namespace BLL
     public class TourHandler
     {
         private ITourRepository tourRepository;
-        private static ILoggerWrapper logger = LoggerFactory.GetLogger();
+        private static readonly ILog log = LogManager.GetLogger(typeof(TourHandler));
+
         public TourHandler(TourplannerContext tourplannerContext)
         {
             tourRepository = new TourRepository(tourplannerContext);            
@@ -16,19 +18,19 @@ namespace BLL
         {
             tourRepository.Insert(tourmodel);
             tourRepository.Save();
-            logger.Info("Added tour");
+            log.Warn("Added tour " + tourmodel.Id);
         }
         public void DeleteTour(int tourId)
         {
             tourRepository.Delete(tourId);
             tourRepository.Save();
-            logger.Info("Deleted tour");
+            log.Info("Deleted tour");
         }
         public void UpdateTour(TourModel tourmodel)
         {
             tourRepository.Update(tourmodel);
             tourRepository.Save();
-            logger.Info("Updated tour");
+            log.Info("Updated tour");
         }
         public IEnumerable<TourModel> GetTours()
         {
