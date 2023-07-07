@@ -9,7 +9,7 @@ namespace BLL
 {
     public class Validator
     {
-        public Validator(TourModel tourToValidate) 
+        public Validator() 
         {  
         }
 
@@ -17,15 +17,13 @@ namespace BLL
         {
             if (tourToValidate != null )
             {
-                if (tourToValidate.Name != null && tourToValidate.Name != "" &&
-                   tourToValidate.TransportType == "car" || tourToValidate.TransportType == "bicycle" || tourToValidate.TransportType == "pedestrian" &&
-                   tourToValidate.Description != null && tourToValidate.Description != "" &&
-                   tourToValidate.From != null && tourToValidate.From != "" &&
-                   tourToValidate.To != null && tourToValidate.To != "")
-                {
-                    return true;
-                }
-                return false;
+                return !(    
+                         string.IsNullOrEmpty(tourToValidate.Name) ||
+                         (tourToValidate.TransportType != "car" && tourToValidate.TransportType != "bicycle" && tourToValidate.TransportType != "pedestrian") ||
+                         string.IsNullOrEmpty(tourToValidate.Description) ||
+                         string.IsNullOrEmpty(tourToValidate.From) ||
+                         string.IsNullOrEmpty(tourToValidate.To)
+                       ); 
             }
             return false;
         }

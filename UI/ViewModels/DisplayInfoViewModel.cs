@@ -6,13 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TourplannerModel;
 using UI.Views;
+using BLL;
 
 namespace UI.ViewModels
 {
     public class DisplayInfoViewModel : ViewModelBase
     {
         public TourModel currentTour;
-        public DisplayInfoViewModel(/*CenterWindowViewModel centerViewModel*/) 
+        private TourCalculation _calculator;
+  
+        public DisplayInfoViewModel() 
         {
             
         }
@@ -67,8 +70,8 @@ namespace UI.ViewModels
             }
         }
 
-        private string _tourDistance;
-        public string TourDistance
+        private float? _tourDistance;
+        public float? TourDistance
         {
             get { return _tourDistance; }
             set
@@ -88,6 +91,26 @@ namespace UI.ViewModels
             }
         }
 
+        private int? _popularity;
+        public int? Popularity
+        {
+            get { return _popularity; }
+            set
+            {
+                _popularity = value;
+                OnPropertyChanged(nameof(Popularity));
+            }
+        }
+        private int? _childfriendliness;
+        public int? Childfriendliness
+        {
+            get { return _childfriendliness; }
+            set
+            {
+                _childfriendliness= value;
+                OnPropertyChanged(nameof(Childfriendliness));
+            }
+        }
         public void UpdateInfoView()
         {
             if(currentTour!= null)
@@ -99,6 +122,11 @@ namespace UI.ViewModels
                 TransportType = currentTour.TransportType;
                 TourDistance = currentTour.TourDistance;
                 EstimatedTime = currentTour.EstimatedTime;
+                _calculator = new TourCalculation(currentTour);
+                Popularity = currentTour.Popularity;
+                Childfriendliness = currentTour.ChildFriendliness;
+
+
             }
             else
             {

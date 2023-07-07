@@ -29,6 +29,17 @@ namespace UI.ViewModels
             "Bicycle",
             "Pedestrian"
         };
+        private bool _clickable;
+        public bool Clickable
+        {
+            get { return _clickable; }
+            set
+            {
+                _clickable = value;
+                OnPropertyChanged(nameof(Clickable));
+                MakeSubmitButtonClickable();
+            }
+        }
         private string _name;
         public string Name
         {
@@ -37,6 +48,7 @@ namespace UI.ViewModels
             {
                 _name = value; 
                 OnPropertyChanged(nameof(Name));
+                MakeSubmitButtonClickable();
             }
         }
         private string _description;
@@ -47,6 +59,7 @@ namespace UI.ViewModels
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
+                MakeSubmitButtonClickable();
             }
         }
         private string _from;
@@ -57,6 +70,7 @@ namespace UI.ViewModels
             {
                 _from = value;
                 OnPropertyChanged(nameof(From));
+                MakeSubmitButtonClickable();
             }
         }
         private string _to;
@@ -67,6 +81,7 @@ namespace UI.ViewModels
             {
                 _to = value;
                 OnPropertyChanged(nameof(To));
+                MakeSubmitButtonClickable();
             }
         }
         private string _transportType;
@@ -77,14 +92,22 @@ namespace UI.ViewModels
             {
                 _transportType = value;
                 OnPropertyChanged(nameof(TransportType));
+                MakeSubmitButtonClickable();
             }
         }
 
         public AddTourViewModel(TourHandler tourHandler)
         {
             _tourHandler = tourHandler;
+            Clickable = false;
         } 
 
+        private void MakeSubmitButtonClickable()
+        {
+            TourModel currentTour = new TourModel(Name, Description, From, To, TransportType);
+            _validator = new Validator();
+            Clickable = _validator.TourValidation(currentTour);
+        }
         private async void AddTour()
         {
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);

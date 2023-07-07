@@ -21,7 +21,6 @@ namespace UI.ViewModels
         private DisplayInfoViewModel _displayInfoViewModel;
         private DisplayRouteViewModel _displayRouteViewModel;
         private TourModel _currentTour;
-
         private PDFManager _pdfManager;
 
         public CenterWindowViewModel(SideMenuViewModel sideMenuViewModel, DisplayInfoViewModel displayInfoViewModel, DisplayRouteViewModel displayRouteViewModel, PDFManager pdfManager)
@@ -43,10 +42,6 @@ namespace UI.ViewModels
             _displayRouteViewModel.UpdateRouteView();
         }                
 
-        private DisplayRouteViewModel _displayRouteViewModel;
-        private TourModel _currentTour;
-
-        private PDFManager _pdfManager;
 
         private object _currentContent;
         public object CurrentContent
@@ -98,13 +93,14 @@ namespace UI.ViewModels
         {
             CurrentContent = new DisplayInfoWindow();//_displayInfoViewModel.GetInfoView();
         }
-        }
+        
         private void ShowMessageBox(string msg, string caption, MessageBoxImage icon)
         {
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxResult result;
 
             result = MessageBox.Show(msg, caption, button, icon, MessageBoxResult.OK);
+        }
 
         private void DisplayRouteView()
         {

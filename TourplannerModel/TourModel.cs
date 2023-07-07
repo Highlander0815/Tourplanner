@@ -11,9 +11,11 @@ namespace TourplannerModel
         public string From { get; set; } = null!;
         public string To { get; set; } = null!;
         public string TransportType { get; set; } = null!;
-        public string? TourDistance { get; set; }
+        public float? TourDistance { get; set; }
         public string? EstimatedTime { get; set; }
         public string? Image { get; set; }
+        public int? Popularity { get; set; }
+        public int? ChildFriendliness { get; set; }
         [JsonIgnore]
         public ObservableCollection<TourLogModel> TourLogs { get; private set; } = null!;
         public TourModel(string name, string description, string from, string to, string transportType)
