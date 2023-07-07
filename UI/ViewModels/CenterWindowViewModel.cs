@@ -17,6 +17,13 @@ namespace UI.ViewModels
 {
     public class CenterWindowViewModel : ViewModelBase
     {
+        public Action<TourModel> currentTourChangedAction;
+        private DisplayInfoViewModel _displayInfoViewModel;
+        private DisplayRouteViewModel _displayRouteViewModel;
+        private TourModel _currentTour;
+
+        private PDFManager _pdfManager;
+
         public CenterWindowViewModel(SideMenuViewModel sideMenuViewModel, DisplayInfoViewModel displayInfoViewModel, DisplayRouteViewModel displayRouteViewModel, PDFManager pdfManager)
         {
             sideMenuViewModel.currentTourChangedAction += HandleCurrentTourChange;
@@ -34,14 +41,7 @@ namespace UI.ViewModels
 
             _displayInfoViewModel.UpdateInfoView();
             _displayRouteViewModel.UpdateRouteView();
-        }
-
-        public Action<TourModel> currentTourChangedAction;
-        private DisplayInfoViewModel _displayInfoViewModel;
-        private DisplayRouteViewModel _displayRouteViewModel;
-        private TourModel _currentTour;
-
-        private PDFManager _pdfManager;
+        }                
 
         private object _currentContent;
         public object CurrentContent
