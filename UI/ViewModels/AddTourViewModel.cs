@@ -16,6 +16,7 @@ namespace UI.ViewModels
         private RESTHandler _restHandler;
         private TourHandler _tourHandler;
         private Validator _validator;
+        private TourModel _newTour;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -29,15 +30,15 @@ namespace UI.ViewModels
             "Bicycle",
             "Pedestrian"
         };
-        private bool _clickable;
-        public bool Clickable
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
         {
-            get { return _clickable; }
+            get { return _isButtonEnabled; }
             set
             {
-                _clickable = value;
-                OnPropertyChanged(nameof(Clickable));
-                MakeSubmitButtonClickable();
+                _isButtonEnabled = value;
+                OnPropertyChanged(nameof(IsButtonEnabled));
+                UpdateButtonState();
             }
         }
         private string _name;
@@ -48,7 +49,7 @@ namespace UI.ViewModels
             {
                 _name = value; 
                 OnPropertyChanged(nameof(Name));
-                MakeSubmitButtonClickable();
+                UpdateButtonState();
             }
         }
         private string _description;
@@ -59,7 +60,7 @@ namespace UI.ViewModels
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
-                MakeSubmitButtonClickable();
+                UpdateButtonState();
             }
         }
         private string _from;
@@ -70,7 +71,7 @@ namespace UI.ViewModels
             {
                 _from = value;
                 OnPropertyChanged(nameof(From));
-                MakeSubmitButtonClickable();
+                UpdateButtonState();
             }
         }
         private string _to;
@@ -81,7 +82,7 @@ namespace UI.ViewModels
             {
                 _to = value;
                 OnPropertyChanged(nameof(To));
-                MakeSubmitButtonClickable();
+                UpdateButtonState();
             }
         }
         private string _transportType;
@@ -92,21 +93,28 @@ namespace UI.ViewModels
             {
                 _transportType = value;
                 OnPropertyChanged(nameof(TransportType));
-                MakeSubmitButtonClickable();
+                UpdateButtonState();
             }
         }
 
         public AddTourViewModel(TourHandler tourHandler)
         {
             _tourHandler = tourHandler;
-            Clickable = false;
+            IsButtonEnabled = false;
+            TransportType = "Car";
         } 
 
-        private void MakeSubmitButtonClickable()
+        private void UpdateButtonState()
         {
-            TourModel currentTour = new TourModel(Name, Description, From, To, TransportType);
+            /*TourModel currentTour = new TourModel(Name, Description, From, To, TransportType);
             _validator = new Validator();
-            Clickable = _validator.TourValidation(currentTour);
+            IsButtonEnabled = _validator.TourValidation(currentTour);*/
+
+            _newTour = new TourModel(_name, _description, _from, _to, _transportType);
+            _validator = new Validator();
+            bool allFieldsFilled = _validator.TourValidation(_newTour);
+
+            IsButtonEnabled = allFieldsFilled;
         }
         private async void AddTour()
         {

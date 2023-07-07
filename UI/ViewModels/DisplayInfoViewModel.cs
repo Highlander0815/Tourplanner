@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TourplannerModel;
 using UI.Views;
 using BLL;
+using BLL.Exceptions;
 
 namespace UI.ViewModels
 {
@@ -14,10 +15,10 @@ namespace UI.ViewModels
     {
         public TourModel currentTour;
         private TourCalculation _calculator;
-  
-        public DisplayInfoViewModel() 
+
+        public DisplayInfoViewModel()
         {
-            
+
         }
         private string _name;
         public string Name
@@ -60,7 +61,7 @@ namespace UI.ViewModels
             }
         }
         private string _transportType;
-        public string TransportType 
+        public string TransportType
         {
             get { return _transportType; }
             set
@@ -107,26 +108,42 @@ namespace UI.ViewModels
             get { return _childfriendliness; }
             set
             {
-                _childfriendliness= value;
+                _childfriendliness = value;
                 OnPropertyChanged(nameof(Childfriendliness));
             }
         }
         public void UpdateInfoView()
         {
-            if(currentTour!= null)
+            if (currentTour != null)
             {
-                Name = currentTour.Name;
-                Description = currentTour.Description;
-                From = currentTour.From;
-                To = currentTour.To;
-                TransportType = currentTour.TransportType;
-                TourDistance = currentTour.TourDistance;
-                EstimatedTime = currentTour.EstimatedTime;
-                _calculator = new TourCalculation(currentTour);
-                Popularity = currentTour.Popularity;
-                Childfriendliness = currentTour.ChildFriendliness;
+                if (currentTour != null)
+                {
+                    Name = currentTour.Name;
+                    Description = currentTour.Description;
+                    From = currentTour.From;
+                    To = currentTour.To;
+                    TransportType = currentTour.TransportType;
+                    TourDistance = currentTour.TourDistance;
+                    EstimatedTime = currentTour.EstimatedTime;
+                    try
+                    {
+                        _calculator = new TourCalculation(currentTour);
+                        Childfriendliness = currentTour.ChildFriendliness;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex is ValueIsNullException)
+                        {
+
+                            //show a info box which explains the user that the Childfriendliness 
+                            //can not be calculated because the value of the Tour.Distance == null
+                        }
+                    }
+
+                    Popularity = currentTour.Popularity;
 
 
+                }
             }
             else
             {
