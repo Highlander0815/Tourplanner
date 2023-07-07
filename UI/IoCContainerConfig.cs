@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using DAL;
 using BLL;
 using Microsoft.EntityFrameworkCore;
+using BLL.Logging;
 
 namespace UI
 {
@@ -24,7 +25,8 @@ namespace UI
             //services.AddSingleton(typeof(IServiceProvider));
             services.AddSingleton<DbManager>();
             services.AddSingleton<PDFManager>();
-            services.AddSingleton<MainWindowViewModel>(); 
+            services.AddSingleton<ImportExportManager>();
+            services.AddSingleton<MainWindowViewModel>();
             
             services.AddSingleton<SideMenuViewModel>();
             services.AddTransient<AddTourViewModel>();

@@ -10,11 +10,8 @@
     <Grid>
         <Menu>
             <MenuItem Header="_File">
-                <MenuItem Header="_New" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
-                <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Import tour" Command="{Binding ImportCommand}"/>
+                <MenuItem Header="_Export tour" Command="{Binding ExportCommand}"/>
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Manage tours">
