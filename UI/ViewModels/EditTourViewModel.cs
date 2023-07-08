@@ -119,6 +119,7 @@ namespace UI.ViewModels
             Task<TourModel> result = _restHandler.Rest.Request(tour);
             tour = await result;
             _tour = tour;*/
+            IsButtonEnabled = false;
             TourModel currentTour = _sideMenuViewModel.CurrentTour; //Zeile 101 bis 108 ist neuer code und muss eventuell wieder gelöscht werden
             currentTour.Name = _name;
             currentTour.Description = _description;

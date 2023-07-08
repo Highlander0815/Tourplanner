@@ -115,6 +115,7 @@ namespace UI.ViewModels
         }
         private async void EditTour()
         {
+            IsButtonEnabled = false;
             TourLogModel currentTourLog = _bottomMenuViewModel.CurrentTourLog;
             currentTourLog.DateTime = _dateTime;
             currentTourLog.Difficulty = _difficulty;

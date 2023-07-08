@@ -12,6 +12,7 @@ using UI.Views;
 using BLL;
 using System.Windows;
 using Microsoft.Win32;
+using BLL.Logging;
 
 namespace UI.ViewModels
 {
@@ -22,6 +23,8 @@ namespace UI.ViewModels
         private DisplayRouteViewModel _displayRouteViewModel;
         private TourModel _currentTour;
         private PDFManager _pdfManager;
+        private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
+
 
         public CenterWindowViewModel(SideMenuViewModel sideMenuViewModel, DisplayInfoViewModel displayInfoViewModel, DisplayRouteViewModel displayRouteViewModel, PDFManager pdfManager)
         {
@@ -68,17 +71,21 @@ namespace UI.ViewModels
                 {
                     MessageBoxImage icon = MessageBoxImage.Information;
                     ShowMessageBox("pdf created successfully!", "Information", icon);
+                    _logger.Info("The user created a Pdf for the Tour with the Id: " + _currentTour.Id);
+
                 }
                 else
                 {
                     MessageBoxImage icon = MessageBoxImage.Error;
                     ShowMessageBox("pdf creation aborted!", "Error", icon);
+                    _logger.Error("The Pdf creation for the Tour " + _currentTour.Id+ " failed");
                 }                
             }
             else
             {
                 MessageBoxImage icon = MessageBoxImage.Warning;
                 ShowMessageBox("No tour selected!", "Warning", icon);
+                _logger.Warn("User did not select a Tour, for wich one the Pdf should be created");
             }            
         }
         public RelayCommand InfoCommand => _infoCommand ??= new RelayCommand(DisplayInfoView);

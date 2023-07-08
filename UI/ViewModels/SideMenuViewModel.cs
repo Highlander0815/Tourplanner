@@ -1,4 +1,5 @@
 ﻿using BLL;
+using BLL.Logging;
 using log4net;
 using System;
 using System.Collections.ObjectModel;
@@ -10,9 +11,6 @@ namespace UI.ViewModels
 {
     public class SideMenuViewModel : ViewModelBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(SideMenuViewModel));
-
-
         //Actions
         public event Action<TourModel> currentTourChangedAction;
 
@@ -29,6 +27,7 @@ namespace UI.ViewModels
         public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(Delete);
 
         //Attributes
+        private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
         private ObservableCollection<TourModel> _tours;
         public ObservableCollection<TourModel> Tours
         {
@@ -73,10 +72,12 @@ namespace UI.ViewModels
         private void OpenAddTourW()
         {
             OpenAddTour?.Invoke(this, EventArgs.Empty);
+            _logger.Info("Add Tour Window got opened");
         }
         private void Add(TourModel tour)
         {
             _tours.Add(tour);
+            _logger.Info("The tour with the Id: " + tour.Id + " got added");
         }
 
         private void OpenEditTourW()
@@ -88,10 +89,13 @@ namespace UI.ViewModels
                 OpenEditTour?.Invoke(this, EventArgs.Empty);
                 //File.Delete(path);
                 currentTourChangedAction?.Invoke(_currentTour);
+                _logger.Info("The Tour with the Id: " + _currentTour.Id + " was modified");
+                
             }
             else
             {
                 ShowMessageBox("No tour selected");
+                _logger.Warn("It is not possible to modify a tour when no tour is selected");
             }
         }
 
@@ -103,10 +107,12 @@ namespace UI.ViewModels
                 _tourHandler.DeleteTour(_currentTour.Id);
                 _tours.Remove(_currentTour);
                 File.Delete(pathOfCurrentTour);
+                _logger.Info($"The tour with the Id: {_currentTour.Id} was deleted");
             }
             else
             {
                 ShowMessageBox("No tour selected");
+                _logger.Warn("It is not possible to delete a tour when no tour is selected");
             }
         }
 
@@ -121,6 +127,7 @@ namespace UI.ViewModels
             Tours.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
             Tours.Insert(index, tour);
             CurrentTour = tour;
+            _logger.Info("The List of tours got updated");
         }
         private void ShowMessageBox(string msg)
         {

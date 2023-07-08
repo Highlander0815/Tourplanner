@@ -1,9 +1,11 @@
 ﻿using BLL;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using TourplannerModel;
 
 namespace UI.ViewModels
@@ -14,6 +16,7 @@ namespace UI.ViewModels
         public event Action<TourLogModel> currentTourLogChangedAction;
 
         private TourModel _currentTour; //has to be saved because the currentTour contains the TourLogs which should be displayed
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(SideMenuViewModel));
 
         //List of TourLogs
         private ObservableCollection<TourLogModel> _tourLogs;
@@ -111,14 +114,11 @@ namespace UI.ViewModels
 
         public void UpdateList(TourLogModel tourLog)
         {
-            if (_tourLogs.Contains(_currentTourLog))
-            {
-                _tourLogs[_tourLogs.IndexOf(_currentTourLog)] = tourLog;
-            }
-            else
-            {
-                //noch ka was dann passiert
-            }
+            int index = TourLogs.IndexOf(tourLog);
+            TourLogs.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
+            TourLogs.Insert(index, tourLog);
+            CurrentTourLog = tourLog;
+            _logger.Info("The List of tours got updated");
         }
 
         private void HandleTourLogChange(TourLogModel tourLog)
