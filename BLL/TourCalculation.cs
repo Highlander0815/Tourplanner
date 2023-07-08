@@ -1,4 +1,9 @@
 ﻿using BLL.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TourplannerModel;
 
 namespace BLL
@@ -41,7 +46,7 @@ namespace BLL
 
         private int CalculateDifficultyFriendliness(TourModel tour)
         {
-            int difficultySum = 5; //if no TourLogs are created for the current Tour the TotalTimeChildfriendliness will be estimated as bad
+            int difficultySum = 0; //if no TourLogs are created for the current Tour the DifficultyChildfriendliness will be estimated as beginner
             if(tour.TourLogs != null)
             {
                 if (tour.TourLogs.Count >= 1)

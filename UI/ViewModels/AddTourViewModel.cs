@@ -126,7 +126,6 @@ namespace UI.ViewModels
                 tour = await result;
                 _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
                 AddEvent?.Invoke(tour);
-                _logger.Info("A new Tour was successfully created" + tour.Id);
             }
             catch (Exception ResponseErrorOfApiException)
             {

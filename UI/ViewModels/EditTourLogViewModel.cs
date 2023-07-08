@@ -17,6 +17,7 @@ namespace UI.ViewModels
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private Validator _validator;
         private TourLogModel _newTourLog;
+        private SideMenuViewModel _sideMenuViewModel;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -100,8 +101,9 @@ namespace UI.ViewModels
                 UpdateButtonState();
             }
         }
-        public EditTourLogViewModel(BottomMenuViewModel bottomMenuViewModel)
+        public EditTourLogViewModel(BottomMenuViewModel bottomMenuViewModel, SideMenuViewModel sideMenuViewModel)
         {
+            _sideMenuViewModel = sideMenuViewModel;
             _bottomMenuViewModel = bottomMenuViewModel;
             DateTime = DateTime.Now;
         }
@@ -121,7 +123,8 @@ namespace UI.ViewModels
             currentTourLog.Difficulty = _difficulty;
             currentTourLog.TotalTime = _totalTime;
             currentTourLog.Rating = _rating;
-      
+            _sideMenuViewModel.TriggerCurrentTourChangedAction(_sideMenuViewModel.CurrentTour);
+
             SubmitAction?.Invoke();
         }
 

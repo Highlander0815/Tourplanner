@@ -111,6 +111,7 @@ namespace UI.ViewModels
             IsButtonEnabled = false;
             TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating, _currentTour);
             _tourLogHandler.AddTourLog(tourLog);
+            _sideMenuViewModel.TriggerCurrentTourChangedAction(_currentTour);
             this.AddEvent?.Invoke();
         }
 

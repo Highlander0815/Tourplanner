@@ -14,11 +14,11 @@ namespace UI.ViewModels
     public class BottomMenuViewModel : ViewModelBase
     {
         //Actions
-        public event Action<TourLogModel> currentTourLogChangedAction;
+        public event Action<TourLogModel> selectedTourLogChangedAction;
 
         private TourModel _currentTour; //has to be saved because the currentTour contains the TourLogs which should be displayed
         private static readonly ILog _logger = LogManager.GetLogger(typeof(SideMenuViewModel));
-
+        private SideMenuViewModel _sideMenuViewModel;
         //List of TourLogs
         private ObservableCollection<TourLogModel> _tourLogs;
         public ObservableCollection<TourLogModel> TourLogs
@@ -35,13 +35,13 @@ namespace UI.ViewModels
         private TourLogHandler _tourLogHandler;
         public BottomMenuViewModel(SideMenuViewModel sideMenuViewModel, TourLogHandler tourLogHandler)
         {
-            currentTourLogChangedAction += HandleTourLogChange;
-            sideMenuViewModel.currentTourChangedAction += HandleTourChanged;
+            selectedTourLogChangedAction += HandleTourLogChange;
+            _sideMenuViewModel = sideMenuViewModel;
+            _sideMenuViewModel.currentTourChangedAction += HandleTourChanged;
 
             _tourLogs = new ObservableCollection<TourLogModel>();
 
             _tourLogHandler = tourLogHandler;
-
             //_tourLogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
         }
 
@@ -81,8 +81,10 @@ namespace UI.ViewModels
         {
             if(_currentTour != null) //otherwise the new TourLog can not be added to a Tour
             {
+                _logger.Info("Add Tourlog Window got oppened");
                 OpenAddTourLog?.Invoke(this, EventArgs.Empty);
                 TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
+                _logger.Info($"A new Tourlog was added to the Tour with the ID: {_currentTour.Id}");
             }
             else
             {
@@ -94,6 +96,7 @@ namespace UI.ViewModels
         {
             if(_currentTourLog != null) //if no tourLog is selected their is nothing which can be edited
             {
+                _logger.Info("Edit Tourlog Window got oppened");
                 OpenEditTourLog?.Invoke(this, EventArgs.Empty);
             }
             else
@@ -109,6 +112,9 @@ namespace UI.ViewModels
             {
                 _tourLogHandler.DeleteTourLog(_currentTourLog.Id);
                 TourLogs.Remove(_currentTourLog);
+                _logger.Info($"A Tourlog got deleted");
+                CurrentTourLog = null;
+                _sideMenuViewModel.TriggerCurrentTourChangedAction(_currentTour);
             }
             else
             {
@@ -119,8 +125,7 @@ namespace UI.ViewModels
         public void UpdateList()
         {
             TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
-
-            _logger.Info("The List of tours got updated");
+            _logger.Info($"A TourLog of the Tour with the ID: {_currentTour.Id} got modified");
         }
 
         private void HandleTourLogChange(TourLogModel tourLog)

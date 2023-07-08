@@ -8,7 +8,6 @@ namespace BLL
     public class TourHandler
     {
         private ITourRepository tourRepository;
-        private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
 
         public TourHandler(TourplannerContext tourplannerContext)
         {
@@ -18,19 +17,16 @@ namespace BLL
         {
             tourRepository.Insert(tourmodel);
             tourRepository.Save();
-            _logger.Info("Added tour " + tourmodel.Id);
         }
         public void DeleteTour(int tourId)
         {
             tourRepository.Delete(tourId);
             tourRepository.Save();
-            _logger.Info("Deleted tour");
         }
         public void UpdateTour(TourModel tourmodel)
         {
             tourRepository.Update(tourmodel);
             tourRepository.Save();
-            _logger.Info("Updated tour");
         }
         public IEnumerable<TourModel> GetTours()
         {

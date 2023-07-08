@@ -71,13 +71,8 @@ namespace UI.ViewModels
         //private Methods
         private void OpenAddTourW()
         {
-            OpenAddTour?.Invoke(this, EventArgs.Empty);
             _logger.Info("Add Tour Window got opened");
-        }
-        private void Add(TourModel tour)
-        {
-            _tours.Add(tour);
-            _logger.Info("The tour with the Id: " + tour.Id + " got added");
+            OpenAddTour?.Invoke(this, EventArgs.Empty);
         }
 
         private void OpenEditTourW()
@@ -86,6 +81,7 @@ namespace UI.ViewModels
             {
                 //string path = _currentTour.Image;
                 _tourHandler.UpdateTour(_currentTour);
+                _logger.Info("Edit Tour Window got oppened");
                 OpenEditTour?.Invoke(this, EventArgs.Empty);
                 //File.Delete(path);
                 currentTourChangedAction?.Invoke(_currentTour);
@@ -120,6 +116,7 @@ namespace UI.ViewModels
         public void Save(TourModel tour)
         {
             Tours.Add(tour);
+            _logger.Info("Added tour " + tour.Id);
         }
         public void UpdateList(TourModel tour)
         {
@@ -128,6 +125,14 @@ namespace UI.ViewModels
             Tours.Insert(index, tour);
             CurrentTour = tour;
             _logger.Info("The List of tours got updated");
+        }
+        
+        public void TriggerCurrentTourChangedAction(TourModel tour) //this method is needed to trigger the CurrentTourChangedAction when deleting/adding/editing TourLogs 
+        {                                                           //because this leads to a update of the DisplayInfoViewModel
+            if (tour != null)
+            {
+                currentTourChangedAction?.Invoke(tour);
+            }
         }
         private void ShowMessageBox(string msg)
         {
