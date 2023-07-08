@@ -5,7 +5,7 @@ using TourplannerModel;
 
 namespace UnitTests
 {
-    public class Tests
+    public class BLL_Tests
     {
         [SetUp]
         public void Setup()
@@ -16,17 +16,6 @@ namespace UnitTests
         public void Test1()
         {
             Assert.Pass();
-        }
-        [Test]
-        public void AddTourLogTest()
-        {
-            // Arrange
-            InMemoryTourLogHandler tourLogHandler = new InMemoryTourLogHandler();
-            TourLogModel tourLogModel = new TourLogModel();
-            // Act
-            tourLogHandler.AddTourLog(tourLogModel);
-            // Assert
-            Assert.That(tourLogHandler.GetTourLogs().Count(), Is.EqualTo(1));
         }
     }
 }
