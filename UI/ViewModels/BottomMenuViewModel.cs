@@ -1,4 +1,5 @@
 ﻿using BLL;
+using iText.StyledXmlParser.Node;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace UI.ViewModels
 
             _tourLogHandler = tourLogHandler;
 
-            _tourLogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
+            //_tourLogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
         }
 
         //current TourLog = Selected item in the dataGrid. Is needed to know the currentTourLog when you want to edit/delete it.
@@ -79,7 +80,10 @@ namespace UI.ViewModels
         private void OpenAddTourLogW()
         {
             if(_currentTour != null) //otherwise the new TourLog can not be added to a Tour
+            {
                 OpenAddTourLog?.Invoke(this, EventArgs.Empty);
+                TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
+            }
             else
             {
                 ShowMessageBox("No tour selected!");
@@ -112,12 +116,10 @@ namespace UI.ViewModels
             }
         }
 
-        public void UpdateList(TourLogModel tourLog)
+        public void UpdateList()
         {
-            int index = TourLogs.IndexOf(tourLog);
-            TourLogs.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
-            TourLogs.Insert(index, tourLog);
-            CurrentTourLog = tourLog;
+            TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
+
             _logger.Info("The List of tours got updated");
         }
 
@@ -131,8 +133,7 @@ namespace UI.ViewModels
             if (tour != null)
             {
                 _currentTour = tour;
-                TourLogs = tour.TourLogs;
-
+                TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
             }
             else
             {

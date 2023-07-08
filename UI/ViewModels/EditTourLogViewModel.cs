@@ -13,7 +13,7 @@ namespace UI.ViewModels
 {
     public class EditTourLogViewModel : ViewModelBase
     {
-        public event Action<TourLogModel> SubmitAction; //event which will be fired by the SubmitButton
+        public event Action SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private Validator _validator;
         private TourLogModel _newTourLog;
@@ -122,7 +122,7 @@ namespace UI.ViewModels
             currentTourLog.TotalTime = _totalTime;
             currentTourLog.Rating = _rating;
       
-            this.SubmitAction?.Invoke(currentTourLog);
+            SubmitAction?.Invoke();
         }
 
         private void Cancel()

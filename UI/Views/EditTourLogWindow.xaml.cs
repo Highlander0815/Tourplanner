@@ -25,7 +25,7 @@ namespace UI.Views
         {
             InitializeComponent();
         }
-        public void Edit(TourLogModel currentTourLog, Action<TourLogModel> update)
+        public void Edit(TourLogModel currentTourLog, Action update)
         {
             var mainWindow = this.DataContext as EditTourLogViewModel;
 
@@ -35,8 +35,8 @@ namespace UI.Views
             mainWindow.Rating = currentTourLog.Rating;
 
 
-            mainWindow.SubmitAction += (tour) => update(tour);
-            mainWindow.SubmitAction += (tour) => this.DialogResult = true;
+            mainWindow.SubmitAction += () => update();
+            mainWindow.SubmitAction += () => this.DialogResult = true;
             mainWindow.CancelEvent += (o, e) => this.DialogResult = false;
         }
     }
