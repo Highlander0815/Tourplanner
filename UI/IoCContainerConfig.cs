@@ -45,6 +45,8 @@ namespace UI
             services.AddSingleton<TourViewModel>();
             services.AddSingleton<TourLogViewModel>();
 
+            services.AddSingleton<SearchbarViewModel>();
+
             _serviceProvider = services.BuildServiceProvider();
         }
         public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetRequiredService<MainWindowViewModel>();
@@ -66,6 +68,7 @@ namespace UI
         public MenuViewModel MenuViewModel => _serviceProvider.GetRequiredService<MenuViewModel>();
         public TourViewModel TourViewModel => _serviceProvider.GetRequiredService<TourViewModel>();
         public TourLogViewModel TourLogViewModel => _serviceProvider.GetRequiredService<TourLogViewModel>();
+        public SearchbarViewModel SearchbarViewModel => _serviceProvider.GetRequiredService<SearchbarViewModel>();
         //public MainViewModel AddTourViewModel => _serviceProvider.GetService<AddTourViewModel>();
     }
 }
