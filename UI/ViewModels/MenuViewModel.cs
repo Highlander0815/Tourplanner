@@ -1,5 +1,7 @@
 ﻿using BLL;
 using System;
+using System.Windows.Interop;
+using System.Windows;
 using TourplannerModel;
 
 namespace UI.ViewModels
@@ -22,7 +24,19 @@ namespace UI.ViewModels
 
         private void ExportJSON()
         {
-            _importExportManager.ExportTour(_currentTour.Id);
+            if (_currentTour != null)
+            {
+                _importExportManager.ExportTour(_currentTour.Id);
+            }
+            else
+            {
+                string msgBoxText = "No tour selected!";
+                string caption = "Warning";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+
+                MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
+            }
         }
 
         public MenuViewModel(ImportExportManager importExportManager, SideMenuViewModel sideMenuViewModel)

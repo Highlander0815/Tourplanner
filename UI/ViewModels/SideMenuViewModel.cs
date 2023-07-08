@@ -128,9 +128,8 @@ namespace UI.ViewModels
             string caption = "Warning";
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result;
-
-            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
+            
+            MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace TourplannerModel
 {
@@ -13,6 +13,7 @@ namespace TourplannerModel
         public DifficultyEnum Difficulty { get; set; }
         public TimeSpan TotalTime { get; set; }
         public int Rating { get; set; }
+        [JsonIgnore]
         public TourModel TourModel { get; set; } = null!;
 
         public TourLogModel(DateTime dateTime, DifficultyEnum difficulty, TimeSpan totalTime, int rating) 

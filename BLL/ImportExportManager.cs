@@ -9,18 +9,16 @@ namespace BLL
     public class ImportExportManager
     {
         private TourHandler _tourHandler;
-        private TourLogHandler _tourLogHandler;
-        public ImportExportManager(TourHandler tourHandler, TourLogHandler tourLogHandler)
+        public ImportExportManager(TourHandler tourHandler)
         {
             _tourHandler = tourHandler;
-            _tourLogHandler = tourLogHandler;
         }
 
         public void ExportTour(int tourid)
         {
             TourModel tour = _tourHandler.GetTour(tourid);
-
-            string json = JsonConvert.SerializeObject(tour);
+            
+            string json = JsonConvert.SerializeObject(tour, Formatting.Indented);
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "JSON file (*.json)|*.json";
             saveFileDialog.FileName = "Tour_" + tourid.ToString() + "_" + tour.Name + ".json";

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
 
 namespace TourplannerModel
 {
@@ -16,7 +15,6 @@ namespace TourplannerModel
         public string? Image { get; set; }
         public int? Popularity { get; set; }
         public int? ChildFriendliness { get; set; }
-        [JsonIgnore]
         public ObservableCollection<TourLogModel> TourLogs { get; private set; } = null!;
         public TourModel(string name, string description, string from, string to, string transportType)
         {
