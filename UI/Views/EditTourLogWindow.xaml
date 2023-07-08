@@ -25,7 +25,7 @@
         <tool:TimeSpanUpDown Margin="5 0" Minimum="0.00:00:00" x:Name="TotalTime" Value="{Binding TotalTime, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Rating"></Label>
         <ComboBox Margin="5 0" ItemsSource="{Binding RatingOptions}" SelectedItem="{Binding Rating}"/>
-        <Button Content="Submit" Background="LightSkyBlue" Command="{Binding SubmitCommand}"/>
+        <Button Content="Submit" Background="LightSkyBlue" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding SubmitCommand}"/>
         <Button Content="Cancel" Background="Red" Command="{Binding CancelCommand}"/>
 
     </StackPanel>

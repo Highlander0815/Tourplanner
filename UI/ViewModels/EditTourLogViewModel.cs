@@ -1,7 +1,10 @@
 ﻿using BLL;
+using MiNET.UI;
+using MiNET.Utils.Skins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TourplannerModel;
@@ -12,6 +15,8 @@ namespace UI.ViewModels
     {
         public event Action<TourLogModel> SubmitAction; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
+        private Validator _validator;
+        private TourLogModel _newTourLog;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -25,6 +30,17 @@ namespace UI.ViewModels
         public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
        
         private BottomMenuViewModel _bottomMenuViewModel;
+
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                _isButtonEnabled = value;
+                OnPropertyChanged(nameof(IsButtonEnabled));
+            }
+        }
         private DateTime _dateTime;
         public DateTime DateTime
         {
@@ -33,6 +49,7 @@ namespace UI.ViewModels
             {
                 _dateTime = DateTime.SpecifyKind(value, DateTimeKind.Utc);
                 OnPropertyChanged(nameof(DateTime));
+                UpdateButtonState();
             }
         }
 
@@ -44,6 +61,7 @@ namespace UI.ViewModels
             {
                 _time = value;
                 OnPropertyChanged(nameof(Time));
+                UpdateButtonState();
             }
         }
 
@@ -55,6 +73,7 @@ namespace UI.ViewModels
             {
                 _difficulty = value;
                 OnPropertyChanged(nameof(Difficulty));
+                UpdateButtonState();
             }
         }
 
@@ -66,6 +85,7 @@ namespace UI.ViewModels
             {
                 _totalTime = value;
                 OnPropertyChanged(nameof(TotalTime));
+                UpdateButtonState();
             }
         }
 
@@ -77,6 +97,7 @@ namespace UI.ViewModels
             {
                 _rating = value;
                 OnPropertyChanged(nameof(Rating));
+                UpdateButtonState();
             }
         }
         public EditTourLogViewModel(BottomMenuViewModel bottomMenuViewModel)
@@ -84,7 +105,14 @@ namespace UI.ViewModels
             _bottomMenuViewModel = bottomMenuViewModel;
             DateTime = DateTime.Now;
         }
+        private void UpdateButtonState()
+        {
+            _newTourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating);
+            _validator = new BLL.Validator();
+            bool allFieldsFilled = _validator.TourLogValidation(_newTourLog);
 
+            IsButtonEnabled = allFieldsFilled;
+        }
         private async void EditTour()
         {
             TourLogModel currentTourLog = _bottomMenuViewModel.CurrentTourLog;

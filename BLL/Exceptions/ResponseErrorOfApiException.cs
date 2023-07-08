@@ -3,7 +3,7 @@
 namespace BLL.Exceptions
 {
     [Serializable]
-    public class ResponseErrorOfApiException : Exception
+    internal class ResponseErrorOfApiException : Exception
     {
         public ResponseErrorOfApiException()
         {

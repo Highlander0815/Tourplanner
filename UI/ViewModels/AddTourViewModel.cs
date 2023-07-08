@@ -6,6 +6,7 @@ using TourplannerModel;
 using System.Collections.ObjectModel;
 using BLL;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace UI.ViewModels
 {
@@ -38,7 +39,6 @@ namespace UI.ViewModels
             {
                 _isButtonEnabled = value;
                 OnPropertyChanged(nameof(IsButtonEnabled));
-                UpdateButtonState();
             }
         }
         private string _name;
@@ -106,10 +106,6 @@ namespace UI.ViewModels
 
         private void UpdateButtonState()
         {
-            /*TourModel currentTour = new TourModel(Name, Description, From, To, TransportType);
-            _validator = new Validator();
-            IsButtonEnabled = _validator.TourValidation(currentTour);*/
-
             _newTour = new TourModel(_name, _description, _from, _to, _transportType);
             _validator = new Validator();
             bool allFieldsFilled = _validator.TourValidation(_newTour);
@@ -119,17 +115,39 @@ namespace UI.ViewModels
         private async void AddTour()
         {
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);
-            _tourHandler.AddTour(tour); //damit die Id gesetzt wird
-            _restHandler = new RESTHandler();
-            Task<TourModel> result = _restHandler.Rest.Request(tour);
-            tour = await result;
-            _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
-            AddEvent?.Invoke(tour);
+            try
+            {
+                IsButtonEnabled = false;
+                _tourHandler.AddTour(tour); //damit die Id gesetzt wird
+                _restHandler = new RESTHandler();
+                Task<TourModel> result = _restHandler.Rest.Request(tour);
+                tour = await result;
+                _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
+                AddEvent?.Invoke(tour);
+            }
+            catch (Exception ResponseErrorOfApiException)
+            {
+                IsButtonEnabled = true;
+                ShowMessageBox("The responds statuscode of the API was not 0, Please check your input in the to and from field");
+                _tourHandler.DeleteTour(tour.Id);
+            }
+           
         }
 
         private void Cancel()
         {
             CancelEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ShowMessageBox(string msg)
+        {
+            string msgBoxText = msg;
+            string caption = "Warning";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+
+            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
     }
 }

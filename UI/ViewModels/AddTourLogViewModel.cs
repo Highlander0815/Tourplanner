@@ -14,6 +14,8 @@ namespace UI.ViewModels
 
         public event Action AddEvent; //event which will be fired by the SubmitButton
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
+        private Validator _validator;
+        private TourLogModel _newTourLog;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -26,10 +28,22 @@ namespace UI.ViewModels
 
         public List<int> RatingOptions { get; } = Enumerable.Range(1, 5).ToList();
 
-        private InMemoryTourLogHandler _tourLogHandler;
+        //private InMemoryTourLogHandler _tourLogHandler; //mit dem TourHandler crash das programm ich nehme mal an der ist nur für die unit tests da aber das kann denk ich nicht im production code stehen 
+        private TourLogHandler _tourLogHandler;
         private SideMenuViewModel _sideMenuViewModel;
 
         private TourModel _currentTour;
+
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                _isButtonEnabled = value;
+                OnPropertyChanged(nameof(IsButtonEnabled));
+            }
+        }
         private DateTime _dateTime;
         public DateTime DateTime
         {
@@ -38,6 +52,7 @@ namespace UI.ViewModels
             {
                 _dateTime = DateTime.SpecifyKind(value, DateTimeKind.Utc);
                 OnPropertyChanged(nameof(DateTime));
+                UpdateButtonState();
             }
         }
 
@@ -49,6 +64,7 @@ namespace UI.ViewModels
             {
                 _difficulty = value;
                 OnPropertyChanged(nameof(Difficulty));
+                UpdateButtonState();
             }
         }
 
@@ -60,6 +76,7 @@ namespace UI.ViewModels
             {
                 _totalTime = value;
                 OnPropertyChanged(nameof(TotalTime));
+                UpdateButtonState();
             }
         }
 
@@ -71,16 +88,24 @@ namespace UI.ViewModels
             {
                 _rating = value;
                 OnPropertyChanged(nameof(Rating));
+                UpdateButtonState();
             }
         }
 
-        public AddTourLogViewModel(InMemoryTourLogHandler tourLogHandler, SideMenuViewModel sideMenuViewModel)
+        public AddTourLogViewModel(/*InMemoryTourLogHandler tourLogHandler,*/TourLogHandler tourLogHandler, SideMenuViewModel sideMenuViewModel)
         {
             _tourLogHandler = tourLogHandler;
             _sideMenuViewModel = sideMenuViewModel;
             _currentTour = sideMenuViewModel.CurrentTour;
         }
+        private void UpdateButtonState()
+        {
+            _newTourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating);
+            _validator = new BLL.Validator();
+            bool allFieldsFilled = _validator.TourLogValidation(_newTourLog);
 
+            IsButtonEnabled = allFieldsFilled;
+        }
         private void AddTourLog()
         {
             TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating, _currentTour);

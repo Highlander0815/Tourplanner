@@ -47,17 +47,21 @@ namespace BLL
         private int CalculateDifficultyFriendliness(TourModel tour)
         {
             int difficultySum = 5; //if no TourLogs are created for the current Tour the TotalTimeChildfriendliness will be estimated as bad
-            if (tour.TourLogs != null)
+            if(tour.TourLogs != null)
             {
-                // calculate average of Difficulty
-                foreach (TourLogModel tourLog in tour.TourLogs)
+                if (tour.TourLogs.Count >= 1)
                 {
-                    difficultySum += Convert.ToInt32(tourLog.Difficulty);
-                }
-                double difficultyAverage = difficultySum / tour.TourLogs.Count; //muss noch gerundet werden weil zb 3+4 /2 = 3.5
+                    // calculate average of Difficulty
+                    foreach (TourLogModel tourLog in tour.TourLogs)
+                    {
+                        difficultySum += Convert.ToInt32(tourLog.Difficulty);
+                    }
+                    double difficultyAverage = difficultySum / tour.TourLogs.Count; //muss noch gerundet werden weil zb 3+4 /2 = 3.5
 
-                return (int)Math.Round(difficultyAverage);
+                    return (int)Math.Round(difficultyAverage);
+                }
             }
+           
             return difficultySum;
             
         }

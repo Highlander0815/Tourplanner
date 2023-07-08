@@ -14,16 +14,17 @@
         <local:Menu DockPanel.Dock="Top"/>
 
         <!-- Searchbar -->
-        <Grid DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Tour" VerticalAlignment="Center" Grid.Column="0" />
-            <TextBox Name="txtSearchTour" VerticalAlignment="Center" Text="{Binding SearchTour, Mode=TwoWay}" Grid.Column="1" />
-            <Button Command="{Binding SearchCommand}" Grid.Column="2">Search</Button>            
-        </Grid>             
+        <local:Searchbar DockPanel.Dock="Top"/>
+        <!--<Grid DockPanel.Dock="Top">-->
+        <!--<Grid.ColumnDefinitions>-->
+        <!-- <ColumnDefinition Width="Auto" /> -->
+        <!-- <ColumnDefinition Width="*" /> -->
+        <!--  <ColumnDefinition Width="Auto" /> -->
+        <!-- </Grid.ColumnDefinitions> -->
+        <!-- <TextBlock Text="Tour" VerticalAlignment="Center" Grid.Column="0" /> -->
+        <!-- <TextBox Name="txtSearchTour" VerticalAlignment="Center" Text="{Binding SearchTour, Mode=TwoWay}" Grid.Column="1" /> -->
+        <!--  <Button Command="{Binding SearchCommand}" Grid.Column="2">Search</Button> -->
+        <!--  </Grid> -->
 
         <!-- LeftMenu -->
         <local:SideMenu DockPanel.Dock="Left"/>

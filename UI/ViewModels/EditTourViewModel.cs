@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using TourplannerModel;
 using BLL;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using Validator = BLL.Validator;
 
 namespace UI.ViewModels
 {
@@ -13,6 +15,8 @@ namespace UI.ViewModels
         public event EventHandler CancelEvent; //event which will be fired by the CancelButton
         private RESTHandler _restHandler;
         private TourHandler _tourHandler;
+        private Validator _validator;
+        private TourModel _newTour;
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -28,6 +32,17 @@ namespace UI.ViewModels
             "Pedestrian"
         };
 
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                _isButtonEnabled = value;
+                OnPropertyChanged(nameof(IsButtonEnabled));
+            }
+        }
+
         private string _name;
         public string Name
         {
@@ -36,6 +51,7 @@ namespace UI.ViewModels
             {
                 _name = value; 
                 OnPropertyChanged(nameof(Name));
+                UpdateButtonState();
             }
         }
         private string _description;
@@ -46,6 +62,7 @@ namespace UI.ViewModels
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
+                UpdateButtonState();
             }
         }
         private string _from;
@@ -56,6 +73,7 @@ namespace UI.ViewModels
             {
                 _from = value;
                 OnPropertyChanged(nameof(From));
+                UpdateButtonState();
             }
         }
         private string _to;
@@ -66,6 +84,7 @@ namespace UI.ViewModels
             {
                 _to = value;
                 OnPropertyChanged(nameof(To));
+                UpdateButtonState();
             }
         }
         private string _transportType;
@@ -76,6 +95,7 @@ namespace UI.ViewModels
             {
                 _transportType = value;
                 OnPropertyChanged(nameof(TransportType));
+                UpdateButtonState();
             }
         }
         public EditTourViewModel(SideMenuViewModel sideMenuViewModel, TourHandler tourHandler)
@@ -84,6 +104,14 @@ namespace UI.ViewModels
             _tourHandler = tourHandler;
         }
 
+        private void UpdateButtonState()
+        {
+            _newTour = new TourModel(_name, _description, _from, _to, _transportType);
+            _validator = new Validator();
+            bool allFieldsFilled = _validator.TourValidation(_newTour);
+
+            IsButtonEnabled = allFieldsFilled;
+        }
         private async void EditTour()
         {
             /*TourModel tour = new TourModel(Name, Description, From, To, TransportType);
