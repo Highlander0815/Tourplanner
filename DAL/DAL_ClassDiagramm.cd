@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="DAL.TourLogRepository">
-    <Position X="6.5" Y="1.5" Width="2" />
+    <Position X="4.75" Y="1.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAYCAMAAACAAAIAAAAAAAAAAAAEAAAAAACAAAAAAAAA=</HashCode>
       <FileName>TourlogRepository.cs</FileName>
@@ -9,14 +9,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DAL.TourplannerContext">
-    <Position X="3" Y="5" Width="1.75" />
+    <Position X="8.5" Y="1.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAEAAAA=</HashCode>
       <FileName>TourplannerContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DAL.TourRepository">
-    <Position X="3" Y="1.5" Width="1.5" />
+    <Position X="1.75" Y="1.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAYCBMAAACAAAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TourRepository.cs</FileName>
@@ -24,14 +24,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="DAL.ITourLogRepository">
-    <Position X="8.75" Y="1.5" Width="1.75" />
+    <Position X="4.75" Y="4.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAQAAMAAAAAAAIAAAAAAAAAAAAEAAAAAACAAAAAAAAA=</HashCode>
       <FileName>TourlogRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DAL.ITourRepository">
-    <Position X="4.75" Y="1.5" Width="1.5" />
+    <Position X="1.75" Y="4.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAQABMAAAAAAAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TourRepository.cs</FileName>

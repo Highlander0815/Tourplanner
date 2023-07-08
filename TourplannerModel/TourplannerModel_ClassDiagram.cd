@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="TourplannerModel.TourLogModel">
-    <Position X="3.75" Y="2" Width="2.25" />
+    <Position X="3.5" Y="2" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAQAAAAAAAAAAAAAAAAcAAAAAAAAAAAA=</HashCode>
       <FileName>TourLogModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TourplannerModel.TourModel">
-    <Position X="6.25" Y="2" Width="2" />
+    <Position X="6.25" Y="2" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AgASAAAECAAgAAAAAAAAACQAAAAIAhCAAAAAAAAAAAA=</HashCode>
       <FileName>TourModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="TourplannerModel.DifficultyEnum">
-    <Position X="8.5" Y="2" Width="1.5" />
+    <Position X="10" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>DifficultyEnum.cs</FileName>
