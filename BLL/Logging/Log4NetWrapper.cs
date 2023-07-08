@@ -9,7 +9,7 @@ namespace BLL.Logging
     /// </summary>
     public class Log4NetWrapper : ILoggerWrapper
     {
-        private log4net.ILog logger;
+        private log4net.ILog _logger;
 
         public static Log4NetWrapper CreateLogger(string configPath, string caller)
         {
@@ -23,32 +23,32 @@ namespace BLL.Logging
             return new Log4NetWrapper(logger);
         }
 
-        private Log4NetWrapper(log4net.ILog logger)
+        public Log4NetWrapper(log4net.ILog logger)
         {
-            this.logger = logger;
+            this._logger = logger;
         }
 
         public void Debug(string message)
         {
-            logger.Debug(message);
+            _logger.Debug(message);
         }
         public void Warn(string message)
         {
-            logger.Warn(message);
+            _logger.Warn(message);
         }
 
         public void Error(string message)
         {
-            logger.Error(message);
+            _logger.Error(message);
         }
 
         public void Fatal(string message)
         {
-            logger.Fatal(message);
+            _logger.Fatal(message);
         }
         public void Info(string message)
         {
-            logger.Info(message);
+            _logger.Info(message);
         }
     }
 }

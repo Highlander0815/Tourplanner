@@ -67,6 +67,9 @@ namespace BLL
                     list.Add("Transport Type: " + tour.TransportType);
                     list.Add("Distance: " + tour.TourDistance + " km");
                     list.Add("Estimated Time (hh:mm:ss): " + tour.EstimatedTime);
+                    list.Add("Popularity: " + tour.Popularity);
+                    list.Add("Childfriendliness " + tour.ChildFriendliness);
+                    list.Add("The lower the value the more child friendly");
                     document.Add(list);
 
                     // Add image of route

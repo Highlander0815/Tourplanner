@@ -36,7 +36,8 @@ namespace BLL
 
                 if (jsonData["info"]["statuscode"] != "0") //kontrolliere mithilfe von postman wann etwas anderes als 200 zurück kommt
                 {
-                    throw new ResponseErrorOfApiException();
+                    string errorString = jsonData["info"]["messages"][0].ToString();
+                    throw new ResponseErrorOfApiException(errorString);
                 }
 
                 tour.EstimatedTime = jsonData["route"]["formattedTime"];

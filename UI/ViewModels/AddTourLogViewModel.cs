@@ -108,6 +108,7 @@ namespace UI.ViewModels
         }
         private void AddTourLog()
         {
+            IsButtonEnabled = false;
             TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating, _currentTour);
             _tourLogHandler.AddTourLog(tourLog);
             this.AddEvent?.Invoke();

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using BLL;
 using System.Windows.Controls;
 using System.Windows;
+using BLL.Logging;
 
 namespace UI.ViewModels
 {
@@ -18,6 +19,7 @@ namespace UI.ViewModels
         private TourHandler _tourHandler;
         private Validator _validator;
         private TourModel _newTour;
+        private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -124,12 +126,14 @@ namespace UI.ViewModels
                 tour = await result;
                 _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
                 AddEvent?.Invoke(tour);
+                _logger.Info("A new Tour was successfully created" + tour.Id);
             }
             catch (Exception ResponseErrorOfApiException)
             {
                 IsButtonEnabled = true;
-                ShowMessageBox("The responds statuscode of the API was not 0, Please check your input in the to and from field");
+                ShowMessageBox($"{ResponseErrorOfApiException.Message} Please check your input in the to and from field");
                 _tourHandler.DeleteTour(tour.Id);
+                _logger.Error($"The Imput the usere entered in 'To' and/or 'From' could not be handeled from the API. The user entered:  {tour.To} & {tour.From}");
             }
            
         }
