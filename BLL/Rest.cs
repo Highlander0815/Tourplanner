@@ -1,23 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using TourplannerModel;
-using System.Net.NetworkInformation;
-using System.Collections;
-using System;
-using System.Drawing;
-using System.IO;
+﻿using TourplannerModel;
 using static System.Drawing.Image;
 using Newtonsoft.Json;
-using System.Threading.Tasks.Dataflow;
-using System.Linq.Expressions;
-using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.EntityFrameworkCore;
-using MiNET.Utils;
 using BLL.Exceptions;
 
 namespace BLL

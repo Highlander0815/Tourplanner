@@ -7,7 +7,7 @@ namespace BLL
         public Rest Rest { get; set; }  
         public RESTHandler()
         { 
-            this.Rest = new Rest();
+            Rest = new Rest();
         }
     }
 }

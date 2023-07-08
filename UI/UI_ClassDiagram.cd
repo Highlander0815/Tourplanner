@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="UI.ViewModels.AddTourLogViewModel">
+    <Position X="0.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAEAAxQAAAAwJEAAAAAAgAQAAIAAUAEFAAEAQAoIA=</HashCode>
+      <FileName>ViewModels\AddTourLogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.AddTourViewModel">
+    <Position X="4" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>QgAQMAEwQAAgAABGAAAIAAQAAgAIAAABAEQAECAAMAA=</HashCode>
+      <FileName>ViewModels\AddTourViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.BottomMenuViewModel">
+    <Position X="7.5" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAABEBCEAAQAMCAAAAIAAAACEAlAUAAAAAAAAAAAI=</HashCode>
+      <FileName>ViewModels\BottomMenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.CenterWindowViewModel">
+    <Position X="11.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gBAEAAEAFAgAAAAAAAAQAABAAAKAAIQRAAAAAABEAAQ=</HashCode>
+      <FileName>ViewModels\CenterWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.DisplayInfoViewModel">
+    <Position X="15.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAQYAAUAAAgACAFAAAAICQAAgAIBgCAABAAACAAAAE=</HashCode>
+      <FileName>ViewModels\DisplayInfoViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.DisplayRouteViewModel">
+    <Position X="0.5" Y="11.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAABCAAAAAAAA=</HashCode>
+      <FileName>ViewModels\DisplayRouteViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.EditTourLogViewModel">
+    <Position X="21.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAEAAwQBAgAQAEACAAAAgAABAIAAUAEFAAEAQAoYA=</HashCode>
+      <FileName>ViewModels\EditTourLogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.EditTourViewModel">
+    <Position X="25.25" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>QgAQMAAwQBAgAAAGAAAIAAQAQhAIAAAAAEQAECAAMAA=</HashCode>
+      <FileName>ViewModels\EditTourViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.MainWindowViewModel">
+    <Position X="3.25" Y="11.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAACAAAAAAAAAAAAAAAQAAAAAABAAAA=</HashCode>
+      <FileName>ViewModels\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.MenuViewModel">
+    <Position X="9" Y="11.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAFAgAAABAAAAAABAAAIQBAAAAAAAAQAA=</HashCode>
+      <FileName>ViewModels\MenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.SearchbarViewModel">
+    <Position X="12.5" Y="11.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAgAAgAAAEAAAEwAAEAEAQAAAAAANAAAk=</HashCode>
+      <FileName>ViewModels\SearchbarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.SideMenuViewModel">
+    <Position X="17.75" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>BAYAAIEAAAAAQAMCAIAACAAAACMAAAUAAAQAAAEQAAA=</HashCode>
+      <FileName>ViewModels\SideMenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.TourLogViewModel">
+    <Position X="14.75" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\TourLogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.TourViewModel">
+    <Position X="7" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BgAQAAAAAAAgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\TourViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI.ViewModels.ViewModelBase">
+    <Position X="10" Y="8.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQIAAAAAAAgAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.AddTourLogWindow">
+    <Position X="24" Y="9" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Views\AddTourLogWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.AddTourWindow">
+    <Position X="26.75" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Views\AddTourWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.BottomMenu">
+    <Position X="17.5" Y="12.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\BottomMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.CenterWindow">
+    <Position X="20" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CenterWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.DisplayInfoWindow">
+    <Position X="26" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DisplayInfoWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.DisplayRouteWindow">
+    <Position X="24" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DisplayRouteWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.EditTourLogWindow">
+    <Position X="26" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EditTourLogWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.EditTourWindow">
+    <Position X="24" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EditTourWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.MainWindow">
+    <Position X="17.5" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.Menu">
+    <Position X="19.5" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Menu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.Searchbar">
+    <Position X="21.5" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Searchbar.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.Views.SideMenu">
+    <Position X="17.5" Y="10.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SideMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UI.IoCContainerConfig">
+    <Position X="28.75" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>QIARAAAAUAAAQAAAAAAAACAgAASAAAIIIEAAAgAhAAA=</HashCode>
+      <FileName>IoCContainerConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
