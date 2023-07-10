@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
-using iText.StyledXmlParser.Jsoup.Nodes;
 using Newtonsoft.Json;
 
 namespace TourplannerModel
@@ -25,7 +23,7 @@ namespace TourplannerModel
             Difficulty = difficulty;
             TotalTime = totalTime;
             Rating = rating;
-            this.Comment = comment;
+            Comment = comment;
         }
         public TourLogModel(DateTime dateTime, DifficultyEnum difficulty, TimeSpan totalTime, int rating, string comment, TourModel tour)
         {
@@ -33,7 +31,7 @@ namespace TourplannerModel
             Difficulty = difficulty;
             TotalTime = totalTime;
             Rating = rating;
-            this.Comment = comment;
+            Comment = comment;
             TourModel = tour;
         }
         public TourLogModel() { }

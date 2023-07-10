@@ -1,21 +1,14 @@
 ﻿using iText.Kernel.Pdf;
-using iText.Layout;
 using iText.Layout.Element;
 using DAL;
 using TourplannerModel;
 using iText.IO.Image;
-using System.Windows.Media.Imaging;
 using iText.Layout.Properties;
 using iText.Kernel.Colors;
-using iText.StyledXmlParser.Jsoup.Nodes;
 using System.Collections.ObjectModel;
-using MiNET.Blocks;
 using iText.Kernel.Pdf.Canvas.Draw;
-using MiNET.Entities.Hostile;
-using System.Xml;
 using Microsoft.Win32;
 using BLL.Exceptions;
-using System.Windows;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
 
 namespace BLL
@@ -23,12 +16,10 @@ namespace BLL
     public class PDFManager
     {
         private ITourRepository _tourRepository;
-        private ITourLogRepository _tourLogRepository;
         private TourCalculation _calculator;
         public PDFManager(TourplannerContext tourplannerContext)
         {
             _tourRepository = new TourRepository(tourplannerContext);
-            _tourLogRepository = new TourLogRepository(tourplannerContext);
             _calculator = new TourCalculation();
         }
 

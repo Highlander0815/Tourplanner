@@ -17,11 +17,11 @@ namespace BLL
         {
             if (tourToValidate != null)
             {
-                return !((string.IsNullOrEmpty(tourToValidate.Name)) ||
+                return !(string.IsNullOrEmpty(tourToValidate.Name) ||
                         !((tourToValidate.TransportType != "car") && (tourToValidate.TransportType != "bicycle") && (tourToValidate.TransportType != "pedestrian")) ||
-                        (string.IsNullOrEmpty(tourToValidate.Description)) ||
-                        (string.IsNullOrEmpty(tourToValidate.From)) ||
-                        (string.IsNullOrEmpty(tourToValidate.To)));
+                        string.IsNullOrEmpty(tourToValidate.Description) ||
+                        string.IsNullOrEmpty(tourToValidate.From) ||
+                        string.IsNullOrEmpty(tourToValidate.To));
             }
             return false;
         }
@@ -30,9 +30,9 @@ namespace BLL
         {
             if (logToValidate != null)
             {
-                return ((logToValidate.DateTime != null) && (logToValidate.TotalTime > TimeSpan.Zero) && (Enum.IsDefined(typeof(DifficultyEnum), logToValidate.Difficulty)) && (logToValidate.Rating >= 1) && (logToValidate.Rating <= 5) && !(string.IsNullOrEmpty(logToValidate.Comment)));
+                return (logToValidate.DateTime != null) && (logToValidate.TotalTime > TimeSpan.Zero) && Enum.IsDefined(typeof(DifficultyEnum), logToValidate.Difficulty) && (logToValidate.Rating >= 1) && (logToValidate.Rating <= 5) && !string.IsNullOrEmpty(logToValidate.Comment);
             }
             return false;
-        }
+        }        
     }
 }

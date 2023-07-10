@@ -6,6 +6,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Validator = BLL.Validator;
 using System.Windows.Input;
+using System.Diagnostics;
+using System.Windows.Interop;
+using System.Windows;
 
 namespace UI.ViewModels
 {
@@ -110,7 +113,6 @@ namespace UI.ViewModels
             _newTour = new TourModel(_name, _description, _from, _to, _transportType);
             _validator = new Validator();
             bool allFieldsFilled = _validator.TourValidation(_newTour);
-
             IsButtonEnabled = allFieldsFilled;
         }
         private async void EditTour()
