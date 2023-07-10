@@ -101,6 +101,17 @@ namespace UI.ViewModels
                 UpdateButtonState();
             }
         }
+        private string _comment;
+        public string Comment
+        {
+            get { return _comment; }
+            set
+            {
+                _comment = value;
+                OnPropertyChanged(nameof(Comment));
+                UpdateButtonState();
+            }
+        }
         public EditTourLogViewModel(BottomMenuViewModel bottomMenuViewModel, SideMenuViewModel sideMenuViewModel)
         {
             _sideMenuViewModel = sideMenuViewModel;
@@ -109,7 +120,7 @@ namespace UI.ViewModels
         }
         private void UpdateButtonState()
         {
-            _newTourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating);
+            _newTourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating, _comment);
             _validator = new BLL.Validator();
             bool allFieldsFilled = _validator.TourLogValidation(_newTourLog);
 
@@ -123,6 +134,7 @@ namespace UI.ViewModels
             currentTourLog.Difficulty = _difficulty;
             currentTourLog.TotalTime = _totalTime;
             currentTourLog.Rating = _rating;
+            currentTourLog.Comment = _comment;
             _sideMenuViewModel.TriggerCurrentTourChangedAction(_sideMenuViewModel.CurrentTour);
 
             SubmitAction?.Invoke();

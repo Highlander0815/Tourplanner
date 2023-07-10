@@ -13,6 +13,7 @@ using BLL;
 using System.Windows;
 using Microsoft.Win32;
 using BLL.Logging;
+using BLL.Exceptions;
 
 namespace UI.ViewModels
 {
@@ -59,14 +60,17 @@ namespace UI.ViewModels
 
         //Commands
         private RelayCommand? _infoCommand = null;
-        private RelayCommand? _savePDFCommand = null;
-        public RelayCommand SavePDFCommand => _savePDFCommand ??= new RelayCommand(SavePDF);
+        private RelayCommand? _saveTourReportPDFCommand = null; 
+        public RelayCommand SaveTourReportPDFCommand => _saveTourReportPDFCommand ??= new RelayCommand(SaveTourReportPDF);
+        
+        private RelayCommand? _saveSummaryPDFCommand = null; 
+        public RelayCommand SaveSummaryPDFCommand => _saveSummaryPDFCommand ??= new RelayCommand(SaveSummaryPDF);
 
-        private void SavePDF()
+        private void SaveTourReportPDF()
         {
             if (_currentTour != null)
             {
-                bool result = _pdfManager.createPDF(_currentTour.Id);
+                bool result = _pdfManager.createTourReportPDF(_currentTour);
                 if (result)
                 {
                     MessageBoxImage icon = MessageBoxImage.Information;
@@ -87,6 +91,38 @@ namespace UI.ViewModels
                 ShowMessageBox("No tour selected!", "Warning", icon);
                 _logger.Warn("User did not select a Tour, for wich one the Pdf should be created");
             }            
+        }
+        private void SaveSummaryPDF()
+        {
+            try
+            {
+                bool result = _pdfManager.createSummaryPDF();
+                if (result)
+                {
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    ShowMessageBox("pdf Summary created successfully!", "Information", icon);
+                    _logger.Info("The user created a Summary Pdf");
+
+                }
+                else
+                {
+                    MessageBoxImage icon = MessageBoxImage.Error;
+                    ShowMessageBox("pdf Summary creation aborted!", "Error", icon);
+                    _logger.Error("The Summary Pdf creation failed");
+                }
+            }
+            catch (NoToursException ex) 
+            {
+                MessageBoxImage icon = MessageBoxImage.Information;
+                ShowMessageBox("There are no tours at the moment to generate a summary!", "Information", icon);
+                _logger.Info("The Summary Pdf creation failed because at the moment there are no tours");
+            }
+            catch
+            {
+                MessageBoxImage icon = MessageBoxImage.Error;
+                ShowMessageBox("In CenterWindowViewModel was a new Exception thrown which should be handeled", "Error", icon);
+            }
+            
         }
         public RelayCommand InfoCommand => _infoCommand ??= new RelayCommand(DisplayInfoView);
         

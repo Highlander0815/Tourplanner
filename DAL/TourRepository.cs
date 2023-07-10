@@ -5,36 +5,37 @@ namespace DAL
 {
     public class TourRepository : ITourRepository, IDisposable
     {
-        private readonly TourplannerContext context;
+        private readonly TourplannerContext _context;
 
         public TourRepository(TourplannerContext context)
         {
-            this.context = context;
+            _context = context;
+ 
         }
         public IEnumerable<TourModel> GetTours()
         {
-            return context.Tours.ToList();
+            return _context.Tours.ToList();
         }
         public TourModel GetTourById(int tourId)
         {
-            return context.Tours.Find(tourId);
+            return _context.Tours.Find(tourId);
         }
         public void Insert(TourModel tour)
         {
-            context.Add(tour);
+            _context.Add(tour);
         }
         public void Update(TourModel tour)
-        {            
-            context.Entry(tour).State = EntityState.Modified;
+        {
+            _context.Entry(tour).State = EntityState.Modified;
         }
         public void Delete(int tourId)
         {
-            TourModel tour = context.Tours.Find(tourId);
-            context.Tours.Remove(tour);
+            TourModel tour = _context.Tours.Find(tourId);
+            _context.Tours.Remove(tour);
         }
         public void Save()
-        {            
-            context.SaveChanges();
+        {
+            _context.SaveChanges();
         }
 
         private bool disposed = false;
@@ -45,7 +46,7 @@ namespace DAL
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             disposed = true;

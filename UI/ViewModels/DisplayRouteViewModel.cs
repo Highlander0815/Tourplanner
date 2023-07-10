@@ -2,6 +2,8 @@
 using System;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows;
+using log4net;
 
 namespace UI.ViewModels
 {
@@ -11,7 +13,7 @@ namespace UI.ViewModels
         {
 
         }
-
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(SideMenuViewModel));
         public TourModel currentTour;
         private BitmapImage _currentTourImage;
         public BitmapImage CurrentTourImage
@@ -50,10 +52,12 @@ namespace UI.ViewModels
 
                             CurrentTourImage = bitmapImage;
                         }
+                        _logger.Info("Tour Image got updated");
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        throw new Exception("Image not found");
+                        MessageBox.Show($"This Tour {currentTour.Id} does not contain an Image", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        _logger.Error($"This Tour {currentTour.Id} does not contain an Image");
                     }
                     
                 }

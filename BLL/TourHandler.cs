@@ -7,6 +7,7 @@ namespace BLL
 {
     public class TourHandler
     {
+   
         private ITourRepository tourRepository;
 
         public TourHandler(TourplannerContext tourplannerContext)
@@ -31,6 +32,7 @@ namespace BLL
         public IEnumerable<TourModel> GetTours()
         {
             return tourRepository.GetTours();
+           
         }
         public TourModel GetTour(int id)
         {

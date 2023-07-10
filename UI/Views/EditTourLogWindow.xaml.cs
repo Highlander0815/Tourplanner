@@ -33,6 +33,7 @@ namespace UI.Views
             mainWindow.Difficulty = currentTourLog.Difficulty;
             mainWindow.TotalTime = currentTourLog.TotalTime;
             mainWindow.Rating = currentTourLog.Rating;
+            mainWindow.Comment = currentTourLog.Comment;
 
 
             mainWindow.SubmitAction += () => update();

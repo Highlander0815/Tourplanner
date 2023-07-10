@@ -2,8 +2,10 @@
 using BLL.Logging;
 using log4net;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using TourplannerModel;
 
@@ -28,18 +30,22 @@ namespace UI.ViewModels
 
         //Attributes
         private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
-        private ObservableCollection<TourModel> _tours;
+
+        private ObservableCollection<TourModel> _tours { get; set; }
         public ObservableCollection<TourModel> Tours
         {
             get { return _tours; }
-            set 
-            { 
+            set
+            {
                 _tours = value;
-                OnPropertyChanged(nameof(Tours));
+                OnPropertyChanged(nameof(VisibleTours));
             }
         }
-        
-        //Tour
+        public IEnumerable<TourModel> VisibleTours => _tours.Where(tour => tour.Visible);
+        public void UpdateView()
+        {
+            OnPropertyChanged(nameof(VisibleTours));
+        }
         private TourModel _currentTour;
         public TourModel CurrentTour {
             get
@@ -56,16 +62,17 @@ namespace UI.ViewModels
             } 
         }
 
+
+        private readonly TourHandler _tourHandler;
+        private readonly SearchbarViewModel _searchbarViewModel;
         //Constructor
-        private TourHandler _tourHandler;
         public SideMenuViewModel(TourHandler tourHandler)
         {
-            _tours = new ObservableCollection<TourModel>();
-
+            Tours = new ObservableCollection<TourModel>();
             _tourHandler = tourHandler;
-            
+
             //Retrieve existing Tours from db and display in SideMenu
-            _tours = new ObservableCollection<TourModel>(tourHandler.GetTours());
+            Tours = new ObservableCollection<TourModel>(tourHandler.GetTours());
         }
 
         //private Methods
@@ -86,7 +93,7 @@ namespace UI.ViewModels
                 //File.Delete(path);
                 currentTourChangedAction?.Invoke(_currentTour);
                 _logger.Info("The Tour with the Id: " + _currentTour.Id + " was modified");
-                
+
             }
             else
             {
@@ -101,9 +108,10 @@ namespace UI.ViewModels
             {
                 string pathOfCurrentTour = _currentTour.Image;
                 _tourHandler.DeleteTour(_currentTour.Id);
-                _tours.Remove(_currentTour);
-                File.Delete(pathOfCurrentTour);
                 _logger.Info($"The tour with the Id: {_currentTour.Id} was deleted");
+                Tours.Remove(_currentTour);
+                OnPropertyChanged(nameof(VisibleTours));
+                File.Delete(pathOfCurrentTour);
             }
             else
             {
@@ -116,14 +124,17 @@ namespace UI.ViewModels
         public void Save(TourModel tour)
         {
             Tours.Add(tour);
+            OnPropertyChanged(nameof(VisibleTours));
             _logger.Info("Added tour " + tour.Id);
         }
-        public void UpdateList(TourModel tour)
+        public void UpdateList(/*TourModel tour*/)
         {
-            int index = Tours.IndexOf(tour);
-            Tours.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
-            Tours.Insert(index, tour);
-            CurrentTour = tour;
+            Tours = new ObservableCollection<TourModel>(_tourHandler.GetTours());
+
+            /* int index = Tours.IndexOf(tour);
+             Tours.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
+             Tours.Insert(index, tour);*/
+            //CurrentTour = tour;
             _logger.Info("The List of tours got updated");
         }
         

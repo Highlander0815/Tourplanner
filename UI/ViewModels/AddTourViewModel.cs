@@ -116,10 +116,10 @@ namespace UI.ViewModels
         }
         private async void AddTour()
         {
+            IsButtonEnabled = false;
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);
             try
             {
-                IsButtonEnabled = false;
                 _tourHandler.AddTour(tour); //damit die Id gesetzt wird
                 _restHandler = new RESTHandler();
                 Task<TourModel> result = _restHandler.Rest.Request(tour);

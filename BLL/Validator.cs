@@ -30,7 +30,7 @@ namespace BLL
         {
             if (logToValidate != null)
             {
-                return ((logToValidate.DateTime != null) && (logToValidate.TotalTime > TimeSpan.Zero) && (Enum.IsDefined(typeof(DifficultyEnum), logToValidate.Difficulty)) && (logToValidate.Rating >= 1) && (logToValidate.Rating <= 5));
+                return ((logToValidate.DateTime != null) && (logToValidate.TotalTime > TimeSpan.Zero) && (Enum.IsDefined(typeof(DifficultyEnum), logToValidate.Difficulty)) && (logToValidate.Rating >= 1) && (logToValidate.Rating <= 5) && !(string.IsNullOrEmpty(logToValidate.Comment)));
             }
             return false;
         }

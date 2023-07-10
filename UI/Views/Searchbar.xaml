@@ -14,13 +14,11 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <TextBlock Text="Tour" VerticalAlignment="Center" Grid.Column="0"/>
-        <TextBox Name="SearchBar" VerticalAlignment="Center" Text="{Binding SearchText, Mode=OneWay}" Grid.Column="1"/>
-        <Button Command="{Binding SearchCommand}" Grid.Column="2">Search</Button>
+        <TextBox Name="SearchBar" VerticalAlignment="Center" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Column="1"/>
+        <Button Command="{Binding UpdateCommand}" Grid.Column="2">Update</Button>
         <ComboBox SelectedItem="{Binding SortAfter}" Grid.Column="3" ItemsSource="{Binding Options, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Command="{Binding SortAsc}" Grid.Column="4">ASC</Button>
-        <Button Command="{Binding SortDesc}" Grid.Column="5">DESC</Button>
+        <ComboBox SelectedItem="{Binding TypOfSorting}" Grid.Column="4" ItemsSource="{Binding TypesOfSorting, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

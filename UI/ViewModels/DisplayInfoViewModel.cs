@@ -127,7 +127,9 @@ namespace UI.ViewModels
                     EstimatedTime = currentTour.EstimatedTime;
                     try
                     {
-                        _calculator = new TourCalculation(currentTour);
+                        _calculator = new TourCalculation();
+                        _calculator.CalculateChildFriendliness(currentTour);
+                        _calculator.CalculatePopularity(currentTour);
                         Childfriendliness = currentTour.ChildFriendliness;
                     }
                     catch (Exception ex)
@@ -154,6 +156,8 @@ namespace UI.ViewModels
                 TransportType = null;
                 TourDistance = null;
                 EstimatedTime = null;
+                Childfriendliness = null;
+                Popularity = null;
             }
 
         }

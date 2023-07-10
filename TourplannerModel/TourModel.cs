@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using Org.BouncyCastle.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TourplannerModel
 {
@@ -15,6 +18,11 @@ namespace TourplannerModel
         public string? Image { get; set; }
         public int? Popularity { get; set; }
         public int? ChildFriendliness { get; set; }
+
+        [NotMapped]
+        public bool Visible { get; set; } = true;
+
+        public string Searchstring { get => CreateSearchString(); }
         public ObservableCollection<TourLogModel> TourLogs { get; private set; } = null!;
         public TourModel(string name, string description, string from, string to, string transportType)
         {
@@ -24,7 +32,22 @@ namespace TourplannerModel
             To = to;
             TransportType = transportType;
             TourLogs = new ObservableCollection<TourLogModel>();
+            Visible = true;
         }
         public TourModel() { }
+
+        private string CreateSearchString()
+        {
+            string searchString = string.Concat(Name, Description, From, To, EstimatedTime, Popularity.ToString(), TransportType, ChildFriendliness.ToString());
+            if(TourLogs != null)
+            {
+                foreach (var tourLog in TourLogs)
+                {
+                    searchString += string.Concat(tourLog.DateTime.ToString(), tourLog.Comment, (tourLog.Rating).ToString(), Enum.GetName(tourLog.Difficulty), tourLog.TotalTime);
+                }
+            }
+            
+            return searchString;   
+        }
     }
 }

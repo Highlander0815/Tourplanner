@@ -10,22 +10,47 @@ namespace BLL
 {
     public class TourCalculation
     {
-        public TourCalculation(TourModel tour) 
+        public TourCalculation() 
         {
-            CalculateValues(tour);
         }
-
-        private void CalculateValues(TourModel tour)
+        public void CalculatePopularity(TourModel tour)
         {
-            CalculatePopularity(tour);
-            try
+            if (tour.TourLogs != null)
+                tour.Popularity = tour.TourLogs.Count;
+            else
+                tour.Popularity = 0;
+        }
+        public TimeSpan GetTotalTimeAverage(TourModel tour)
+        {
+            if (tour.TourLogs != null) //if no TourLogs are created for the current Tour the TotalTimeChildfriendliness will be estimated as bad
             {
-                CalculateChildFriendliness(tour);
+                if (tour.TourLogs.Count >= 1)
+                {
+                    //calculate value of total time
+                    TimeSpan totalTime = TimeSpan.Zero;
+                    foreach (TourLogModel tourLog in tour.TourLogs)
+                    {
+                        totalTime += tourLog.TotalTime;
+                    }
+                    TimeSpan totalTimeAverage = new TimeSpan(((totalTime.Ticks) / tour.TourLogs.Count));
+                    return totalTimeAverage;
+                }
             }
-            catch(Exception ex)
+            return new TimeSpan(0, 0, 0, 0);
+        }
+        public double GetAverageRating(TourModel tour)
+        {
+            double averageRating = 0.00;
+            if(tour.TourLogs != null) 
             {
-                throw ex;
+                foreach (TourLogModel tourLog in tour.TourLogs)
+                {
+                    averageRating += tourLog.Rating;
+                }
+                averageRating = averageRating / tour.TourLogs.Count;
             }
+            return averageRating;
+            
         }
 
         public void CalculateChildFriendliness(TourModel tour)
@@ -44,7 +69,7 @@ namespace BLL
             }
         }
 
-        private int CalculateDifficultyFriendliness(TourModel tour)
+        public int CalculateDifficultyFriendliness(TourModel tour)
         {
             int difficultySum = 0; //if no TourLogs are created for the current Tour the DifficultyChildfriendliness will be estimated as beginner
             if(tour.TourLogs != null)
@@ -63,7 +88,6 @@ namespace BLL
             }
            
             return difficultySum;
-            
         }
 
         private int CalculateDistanceFriendliness(TourModel tour)
@@ -104,55 +128,36 @@ namespace BLL
 
             return distanceChildfriendliness;
         }
-
+       
         private int CalculateTotalTimeFriendliness(TourModel tour)
         {
             int totalTimeChildfriendliness = 5;
-            if (tour.TourLogs != null) //if no TourLogs are created for the current Tour the TotalTimeChildfriendliness will be estimated as bad
-            {
-                if(tour.TourLogs.Count >= 1)
-                {
-                    //calculate value of total time
-                    TimeSpan totalTime = TimeSpan.Zero;
-                    foreach (TourLogModel tourLog in tour.TourLogs)
-                    {
-                        totalTime += tourLog.TotalTime;
-                    }
-                    TimeSpan totalTimeAverage = new TimeSpan(((totalTime.Ticks) / tour.TourLogs.Count));
+            TimeSpan totalTimeAverage = GetTotalTimeAverage((TourModel)tour);  
 
-                    if (totalTimeAverage < new TimeSpan(1, 0, 0))
-                    {
-                        totalTimeChildfriendliness = 0;
-                    }
-                    else if (totalTimeAverage < new TimeSpan(2, 0, 0))
-                    {
-                        totalTimeChildfriendliness = 1;
-                    }
-                    else if (totalTimeAverage < new TimeSpan(2, 30, 0))
-                    {
-                        totalTimeChildfriendliness = 2;
-                    }
-                    else if (totalTimeAverage < new TimeSpan(3, 0, 0))
-                    {
-                        totalTimeChildfriendliness = 3;
-                    }
-                    else if (totalTimeAverage < new TimeSpan(3, 30, 0))
-                    {
-                        totalTimeChildfriendliness = 4;
-                    }
-                }
-                
+            if (totalTimeAverage < new TimeSpan(1, 0, 0))
+            {
+                totalTimeChildfriendliness = 0;
             }
-            
+            else if (totalTimeAverage < new TimeSpan(2, 0, 0))
+            {
+                totalTimeChildfriendliness = 1;
+            }
+            else if (totalTimeAverage < new TimeSpan(2, 30, 0))
+            {
+                totalTimeChildfriendliness = 2;
+            }
+            else if (totalTimeAverage < new TimeSpan(3, 0, 0))
+            {
+                totalTimeChildfriendliness = 3;
+            }
+            else if (totalTimeAverage < new TimeSpan(3, 30, 0))
+            {
+                totalTimeChildfriendliness = 4;
+            }
+
             return totalTimeChildfriendliness;
         }
 
-        public void CalculatePopularity(TourModel tour)
-        {
-            if (tour.TourLogs != null)
-                tour.Popularity = tour.TourLogs.Count;
-            else
-                tour.Popularity = 0;
-        }
+       
     }
 }

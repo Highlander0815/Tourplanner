@@ -14,27 +14,33 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using MiNET.Entities.Hostile;
 using System.Xml;
 using Microsoft.Win32;
+using BLL.Exceptions;
+using System.Windows;
+using TextAlignment = iText.Layout.Properties.TextAlignment;
 
 namespace BLL
 {
     public class PDFManager
     {
-        private ITourRepository tourRepository;
-        private ITourLogRepository tourLogRepository;
+        private ITourRepository _tourRepository;
+        private ITourLogRepository _tourLogRepository;
+        private TourCalculation _calculator;
         public PDFManager(TourplannerContext tourplannerContext)
         {
-            tourRepository = new TourRepository(tourplannerContext);
-            tourLogRepository = new TourLogRepository(tourplannerContext);
+            _tourRepository = new TourRepository(tourplannerContext);
+            _tourLogRepository = new TourLogRepository(tourplannerContext);
+            _calculator = new TourCalculation();
         }
 
-        public bool createPDF(int tourid)
+        public bool createTourReportPDF(/*int tourid*/TourModel tour)
         {
-            TourModel tour = tourRepository.GetTourById(tourid);
-            IEnumerable<TourLogModel> tourlogs = tourLogRepository.GetTourLogsById(tourid);
+            /*TourModel tour = tourRepository.GetTourById(tourid);
+            IEnumerable<TourLogModel> tourlogs = tourLogRepository.GetTourLogsById(tourid);*/
+            ObservableCollection<TourLogModel> tourlogs = tour.TourLogs;
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "pdf file (*.pdf)|*.pdf";
-            saveFileDialog.FileName = "Tour_" + tourid.ToString() + "_" + tour.Name + ".pdf";
+            saveFileDialog.FileName = "Tour_" + tour.Id.ToString() + "_" + tour.Name + ".pdf";
             string path;
 
             if (saveFileDialog.ShowDialog() == true)
@@ -116,5 +122,63 @@ namespace BLL
             }
             return false;
         }
+
+        public bool createSummaryPDF()
+        {
+            try
+            {
+                IEnumerable<TourModel> tours = _tourRepository.GetTours();
+                if(!tours.Any())
+                {
+                    throw new NoToursException();
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "pdf file (*.pdf)|*.pdf";
+                saveFileDialog.FileName = "Summary.pdf";
+                string path;
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    path = saveFileDialog.FileName;
+
+                    using (PdfWriter writer = new PdfWriter(path))
+                    using (PdfDocument pdf = new PdfDocument(writer))
+                    using (iText.Layout.Document document = new iText.Layout.Document(pdf))
+                    {
+                        // Add Header
+                        Paragraph heading = new Paragraph($"Summary of: {tours.Count()} Tours")
+                            .SetTextAlignment(TextAlignment.LEFT)
+                            .SetFontSize(20)
+                            .SetUnderline()
+                            .SetBold();
+                        document.Add(heading);
+
+                        foreach (TourModel tour in tours)
+                        {
+                            // Add Subheader
+                            Paragraph subheader = new Paragraph($"Tour with Id: {tour.Id}")
+                                .SetTextAlignment(TextAlignment.LEFT)
+                                .SetFontSize(15);
+                            document.Add(subheader);
+
+                            // Add values
+                            List list = new List();
+                            list.Add("Average time (d:hh:mm:ss): " + _calculator.GetTotalTimeAverage(tour));
+                            list.Add("Distance: " + tour.TourDistance + " km");
+                            list.Add("Average Rating " + _calculator.GetAverageRating(tour));
+                            document.Add(list);
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+            
     }
 }
