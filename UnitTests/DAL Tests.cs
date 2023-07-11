@@ -50,7 +50,7 @@ namespace UnitTests
             _tourRepository.Save();
 
             // Assert
-            Assert.That(_tourRepository.GetTourById(1).Name, Is.EqualTo("TestTour"));
+            Assert.That(_tourRepository.GetTours().Count(), Is.EqualTo(1));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace UnitTests
             };
             _tourRepository.Insert(tour);
             _tourRepository.Save();
-            TourModel temptour = _tourRepository.GetTourById(1);
+            TourModel temptour = _tourRepository.GetTours().First();
             temptour.Name = "BisaTour";
 
             // Act
@@ -76,7 +76,7 @@ namespace UnitTests
             _tourRepository.Save();
 
             // Assert
-            Assert.That(_tourRepository.GetTourById(1).Name, Is.EqualTo("BisaTour"));
+            Assert.That(_tourRepository.GetTourById(temptour.Id).Name, Is.EqualTo("BisaTour"));
         }
 
         [Test]
@@ -120,10 +120,11 @@ namespace UnitTests
             _tourRepository.Save();
 
             // Act
-            var result = _tourRepository.GetTourById(1);
+            var id = _tourRepository.GetTours().First().Id;
+            var result = _tourRepository.GetTourById(id);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Id, Is.EqualTo(id));
 
         }
         [Test]
@@ -150,7 +151,7 @@ namespace UnitTests
         {
             // Arrange
             TourLogRepository _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
-            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2 };
+            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2, Comment = "Fake" };
 
             // Act
             _tourLogRepository.Insert(tourlog);
@@ -165,7 +166,7 @@ namespace UnitTests
         {
             // Arrange
             TourLogRepository _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
-            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2 };
+            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2, Comment = "Fake" };
 
             _tourLogRepository.Insert(tourlog);
             _tourLogRepository.Save();
@@ -185,7 +186,7 @@ namespace UnitTests
         {
             // Arrange
             TourLogRepository _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
-            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2 };
+            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2, Comment = "Fake" };
 
             _tourLogRepository.Insert(tourlog);
             _tourLogRepository.Save();
@@ -205,7 +206,7 @@ namespace UnitTests
             // Arrange
             TourRepository _tourRepository = new TourRepository(new TourplannerContext(_options));
             TourLogRepository _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
-            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2 };
+            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2, Comment = "Fake" };
             TourModel tour = new TourModel() { Name = "TestTour", Description = "TestDescription", From = "TestFrom", To = "TestTo", TransportType = "TestTransportType" };
 
             _tourRepository.Insert(tour);
@@ -229,8 +230,8 @@ namespace UnitTests
         {
             // Arrange
             TourLogRepository _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
-            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2 };
-            TourLogModel tourlog1 = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2 };
+            TourLogModel tourlog = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2, Comment = "Fake" };
+            TourLogModel tourlog1 = new TourLogModel() { DateTime = DateTime.Parse("00:00:00"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("0"), Rating = 2, Comment = "Fake" };
 
             _tourLogRepository.Insert(tourlog);
             _tourLogRepository.Insert(tourlog1);

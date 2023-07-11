@@ -102,13 +102,13 @@ namespace UnitTests
             // Arrange
             TourCalculation tourCalculation = new TourCalculation();
             TourModel tour = _tourRepository.GetTourById(1);
-            Console.WriteLine(tour.TourLogs.Count());
+            tour.TourDistance = 50;
 
             // Act
             tourCalculation.CalculateChildFriendliness(tour);
 
             // Assert
-            Assert.That(tour.ChildFriendliness, Is.EqualTo(2));
+            Assert.That(tour.ChildFriendliness, Is.EqualTo(11));
         }
         [Test]
         //Create a test for Validator TourValidation
