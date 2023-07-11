@@ -2,10 +2,6 @@ using DAL;
 using BLL;
 using TourplannerModel;
 using Microsoft.EntityFrameworkCore;
-using MiNET.UI;
-using MiNET.Utils.Skins;
-using System.Net;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
 using BLL.Exceptions;
 
 namespace UnitTests
@@ -21,7 +17,7 @@ namespace UnitTests
         {
             // Setup the Mock Db
             _options = new DbContextOptionsBuilder<TourplannerContext>()
-                .UseInMemoryDatabase(databaseName: "TestTourDb")
+                .UseInMemoryDatabase(databaseName: "TestdbBLL")
                 .Options;
 
 
@@ -49,6 +45,7 @@ namespace UnitTests
             _tourLogRepository.Update(tourlog3);
             _tourLogRepository.Save();
         }
+
         [Test]
         public void CalculatePopularity()
         {
@@ -123,7 +120,7 @@ namespace UnitTests
             Validator validator = new Validator();
 
             // Act
-            var result = validator.TourValidation(_tourRepository.GetTourById(1));          
+            var result = validator.TourValidation(_tourRepository.GetTourById(1));
 
             // Assert
             Assert.That(result, Is.True);

@@ -16,7 +16,7 @@ namespace UnitTests
         public void Setup()
         {
             _options = new DbContextOptionsBuilder<TourplannerContext>()
-                .UseInMemoryDatabase(databaseName: "TestTourDb")
+                .UseInMemoryDatabase(databaseName: "TestDbDAL")
                 .Options;
         }
         [TearDown]
