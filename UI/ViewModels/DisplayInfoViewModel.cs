@@ -137,8 +137,13 @@ namespace UI.ViewModels
                         if (ex is ValueIsNullException)
                         {
 
-                            //show a info box which explains the user that the Childfriendliness 
-                            //can not be calculated because the value of the Tour.Distance == null
+                            ShowMessageBox("The Distance of the Tour was null. But it should not happen because the Api should throw an exception for invalid tours");
+                            _logger.Error("ValueIsNullException was thrown");
+                        }
+                        else
+                        {
+                            ShowMessageBox($"A new Error happened which should be handeled. The error was printed into the Log File");
+                            _logger.Error($"New Exception happened: {ex}");
                         }
                     }
 

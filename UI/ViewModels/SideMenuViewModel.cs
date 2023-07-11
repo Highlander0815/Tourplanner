@@ -29,8 +29,6 @@ namespace UI.ViewModels
         public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(Delete);
 
         //Attributes
-        private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
-
         private ObservableCollection<TourModel> _tours { get; set; }
         public ObservableCollection<TourModel> Tours
         {
@@ -144,15 +142,6 @@ namespace UI.ViewModels
             {
                 currentTourChangedAction?.Invoke(tour);
             }
-        }
-        private void ShowMessageBox(string msg)
-        {
-            string msgBoxText = msg;
-            string caption = "Warning";
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            
-            MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
     }
 }

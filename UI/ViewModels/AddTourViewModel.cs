@@ -19,7 +19,6 @@ namespace UI.ViewModels
         private TourHandler _tourHandler;
         private Validator _validator;
         private TourModel _newTour;
-        private static readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
 
         //Commands
         private RelayCommand _submitCommand = null;
@@ -140,17 +139,6 @@ namespace UI.ViewModels
         private void Cancel()
         {
             CancelEvent?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void ShowMessageBox(string msg)
-        {
-            string msgBoxText = msg;
-            string caption = "Warning";
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result;
-
-            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
     }
 }

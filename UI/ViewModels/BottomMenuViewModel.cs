@@ -17,7 +17,6 @@ namespace UI.ViewModels
         public event Action<TourLogModel> selectedTourLogChangedAction;
 
         private TourModel _currentTour; //has to be saved because the currentTour contains the TourLogs which should be displayed
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(SideMenuViewModel));
         private SideMenuViewModel _sideMenuViewModel;
         //List of TourLogs
         private ObservableCollection<TourLogModel> _tourLogs;
@@ -146,17 +145,6 @@ namespace UI.ViewModels
                 TourLogs = null;
             }
             CurrentTourLog = null;
-        }
-
-        private void ShowMessageBox(string msg)
-        {
-            string msgBoxText = msg;
-            string caption = "Warning";
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result;
-
-            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
     }
 }

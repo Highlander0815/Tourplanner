@@ -1,17 +1,21 @@
 ﻿using TourplannerModel;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using log4net;
-using MiNET.Utils;
+using BLL.Exceptions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BLL
 {
     public class ImportExportManager
     {
         private TourHandler _tourHandler;
-        public ImportExportManager(TourHandler tourHandler)
+        private TourLogHandler _tourLogHandler;
+        private RESTHandler _restHandler;
+        public ImportExportManager(TourHandler tourHandler, TourLogHandler tourLogHandler)
         {
             _tourHandler = tourHandler;
+            _tourLogHandler = tourLogHandler;
+            _restHandler = new RESTHandler();
         }
 
         public void ExportTour(int tourid)
@@ -28,16 +32,33 @@ namespace BLL
             }
         }
         
-        public void ImportTour()
+        public async void ImportTour()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "JSON file (*.json)|*.json";
             if (openFileDialog.ShowDialog() == true)
             {
-                string json = File.ReadAllText(openFileDialog.FileName);
-                TourModel tour = JsonConvert.DeserializeObject<TourModel>(json);
-                if (tour != null)
-                    _tourHandler.AddTour(tour);
+                try
+                {
+                    string json = File.ReadAllText(openFileDialog.FileName);
+                    TourModel tour = JsonConvert.DeserializeObject<TourModel>(json);
+                    if (tour != null)
+                    {
+                        _tourHandler.AddTour(tour);
+                        Task<TourModel> result = _restHandler.Rest.Request(tour);
+                        tour = await result;
+                        _tourHandler.UpdateTour(tour);
+                    }
+                }
+                catch (ResponseErrorOfApiException ex)
+                {
+                    throw ex;
+                }
+                catch(Exception)
+                {
+                    throw new SomethingWentWrongException();
+                }
+               
             }
         }
     }

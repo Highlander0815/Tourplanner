@@ -23,7 +23,7 @@ namespace TourplannerModel
         public bool Visible { get; set; } = true;
 
         public string Searchstring { get => CreateSearchString(); }
-        public ObservableCollection<TourLogModel> TourLogs { get; private set; } = null!;
+        public ObservableCollection<TourLogModel> TourLogs { get; set; } = null!;
         public TourModel(string name, string description, string from, string to, string transportType)
         {
             Name = name;
