@@ -42,18 +42,6 @@ namespace UI.ViewModels
 
             result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
         }
-
-        /*protected void ShowMessageBox(string msg)
-        {
-            string msgBoxText = msg;
-            string caption = "Warning";
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result;
-
-            result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.OK);
-        }*/
-
         protected void ShowMessageBox(string msg, string caption, MessageBoxImage icon)
         {
             MessageBoxButton button = MessageBoxButton.OK;

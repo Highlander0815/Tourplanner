@@ -185,7 +185,7 @@ namespace UnitTests
         public async Task Request_ValidTourModel_ReturnsTourWithEstimatedTimeAndDistance()
         {
             // Arrange
-            TourModel tour = new TourModel("Tour 1", "Tour description", "Start", "End", "Car");
+            TourModel tour = new TourModel("Tour 1", "Tour description", "Mailberg", "Retz", "Car");
             Rest rest = new Rest();
 
             // Act
