@@ -28,14 +28,15 @@ namespace UI.ViewModels
                 _logger.Info("A Tour got imported successfully");
                 _sideMenuViewModel.UpdateList();
             }
-            catch (Exception ResponseErrorOfApiException)
+            catch (ResponseErrorOfApiException responseException)
             {
-                ShowMessageBox($"{ResponseErrorOfApiException.Message} Please check your input in the to and from field");
+                ShowMessageBox($"{responseException.Message} Please check your input in the to and from field");
                 _logger.Error($"The Imput from 'To' and/or 'From' could not be handeled from the API.");
             }
-            catch
+            catch(Exception ex)
             {
-                ShowMessageBox("A new Error occured with should be handeled");
+                ShowMessageBox($"A new Error happened which should be handeled. The error was printed into the Log File");
+                _logger.Error($"New Exception happened: {ex}");
             }
         }
 

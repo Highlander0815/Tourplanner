@@ -10,7 +10,7 @@ namespace UI
 {
     public class IoCContainerConfig
     {
-        IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+        //IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
 
         private readonly ServiceProvider _serviceProvider;
 
@@ -18,7 +18,7 @@ namespace UI
         {
             var services = new ServiceCollection();
 
-            services.AddDbContext<TourplannerContext>(options => options.UseNpgsql(configuration.GetConnectionString("TourDb")));
+            services.AddDbContext<TourplannerContext>();
             services.AddSingleton<TourHandler>();
             services.AddSingleton<TourLogHandler>();
 
@@ -51,6 +51,7 @@ namespace UI
         }
         public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetRequiredService<MainWindowViewModel>();
 
+        public TourplannerContext TourplannerContext => _serviceProvider.GetRequiredService<TourplannerContext>();
         public TourHandler TourHandler => _serviceProvider.GetRequiredService<TourHandler>();
         public TourLogHandler TourLogHandler => _serviceProvider.GetRequiredService<TourLogHandler>();
 

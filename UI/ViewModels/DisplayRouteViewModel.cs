@@ -32,14 +32,6 @@ namespace UI.ViewModels
             {
                 if (currentTour.Image != null)
                 {
-                    /*BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.UriSource = new Uri(currentTour.Image);
-                    image.EndInit();
-                    CurrentTourImage = image;*/
-
-
-
                     try
                     {
                         using (var imageStream = new FileStream(currentTour.Image, FileMode.Open, FileAccess.Read))

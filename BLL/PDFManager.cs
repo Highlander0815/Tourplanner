@@ -69,8 +69,16 @@ namespace BLL
                     document.Add(list);
 
                     // Add image of route
-                    ImageData imageData = ImageDataFactory.Create(tour.Image);
-                    document.Add(new Image(imageData));
+                    if (tour.Image != null)
+                    {
+                        try
+                        {
+                            ImageData imageData = ImageDataFactory.Create(tour.Image);
+                            document.Add(new Image(imageData));
+                        }
+                        catch{/*do nothing*/}
+                    }
+                            
 
                     // add a blank line
                     document.Add(new Paragraph(""));
@@ -109,6 +117,7 @@ namespace BLL
                     }
                     document.Add(table);
                 }
+                
                 return true;
             }
             return false;

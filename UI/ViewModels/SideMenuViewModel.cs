@@ -109,7 +109,8 @@ namespace UI.ViewModels
                 _logger.Info($"The tour with the Id: {_currentTour.Id} was deleted");
                 Tours.Remove(_currentTour);
                 OnPropertyChanged(nameof(VisibleTours));
-                File.Delete(pathOfCurrentTour);
+                if(!string.IsNullOrEmpty(pathOfCurrentTour))
+                    File.Delete(pathOfCurrentTour);
             }
             else
             {

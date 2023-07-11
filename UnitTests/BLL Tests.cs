@@ -2,6 +2,11 @@ using DAL;
 using BLL;
 using TourplannerModel;
 using Microsoft.EntityFrameworkCore;
+using MiNET.UI;
+using MiNET.Utils.Skins;
+using System.Net;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
+using BLL.Exceptions;
 
 namespace UnitTests
 {
@@ -161,6 +166,35 @@ namespace UnitTests
 
             // Assert
             Assert.That(result, Is.False);
+        }
+        [Test]
+        public void RestRequestException()
+        {
+            // Arrange
+            TourModel tour = new TourModel("test", "test Description", "falseFrom", "falseTo", "Car");
+            RESTHandler restHandler = new RESTHandler();
+
+            //Assert & Act
+            Assert.ThrowsAsync<ResponseErrorOfApiException>(async() =>
+            {
+                var result = await restHandler.Rest.Request(tour);
+            });
+           
+        }
+        [Test]
+        public async Task Request_ValidTourModel_ReturnsTourWithEstimatedTimeAndDistance()
+        {
+            // Arrange
+            TourModel tour = new TourModel("Tour 1", "Tour description", "Start", "End", "Car");
+            Rest rest = new Rest();
+
+            // Act
+            TourModel result = await rest.Request(tour);
+
+            // Assert
+            Assert.IsNotNull(result.EstimatedTime);
+            Assert.IsNotNull(result.TourDistance);
+            // Weitere Überprüfungen der Eigenschaften des zurückgegebenen TourModels
         }
     }
 }

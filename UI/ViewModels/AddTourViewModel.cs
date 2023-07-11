@@ -8,6 +8,7 @@ using BLL;
 using System.Windows.Controls;
 using System.Windows;
 using BLL.Logging;
+using BLL.Exceptions;
 
 namespace UI.ViewModels
 {
@@ -126,12 +127,18 @@ namespace UI.ViewModels
                 _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
                 AddEvent?.Invoke(tour);
             }
-            catch (Exception ResponseErrorOfApiException)
+            catch (ResponseErrorOfApiException responseException)
             {
                 IsButtonEnabled = true;
-                ShowMessageBox($"{ResponseErrorOfApiException.Message} Please check your input in the to and from field");
+                ShowMessageBox($"{responseException.Message} Please check your input in the to and from field");
                 _tourHandler.DeleteTour(tour.Id);
                 _logger.Error($"The Imput the usere entered in 'To' and/or 'From' could not be handeled from the API. The user entered:  {tour.To} & {tour.From}");
+            }
+            catch(Exception ex)
+            {
+                _tourHandler.DeleteTour(tour.Id);
+                ShowMessageBox($"A new Error happened which should be handeled. The error was printed into the Log File");
+                _logger.Error($"New Exception happened: {ex}");
             }
            
         }
