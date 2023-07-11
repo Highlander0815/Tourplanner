@@ -26,7 +26,7 @@ namespace UnitTests
             TourLogModel tourlog1 = new TourLogModel() { DateTime = DateTime.Parse("00:05:20"), Difficulty = DifficultyEnum.Intermediate, TotalTime = TimeSpan.Parse("1"), Rating = 3, Comment="Nothing to mention" };
             TourLogModel tourlog2 = new TourLogModel() { DateTime = DateTime.Parse("00:06:30"), Difficulty = DifficultyEnum.Intermediate, TotalTime = TimeSpan.Parse("2"), Rating = 4, Comment = "Nothing to mention" };
             TourLogModel tourlog3 = new TourLogModel() { DateTime = DateTime.Parse("00:04:50"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("2"), Rating = 2, Comment = "Nothing to mention" };
-            TourModel tour = new TourModel() { Name = "TestTour", Description = "TestDescription", From = "TestFrom", To = "TestTo", TransportType = "car" };
+            TourModel tour = new TourModel() { Name = "TestTour", Description = "TestDescription", From = "TestFrom", To = "TestTo", TransportType = "Car" };
 
             _tourRepository.Insert(tour);
             _tourRepository.Save();

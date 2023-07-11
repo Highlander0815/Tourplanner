@@ -17,11 +17,12 @@ namespace BLL
         {
             if (tourToValidate != null)
             {
-                return !(string.IsNullOrEmpty(tourToValidate.Name) ||
-                        !((tourToValidate.TransportType != "car") && (tourToValidate.TransportType != "bicycle") && (tourToValidate.TransportType != "pedestrian")) ||
-                        string.IsNullOrEmpty(tourToValidate.Description) ||
-                        string.IsNullOrEmpty(tourToValidate.From) ||
-                        string.IsNullOrEmpty(tourToValidate.To));
+                bool name = !string.IsNullOrEmpty(tourToValidate.Name); 
+                bool description = !string.IsNullOrEmpty(tourToValidate.Description);
+                bool from = !string.IsNullOrEmpty(tourToValidate.From);
+                bool to = !string.IsNullOrEmpty(tourToValidate.To);
+                bool transportType = ((tourToValidate.TransportType == "Car") || (tourToValidate.TransportType == "Bicycle") || (tourToValidate.TransportType == "Pedestrian"));
+                return (name && description && from && transportType && to);
             }
             return false;
         }
@@ -33,6 +34,7 @@ namespace BLL
                 return (logToValidate.DateTime != null) && (logToValidate.TotalTime > TimeSpan.Zero) && Enum.IsDefined(typeof(DifficultyEnum), logToValidate.Difficulty) && (logToValidate.Rating >= 1) && (logToValidate.Rating <= 5) && !string.IsNullOrEmpty(logToValidate.Comment);
             }
             return false;
-        }        
+        }   
+        
     }
 }
