@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
-    public class TourRepository : ITourRepository, IDisposable
+    public class TourRepository : ITourRepository
     {
         private readonly TourplannerContext _context;
 
@@ -11,6 +11,11 @@ namespace DAL
         {
             _context = context;
  
+        }
+
+        public TourRepository()
+        {
+            _context = new TourplannerContext();
         }
         public IEnumerable<TourModel> GetTours()
         {
@@ -36,6 +41,7 @@ namespace DAL
         public void Save()
         {
             _context.SaveChanges();
+            _context.Dispose();
         }
 
         private bool disposed = false;

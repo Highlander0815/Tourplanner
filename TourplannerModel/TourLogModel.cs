@@ -15,7 +15,7 @@ namespace TourplannerModel
         public int Rating { get; set; }
         public string Comment { get; set; }  
         [JsonIgnore]
-        public TourModel TourModel { get; set; } = null!;
+        public int TourModelId { get; set; }
 
         public TourLogModel(DateTime dateTime, DifficultyEnum difficulty, TimeSpan totalTime, int rating, string comment) 
         {
@@ -32,7 +32,7 @@ namespace TourplannerModel
             TotalTime = totalTime;
             Rating = rating;
             Comment = comment;
-            TourModel = tour;
+            TourModelId = tour.Id;
         }
         public TourLogModel() { }
     }

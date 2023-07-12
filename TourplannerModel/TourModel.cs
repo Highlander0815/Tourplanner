@@ -16,14 +16,16 @@ namespace TourplannerModel
         public float? TourDistance { get; set; }
         public string? EstimatedTime { get; set; }
         public string? Image { get; set; }
+        [NotMapped]
         public int? Popularity { get; set; }
+        [NotMapped]
         public int? ChildFriendliness { get; set; }
 
         [NotMapped]
         public bool Visible { get; set; } = true;
 
         public string Searchstring { get => CreateSearchString(); }
-        public ObservableCollection<TourLogModel> TourLogs { get; set; } = null!;
+        public ObservableCollection<TourLogModel> TourLogs { get; set; } = new ObservableCollection<TourLogModel>();
         public TourModel(string name, string description, string from, string to, string transportType)
         {
             Name = name;

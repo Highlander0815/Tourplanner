@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
-    public class TourLogRepository : ITourLogRepository, IDisposable
+    public class TourLogRepository : ITourLogRepository
     {
         private readonly TourplannerContext context;
 
@@ -11,13 +11,17 @@ namespace DAL
         {
             this.context = context;
         }
+        public TourLogRepository() 
+        {
+            context = new TourplannerContext();
+        }  
         public IEnumerable<TourLogModel> GetTourLogs()
         {
             return context.Tourlogs.ToList();
         }
         public IEnumerable<TourLogModel> GetTourLogsById(int tourid)
         {
-            return context.Tourlogs.Where(t => t.TourModel.Id.Equals(tourid)).ToList();
+            return context.Tourlogs.Where(t => t.TourModelId.Equals(tourid)).ToList();
         }
         public void Insert(TourLogModel tourlog)
         {
@@ -43,6 +47,7 @@ namespace DAL
         public void Save()
         {
             context.SaveChanges();
+            context.Dispose();
         }
 
         private bool disposed = false;
@@ -64,7 +69,7 @@ namespace DAL
             GC.SuppressFinalize(this);
         }
     }
-    public interface ITourLogRepository
+    public interface ITourLogRepository : IDisposable
     {
         IEnumerable<TourLogModel> GetTourLogs();
         IEnumerable<TourLogModel> GetTourLogsById(int tourid);

@@ -7,48 +7,75 @@ using MiNET.Utils.Skins;
 using System.Net;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
 using BLL.Exceptions;
+using System.Configuration;
 
 namespace UnitTests
 {
     public class BLL_Tests
     {
         private DbContextOptions<TourplannerContext> _options;
+        private TourplannerContext _context;
         private TourRepository _tourRepository;
         private TourLogRepository _tourLogRepository;
+
+        public BLL_Tests() 
+        {
+            _options = new DbContextOptionsBuilder<TourplannerContext>().UseInMemoryDatabase(databaseName: "tour_db").Options;
+            _context = new TourplannerContext(_options);
+            _tourRepository = new TourRepository(_context);
+            _tourLogRepository = new TourLogRepository(_context);
+        }
+        
 
         [SetUp]
         public void Setup()
         {
             // Setup the Mock Db
-            _options = new DbContextOptionsBuilder<TourplannerContext>()
-                .UseInMemoryDatabase(databaseName: "TestTourDb")
-                .Options;
-
 
             // Fill the Mock Db with a tour and corresponding tourlogs (Testing Calculation)
-            _tourRepository = new TourRepository(new TourplannerContext(_options));
-            _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
-            TourLogModel tourlog1 = new TourLogModel() { DateTime = DateTime.Parse("00:05:20"), Difficulty = DifficultyEnum.Intermediate, TotalTime = TimeSpan.Parse("1"), Rating = 3, Comment="Nothing to mention" };
-            TourLogModel tourlog2 = new TourLogModel() { DateTime = DateTime.Parse("00:06:30"), Difficulty = DifficultyEnum.Intermediate, TotalTime = TimeSpan.Parse("2"), Rating = 4, Comment = "Nothing to mention" };
-            TourLogModel tourlog3 = new TourLogModel() { DateTime = DateTime.Parse("00:04:50"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("2"), Rating = 2, Comment = "Nothing to mention" };
             TourModel tour = new TourModel() { Name = "TestTour", Description = "TestDescription", From = "TestFrom", To = "TestTo", TransportType = "Car" };
-
+            
+            _tourRepository = new TourRepository(new TourplannerContext(_options));
             _tourRepository.Insert(tour);
             _tourRepository.Save();
+
+
+            TourLogModel tourlog1 = new TourLogModel() { DateTime = DateTime.Parse("00:05:20"), Difficulty = DifficultyEnum.Intermediate, TotalTime = TimeSpan.Parse("1"), Rating = 3, Comment = "Nothing to mention" };
+            TourLogModel tourlog2 = new TourLogModel() { DateTime = DateTime.Parse("00:06:30"), Difficulty = DifficultyEnum.Intermediate, TotalTime = TimeSpan.Parse("2"), Rating = 4, Comment = "Nothing to mention" };
+            TourLogModel tourlog3 = new TourLogModel() { DateTime = DateTime.Parse("00:04:50"), Difficulty = DifficultyEnum.Advance, TotalTime = TimeSpan.Parse("2"), Rating = 2, Comment = "Nothing to mention" };
+
+            _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
             _tourLogRepository.Insert(tourlog1);
             _tourLogRepository.Insert(tourlog2);
             _tourLogRepository.Insert(tourlog3);
             _tourLogRepository.Save();
 
+            _tourRepository = new TourRepository(new TourplannerContext(_options));
             var temptour = _tourRepository.GetTourById(1);
-            tourlog1.TourModel = temptour;
-            tourlog2.TourModel = temptour;
-            tourlog3.TourModel = temptour;
+
+            tourlog1.TourModelId = temptour.Id;
+            tourlog2.TourModelId = temptour.Id;
+            tourlog3.TourModelId = temptour.Id;
+
+            _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
             _tourLogRepository.Update(tourlog1);
             _tourLogRepository.Update(tourlog2);
             _tourLogRepository.Update(tourlog3);
             _tourLogRepository.Save();
+
+            _tourRepository = new TourRepository(new TourplannerContext(_options));
+            _tourLogRepository = new TourLogRepository(new TourplannerContext(_options));
+
         }
+
+        /*[TearDown]                    //ist absichtlich nicht drinnen
+        public void TearDown()
+        {
+            _context.Tours.RemoveRange(_context.Tours);
+            _context.Tourlogs.RemoveRange(_context.Tourlogs);
+            _context.SaveChanges();
+        }*/
+
         [Test]
         public void CalculatePopularity()
         {

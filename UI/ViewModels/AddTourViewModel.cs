@@ -99,9 +99,9 @@ namespace UI.ViewModels
             }
         }
 
-        public AddTourViewModel(TourHandler tourHandler)
+        public AddTourViewModel(/*TourHandler tourHandler*/)
         {
-            _tourHandler = tourHandler;
+            _tourHandler = new TourHandler();
             IsButtonEnabled = false;
             TransportType = "Car";
         } 
@@ -120,10 +120,12 @@ namespace UI.ViewModels
             TourModel tour = new TourModel(Name, Description, From, To, TransportType);
             try
             {
+                _tourHandler = new TourHandler();
                 _tourHandler.AddTour(tour); //damit die Id gesetzt wird
                 _restHandler = new RESTHandler();
                 Task<TourModel> result = _restHandler.Rest.Request(tour);
                 tour = await result;
+                _tourHandler = new TourHandler();
                 _tourHandler.UpdateTour(tour);       //damit link upgedatet wird ABER ich glaube das man das gar nicht braucht weil link ja sowieso ident bleibt     
                 AddEvent?.Invoke(tour);
             }
@@ -131,11 +133,13 @@ namespace UI.ViewModels
             {
                 IsButtonEnabled = true;
                 ShowMessageBox($"{responseException.Message} Please check your input in the to and from field");
+                _tourHandler = new TourHandler();
                 _tourHandler.DeleteTour(tour.Id);
                 _logger.Error($"The Imput the usere entered in 'To' and/or 'From' could not be handeled from the API. The user entered:  {tour.To} & {tour.From}");
             }
             catch(Exception ex)
             {
+                _tourHandler = new TourHandler();
                 _tourHandler.DeleteTour(tour.Id);
                 ShowMessageBox($"A new Error happened which should be handeled. The error was printed into the Log File");
                 _logger.Error($"New Exception happened: {ex}");

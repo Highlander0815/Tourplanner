@@ -19,13 +19,13 @@ namespace UI
             var services = new ServiceCollection();
 
             services.AddDbContext<TourplannerContext>();
-            services.AddSingleton<TourHandler>();
-            services.AddSingleton<TourLogHandler>();
+            //services.AddSingleton<TourHandler>();
+            //services.AddSingleton<TourLogHandler>();
 
             //services.AddSingleton(typeof(IServiceProvider));
             services.AddSingleton<DbManager>();
             services.AddSingleton<PDFManager>();
-            services.AddSingleton<ImportExportManager>();
+            //services.AddSingleton<ImportExportManager>();
             services.AddSingleton<MainWindowViewModel>();
             
             services.AddSingleton<SideMenuViewModel>();
@@ -52,8 +52,8 @@ namespace UI
         public MainWindowViewModel MainWindowViewModel => _serviceProvider.GetRequiredService<MainWindowViewModel>();
 
         public TourplannerContext TourplannerContext => _serviceProvider.GetRequiredService<TourplannerContext>();
-        public TourHandler TourHandler => _serviceProvider.GetRequiredService<TourHandler>();
-        public TourLogHandler TourLogHandler => _serviceProvider.GetRequiredService<TourLogHandler>();
+        //public TourHandler TourHandler => _serviceProvider.GetRequiredService<TourHandler>();
+        //public TourLogHandler TourLogHandler => _serviceProvider.GetRequiredService<TourLogHandler>();
 
         public SideMenuViewModel SideMenuViewModel => _serviceProvider.GetRequiredService<SideMenuViewModel>();
         public AddTourViewModel AddTourViewModel => _serviceProvider.GetRequiredService<AddTourViewModel>();

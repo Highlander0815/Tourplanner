@@ -4,6 +4,7 @@ using System.Windows.Interop;
 using System.Windows;
 using TourplannerModel;
 using BLL.Exceptions;
+using System.Threading.Tasks;
 
 namespace UI.ViewModels
 {
@@ -20,11 +21,11 @@ namespace UI.ViewModels
         private RelayCommand? _exportCommand = null;
         public RelayCommand ExportCommand => _exportCommand ??= new RelayCommand(ExportJSON);
 
-        private void ImportJSON()
+        private async void ImportJSON()
         {
             try
             {
-                _importExportManager.ImportTour();
+                await _importExportManager.ImportTour();
                 _logger.Info("A Tour got imported successfully");
                 _sideMenuViewModel.UpdateList();
             }
@@ -58,9 +59,9 @@ namespace UI.ViewModels
             }
         }
 
-        public MenuViewModel(ImportExportManager importExportManager, SideMenuViewModel sideMenuViewModel, BottomMenuViewModel bottomMenuViewModel)
+        public MenuViewModel(SideMenuViewModel sideMenuViewModel, BottomMenuViewModel bottomMenuViewModel)
         {
-            _importExportManager = importExportManager;
+            _importExportManager = new ImportExportManager();
             _sideMenuViewModel = sideMenuViewModel;
             _bottomMenuViewModel = bottomMenuViewModel;
             sideMenuViewModel.currentTourChangedAction += HandleCurrentTourChange;

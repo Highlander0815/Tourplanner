@@ -32,7 +32,7 @@ namespace UI.ViewModels
 
 
         private TourLogHandler _tourLogHandler;
-        public BottomMenuViewModel(SideMenuViewModel sideMenuViewModel, TourLogHandler tourLogHandler)
+        public BottomMenuViewModel(SideMenuViewModel sideMenuViewModel)
         {
             selectedTourLogChangedAction += HandleTourLogChange;
             _sideMenuViewModel = sideMenuViewModel;
@@ -40,7 +40,7 @@ namespace UI.ViewModels
 
             _tourLogs = new ObservableCollection<TourLogModel>();
 
-            _tourLogHandler = tourLogHandler;
+            _tourLogHandler = new TourLogHandler();
             //_tourLogs = new ObservableCollection<TourLogModel>(tourLogHandler.GetTourLogs());
         }
 
@@ -82,6 +82,7 @@ namespace UI.ViewModels
             {
                 _logger.Info("Add Tourlog Window got oppened");
                 OpenAddTourLog?.Invoke(this, EventArgs.Empty);
+                _tourLogHandler = new TourLogHandler();
                 TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
                 _logger.Info($"A new Tourlog was added to the Tour with the ID: {_currentTour.Id}");
             }
@@ -109,6 +110,7 @@ namespace UI.ViewModels
         {
             if (_tourLogs != null && _tourLogs.Contains(_currentTourLog))
             {
+                _tourLogHandler = new TourLogHandler();
                 _tourLogHandler.DeleteTourLog(_currentTourLog.Id);
                 TourLogs.Remove(_currentTourLog);
                 _logger.Info($"A Tourlog got deleted");
@@ -137,6 +139,7 @@ namespace UI.ViewModels
             if (tour != null)
             {
                 _currentTour = tour;
+                _tourLogHandler = new TourLogHandler();
                 TourLogs = new ObservableCollection<TourLogModel>(_tourLogHandler.GetTourLogsById(_currentTour.Id));
             }
             else

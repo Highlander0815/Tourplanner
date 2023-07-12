@@ -103,9 +103,9 @@ namespace UI.ViewModels
             }
         }
 
-        public AddTourLogViewModel(/*InMemoryTourLogHandler tourLogHandler,*/TourLogHandler tourLogHandler, SideMenuViewModel sideMenuViewModel)
+        public AddTourLogViewModel(/*InMemoryTourLogHandler tourLogHandler,TourLogHandler tourLogHandler,*/ SideMenuViewModel sideMenuViewModel)
         {
-            _tourLogHandler = tourLogHandler;
+            _tourLogHandler = new TourLogHandler();
             _sideMenuViewModel = sideMenuViewModel;
             _currentTour = sideMenuViewModel.CurrentTour;
         }
@@ -122,6 +122,7 @@ namespace UI.ViewModels
             IsButtonEnabled = false;
             TourLogModel tourLog = new TourLogModel(_dateTime, _difficulty, _totalTime, _rating, _comment, _currentTour);
             _tourLogHandler.AddTourLog(tourLog);
+            //_currentTour.TourLogs.Add(tourLog); funktioniert aber man müsste das dann auch bei delete beachten und evtl auch bei edit
             _sideMenuViewModel.TriggerCurrentTourChangedAction(_currentTour);
             this.AddEvent?.Invoke();
         }

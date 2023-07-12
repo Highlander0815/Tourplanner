@@ -9,12 +9,10 @@ namespace BLL
     public class ImportExportManager
     {
         private TourHandler _tourHandler;
-        private TourLogHandler _tourLogHandler;
         private RESTHandler _restHandler;
-        public ImportExportManager(TourHandler tourHandler, TourLogHandler tourLogHandler)
+        public ImportExportManager(/*TourHandler tourHandler, TourLogHandler tourLogHandler*/)
         {
-            _tourHandler = tourHandler;
-            _tourLogHandler = tourLogHandler;
+            _tourHandler = new TourHandler();
             _restHandler = new RESTHandler();
         }
 
@@ -32,7 +30,7 @@ namespace BLL
             }
         }
         
-        public async void ImportTour()
+        public async Task ImportTour()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "JSON file (*.json)|*.json";
@@ -44,9 +42,11 @@ namespace BLL
                     TourModel tour = JsonConvert.DeserializeObject<TourModel>(json);
                     if (tour != null)
                     {
+                        _tourHandler = new TourHandler();
                         _tourHandler.AddTour(tour);
                         Task<TourModel> result = _restHandler.Rest.Request(tour);
                         tour = await result;
+                        _tourHandler = new TourHandler();
                         _tourHandler.UpdateTour(tour);
                     }
                 }
