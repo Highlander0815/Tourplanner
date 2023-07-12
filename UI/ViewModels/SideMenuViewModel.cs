@@ -42,6 +42,7 @@ namespace UI.ViewModels
         public IEnumerable<TourModel> VisibleTours => _tours.Where(tour => tour.Visible);
         public void UpdateView()
         {
+            OnPropertyChanged(nameof(Tours));
             OnPropertyChanged(nameof(VisibleTours));
         }
         private TourModel _currentTour;
@@ -85,12 +86,13 @@ namespace UI.ViewModels
             if(_currentTour != null) 
             {
                 //string path = _currentTour.Image;
-                _tourHandler.UpdateTour(_currentTour);
+                //_tourHandler.UpdateTour(_currentTour);
                 _logger.Info("Edit Tour Window got oppened");
                 OpenEditTour?.Invoke(this, EventArgs.Empty);
                 //File.Delete(path);
-                currentTourChangedAction?.Invoke(_currentTour);
-                _logger.Info("The Tour with the Id: " + _currentTour.Id + " was modified");
+                currentTourChangedAction?.Invoke(CurrentTour);
+                if(_currentTour != null)
+                    _logger.Info("The Tour with the Id: " + _currentTour.Id + " was modified");
 
             }
             else
@@ -129,11 +131,6 @@ namespace UI.ViewModels
         public void UpdateList(/*TourModel tour*/)
         {
             Tours = new ObservableCollection<TourModel>(_tourHandler.GetTours());
-
-            /* int index = Tours.IndexOf(tour);
-             Tours.RemoveAt(index); //removing and adding the tour again triggers the OnPropertyChange event of the List which automatically updates the List and so also the Name displayed in the List
-             Tours.Insert(index, tour);*/
-            //CurrentTour = tour;
             _logger.Info("The List of tours got updated");
         }
         

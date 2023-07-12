@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Diagnostics;
 using System.Windows.Interop;
 using System.Windows;
+using BLL.Exceptions;
 
 namespace UI.ViewModels
 {
@@ -117,18 +118,46 @@ namespace UI.ViewModels
         }
         private async void EditTour()
         {
-            IsButtonEnabled = false;
             TourModel currentTour = _sideMenuViewModel.CurrentTour; //Zeile 101 bis 108 ist neuer code und muss eventuell wieder gelöscht werden
-            currentTour.Name = _name;
-            currentTour.Description = _description;
-            currentTour.From = _from;
-            currentTour.To = _to;
-            currentTour.TransportType = _transportType;
-            _restHandler = new RESTHandler();
-            Task<TourModel> result = _restHandler.Rest.Request(currentTour);
-            currentTour = await result;
-            _tourHandler.UpdateTour(currentTour);
-            this.SubmitAction?.Invoke(/*currentTour*/);
+            string name = currentTour.Name;
+            string description = currentTour.Description;
+            string from = currentTour.From;
+            string to   = currentTour.To;
+            string transportType = currentTour.TransportType;
+            try
+            {
+                IsButtonEnabled = false;
+                currentTour.Name = _name;
+                currentTour.Description = _description;
+                currentTour.From = _from;
+                currentTour.To = _to;
+                currentTour.TransportType = _transportType;
+                _restHandler = new RESTHandler();
+                Task<TourModel> result = _restHandler.Rest.Request(currentTour);
+                currentTour = await result;
+                _tourHandler.UpdateTour(currentTour);
+                this.SubmitAction?.Invoke(/*currentTour*/);
+            }
+            catch (ResponseErrorOfApiException responseException)
+            {
+                _sideMenuViewModel.CurrentTour.Name = name;
+                _sideMenuViewModel.CurrentTour.Description = description;
+                _sideMenuViewModel.CurrentTour.From = from;
+                _sideMenuViewModel.CurrentTour.To = to;
+                _sideMenuViewModel.CurrentTour.TransportType = transportType;
+                ShowMessageBox($"{responseException.Message} Please check your input in the to and from field");
+                _logger.Error($"The Imput from 'To' and/or 'From' could not be handeled from the API.");
+            }
+            catch(Exception ex)
+            {
+                _sideMenuViewModel.CurrentTour.Name = name;
+                _sideMenuViewModel.CurrentTour.Description = description;
+                _sideMenuViewModel.CurrentTour.From = from;
+                _sideMenuViewModel.CurrentTour.To = to;
+                _sideMenuViewModel.CurrentTour.TransportType = transportType;
+                ShowMessageBox($"A new Error happened which should be handeled. The error was printed into the Log File");
+                _logger.Error($"New Exception happened: {ex}");
+            }
         }
 
         private void Cancel()

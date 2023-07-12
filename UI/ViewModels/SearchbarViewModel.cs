@@ -47,6 +47,7 @@ namespace UI.ViewModels
 
         private void Search()
         {
+            _tours = _sideMenuViewModel.Tours;
             if (_searchText == null)
                 return;
 

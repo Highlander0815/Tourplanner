@@ -64,16 +64,13 @@ namespace BLL
                     // Behandeln Sie den API-Anfragefehler
                 }
             }
-            catch (Exception ex)
+            catch (ResponseErrorOfApiException ex)
             {
-                if(ex is ResponseErrorOfApiException)
-                {
-                    throw ex;
-                }
-                else
-                {
-                    throw new SomethingWentWrongException();
-                }
+                throw ex;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
             
            
