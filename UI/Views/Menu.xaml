@@ -13,33 +13,6 @@
                 <MenuItem Header="_Import tour" Command="{Binding ImportCommand}"/>
                 <MenuItem Header="_Export tour" Command="{Binding ExportCommand}"/>
             </MenuItem>
-            <MenuItem Header="_Edit">
-                <MenuItem Header="_Manage tours">
-                    <MenuItem.Icon>
-                        <Image Source="..\icons\tour.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="_Show tours" IsCheckable="True" IsChecked="True" />
-            </MenuItem>
-            <MenuItem Header="_Options">
-                <MenuItem Header="_Change something">
-                    <MenuItem.Icon>
-                        <Image Source="..\icons\tour.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About">
-                    <MenuItem.Icon>
-                        <Image Source="..\icons\tour.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="_Manual">
-                    <MenuItem.Icon>
-                        <Image Source="..\icons\tour.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
         </Menu>
     </Grid>
 </UserControl>
